@@ -21,7 +21,9 @@ static void	exec_cmd(t_sh *sh)
 	}
 	else
 	{
-		if (sh->is_redir == 1)
+		//printf("---------------sorti--------------\n");
+		//ft_printredir(sh->pars.out);
+		if (sh->pars.out || sh->pars.in)
 			ft_deal_redir(sh);
 		if (ft_is_bultin(sh->cmd[0]) == FALSE)
 		{
@@ -39,7 +41,6 @@ static void	exec_cmd(t_sh *sh)
 void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 {
 	sh->cmd = ft_parse(cmd, sh);
-
 	if (sh->cmd[0] == NULL)
 		ft_putstr("Command not found\n");
 	else if(sh->is_pipe == 1 || sh->last_pipe == 1)

@@ -121,4 +121,5 @@ size_t  ft_array_len(char **tab);
 char    **ft_parse(char *line, t_sh *sh);
 int     ft_openquote(char *src);
 char    *ft_get_var_parsing(t_list *list, char *var);
+void	ft_printredir(t_list *lst);
 #endif

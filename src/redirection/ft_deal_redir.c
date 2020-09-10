@@ -5,6 +5,11 @@ int     ft_redir(char *file, int j, char chevron)
     int fd;
 
     fd = -1;
+    //printf("putstr = \n");
+   // fflush(STDOUT_FILENO);
+   // ft_putstr(file);
+   // printf("\nfile = -%s-\n", file);
+   // printf("type = %d\n", j);
     if (chevron == '>')
     {
         if (j == 1)
@@ -31,12 +36,34 @@ int    ft_deal_redir(t_sh *sh)
     int i;
     int j;
     char *tmp;
+    t_redir *deal_redir;
 
     i = 0;
     j = 0;
     tmp = NULL;
-    if (!sh->pars->out || !sh->pars->in)
-        return(0);
+    printf("oooooooooooooooooook\n");
+    //if (!sh->pars.out || !sh->pars.in)
+    //    return(0);
+
+    if (sh->pars.out)
+    {
+        while(sh->pars.out)
+        {
+            deal_redir = sh->pars.out->content;
+            ft_redir(deal_redir->str, deal_redir->type, '>');
+            sh->pars.out = sh->pars.out->next;
+        }
+    }
+    if (sh->pars.in)
+    {
+        while(sh->pars.in)
+        {
+            deal_redir = sh->pars.in->content;
+            ft_redir(deal_redir->str, deal_redir->type, '<');
+            sh->pars.in = sh->pars.in->next;
+        }
+    }
+  /*
     while (sh->cmd[i])
     {
         j = 0;
@@ -57,6 +84,6 @@ int    ft_deal_redir(t_sh *sh)
             j++;
         }
         i++;
-    }
+    }*/
     return(0);
 }
