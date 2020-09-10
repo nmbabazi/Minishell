@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
+#include "../parsing.h"
 #include "../libft/libft.h"
 #include "../gnlfinal/get_next_line.h"
 #include <stdio.h>
@@ -72,7 +73,7 @@ void                ft_deal_nothing(int nb);
 int		            ft_len_cmd(char *line, int i, int begin);
 int		            ft_isspace(char *line, int index);
 void		        ft_exec_pipe(t_sh *sh, char **cmd, char **envp);
-void                ft_deal_redir(t_sh *sh);
+int                 ft_deal_redir(t_sh *sh);
 void                ft_replace(t_list *export, char *newcmd, char *var);
 int     ft_count_cmd(char *line);
 void    ft_initpars(t_sh *shell);

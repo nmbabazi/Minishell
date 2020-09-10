@@ -26,7 +26,7 @@ int     ft_redir(char *file, int j, char chevron)
     return (0);
 }
 
-void    ft_deal_redir(t_sh *sh)
+int    ft_deal_redir(t_sh *sh)
 {
     int i;
     int j;
@@ -35,6 +35,8 @@ void    ft_deal_redir(t_sh *sh)
     i = 0;
     j = 0;
     tmp = NULL;
+    if (!sh->pars->out || !sh->pars->in)
+        return(0);
     while (sh->cmd[i])
     {
         j = 0;
@@ -56,4 +58,5 @@ void    ft_deal_redir(t_sh *sh)
         }
         i++;
     }
+    return(0);
 }
