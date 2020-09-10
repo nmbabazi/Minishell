@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include "../parsing.h"
+#include "parsing.h"
 #include "../libft/libft.h"
 #include "../gnlfinal/get_next_line.h"
 #include <stdio.h>
