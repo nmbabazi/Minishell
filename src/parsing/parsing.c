@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/10 13:55:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/11 11:13:11 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char    *ft_parscmd(char *str)
 {
     int nb_redir;
 
-    printf("intput = %s\n", str);
+    //printf("intput = %s\n", str);
     nb_redir = ft_addspace(str);  //enregister les espaces in quote active
     str = ft_isolateredirection(str, nb_redir); // isoler les redirections (hors quote actives) par des espaces
     str = ft_getactivvar(str);        // recuperer les variable (hors '' actives)
@@ -134,7 +134,7 @@ void    ft_printcmd(char **cmd)
     i = 0;
     while (cmd[i])
     {
-        printf("%d--%s--\n", i, cmd[i]);
+        //printf("%d--%s--\n", i, cmd[i]);
         i++;
     }
     

@@ -24,7 +24,6 @@ int    ft_cd(t_list *list, char **cmd_builtin)
     int nb;
 
     nb = ft_lentab(cmd_builtin);
-    printf("nb = %d\n", nb);
     if (nb == 1)
     {
         if (!(home = ft_get_var(g_env, "HOME=")))

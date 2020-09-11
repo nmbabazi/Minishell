@@ -41,7 +41,7 @@ int    ft_deal_redir(t_sh *sh)
     i = 0;
     j = 0;
     tmp = NULL;
-    printf("oooooooooooooooooook\n");
+    //printf("oooooooooooooooooook\n");
     //if (!sh->pars.out || !sh->pars.in)
     //    return(0);
 

@@ -17,23 +17,22 @@ static void	exec_cmd(t_sh *sh)
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
+		if (ft_is_bultin(sh->cmd[0]) == TRUE)
+			ft_exec_builtin(g_env, sh->cmd);
 		kill(pid, SIGTERM);
 	}
 	else
 	{
-		//printf("---------------sorti--------------\n");
-		//ft_printredir(sh->pars.out);
 		if (sh->pars.out || sh->pars.in)
 			ft_deal_redir(sh);
-		if (ft_is_bultin(sh->cmd[0]) == FALSE)
+		if (ft_is_bultin(sh->cmd[0]) == TRUE)
+			ft_exec_builtin(g_env, sh->cmd);
+		else
 		{
-			printf("NO builtin\n");
 			ft_get_path_absolute(g_env, sh);
 			if (execve(sh->cmd[0], sh->cmd, NULL) == -1)
 				exit(ft_strerror("minishell : "));
 		}
-		//else
-		//	ft_exec_builtin(g_env, sh->cmd);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -45,12 +44,9 @@ void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 		ft_putstr("Command not found\n");
 	else if(sh->is_pipe == 1 || sh->last_pipe == 1)
 	{
-		printf("is pipe !\n");
 		ft_get_path_absolute(g_env, sh);
 		ft_exec_pipe(sh, sh->cmd, envp);
 	}
-	else if (ft_is_bultin(sh->cmd[0]) == TRUE)//
-		ft_exec_builtin(g_env, sh->cmd);//
 	else 
 		exec_cmd(sh);
 	free_array(sh->cmd);

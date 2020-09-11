@@ -25,6 +25,8 @@ void		ft_exec_pipe(t_sh *sh, char **cmd, char **envp)
 	else
 	{
 		wait(NULL);
+		if (ft_is_bultin(sh->cmd[0]) == TRUE)//
+			ft_exec_builtin(g_env, sh->cmd);//	
 		close(sh->fd[1]);
 		sh->fdd = sh->fd[0];
 	}
