@@ -36,22 +36,25 @@ int    ft_deal_redir(t_sh *sh)
     int i;
     int j;
     char *tmp;
+    t_list *temp;
     t_redir *deal_redir;
 
     i = 0;
     j = 0;
     tmp = NULL;
-    //printf("oooooooooooooooooook\n");
+    // printf("oooooooooooooooooook\n");
     //if (!sh->pars.out || !sh->pars.in)
     //    return(0);
-
     if (sh->pars.out)
     {
         while(sh->pars.out)
         {
             deal_redir = sh->pars.out->content;
             ft_redir(deal_redir->str, deal_redir->type, '>');
+            free_redir(deal_redir);
+            temp = sh->pars.out;
             sh->pars.out = sh->pars.out->next;
+            free(temp);
         }
     }
     if (sh->pars.in)
@@ -60,7 +63,10 @@ int    ft_deal_redir(t_sh *sh)
         {
             deal_redir = sh->pars.in->content;
             ft_redir(deal_redir->str, deal_redir->type, '<');
+            free_redir(deal_redir);
+            temp = sh->pars.out;
             sh->pars.in = sh->pars.in->next;
+            free(temp);
         }
     }
   /*
@@ -85,5 +91,7 @@ int    ft_deal_redir(t_sh *sh)
         }
         i++;
     }*/
+    sh->pars.out = NULL;
+    sh->pars.in = NULL;
     return(0);
 }

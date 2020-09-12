@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getredirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/11 11:13:14 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/09/12 18:59:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_printredir(t_list *lst)
 	{
 		actual_redir = lst->content;
 		ft_putstr(actual_redir->str);
+		ft_putstr("\t");
 		ft_putnbr(actual_redir->type);
 		ft_putstr("\n");
 		lst = lst->next;
@@ -125,10 +126,10 @@ char    **ft_cleancmd(char **cmd, t_sh *sh)
 	sh->pars.in = NULL;
 	sh->pars.out = NULL;
 	ft_getredir(cmd, sh);
-	//printf("---------------sorti--------------\n");
-	//ft_printredir(sh->pars.out);
-	//printf("---------------entre--------------\n");
-	//ft_printredir(sh->pars.in);
+	printf("---------------sorti--------------\n");
+	ft_printredir(sh->pars.out);
+	printf("---------------entre--------------\n");
+	ft_printredir(sh->pars.in);
 	cmd = ft_dell_redir(cmd);
 	ft_dell_backslash(cmd);
 	return (cmd);
