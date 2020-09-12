@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:59:59 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/09/09 11:47:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/12 15:23:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(char *))
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list *tmp;
 	t_list *next;

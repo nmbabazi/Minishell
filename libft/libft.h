@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:05:03 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/09/09 15:52:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/12 15:22:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 t_list	*ft_tab_to_list(t_list **lst, char **tab);
-void	ft_lstclear(t_list **lst, void (*del)(char *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstadd_back(t_list **alst, t_list *new);
 void	ft_lstprint(t_list *lst);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
