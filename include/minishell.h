@@ -42,12 +42,12 @@ typedef struct      s_sh
     int             fdd;
     int             fd[2];
     pid_t           pid;
-    int             is_redir;
     t_pars          pars;
 }                   t_sh;
 
 t_list	*g_env;
 t_list	*g_export;
+pid_t   g_pid;
 
 void                free_all(char **env, t_sh *sh);
 void                free_array(char **array);

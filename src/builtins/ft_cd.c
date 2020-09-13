@@ -1,21 +1,29 @@
 #include "../../include/minishell.h"
 int     ft_update_pwd(void)
 {
-    char *old_dir;
-    char *dir;
+    char *old_pwd;
+    char *pwd;
+    char *all_pwd;
+    char *all_old_pwd;
 
-    dir = NULL;
-    old_dir = NULL;
-    old_dir = ft_get_var(g_env, "OLDPWD");
-    dir = getcwd(dir, PATH_MAX);
-    if (!old_dir || !dir)
+    pwd = NULL;
+    old_pwd = NULL;
+    all_pwd = NULL;
+    all_old_pwd = NULL;
+    old_pwd = ft_get_var(g_env, "PWD=");
+    pwd = getcwd(pwd, 0);
+    if (!old_pwd || !pwd)
         ft_strerror("");
-    ft_replace(g_env, "PATH", dir);
-    ft_replace(g_env, "OLDPATH", old_dir);
-    ft_replace(g_export, "PATH", dir);
-    ft_replace(g_export, "OLDPATH", old_dir);
-    free(dir);
-    free(old_dir);
+    all_pwd = ft_strjoin("PWD=", pwd);
+    all_old_pwd = ft_strjoin("OLDPWD=", old_pwd);
+    ft_replace(g_env, all_pwd, "PWD=");
+    ft_replace(g_env, all_old_pwd, "OLDPWD=");
+    ft_replace(g_export, all_pwd, "PWD=");
+    ft_replace(g_export, all_old_pwd, "OLDPWD=");
+    free(pwd);
+    free(old_pwd);
+    free(all_pwd);
+    free(all_old_pwd);
 }
 
 int    ft_cd(t_list *list, char **cmd_builtin)
@@ -42,6 +50,7 @@ int    ft_cd(t_list *list, char **cmd_builtin)
         if (chdir(cmd_builtin[1]) == -1)
             return (ft_strerror("minishell: "));
     }
-    ft_update_pwd();
+    if(g_pid > 0)
+        ft_update_pwd();
     return (errno);
 }

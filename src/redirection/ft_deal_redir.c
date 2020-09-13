@@ -5,11 +5,6 @@ int     ft_redir(char *file, int j, char chevron)
     int fd;
 
     fd = -1;
-    //printf("putstr = \n");
-   // fflush(STDOUT_FILENO);
-   // ft_putstr(file);
-   // printf("\nfile = -%s-\n", file);
-   // printf("type = %d\n", j);
     if (chevron == '>')
     {
         if (j == 1)
@@ -42,9 +37,6 @@ int    ft_deal_redir(t_sh *sh)
     i = 0;
     j = 0;
     tmp = NULL;
-    // printf("oooooooooooooooooook\n");
-    //if (!sh->pars.out || !sh->pars.in)
-    //    return(0);
     if (sh->pars.out)
     {
         while(sh->pars.out)

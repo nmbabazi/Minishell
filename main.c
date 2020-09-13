@@ -8,18 +8,18 @@
 
 static void	exec_cmd(t_sh *sh)
 {
-	pid_t	pid = 0;
+	g_pid = 0;
 	int		status = 0;
 
-	pid = fork();
-	if (pid < 0)
+	g_pid = fork();
+	if (g_pid < 0)
 		ft_strerror("fork : ");
-	else if (pid > 0)
+	else if (g_pid > 0)
 	{
-		waitpid(pid, &status, 0);
+		waitpid(g_pid, &status, 0);
 		if (ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
-		kill(pid, SIGTERM);
+		kill(g_pid, SIGTERM);
 	}
 	else
 	{
@@ -44,6 +44,8 @@ void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 		free(cmd);
 		return ;
 	}
+//	if (sh->cmd[0] == NULL && cmd[0] == '>')
+	//	sh->cmd[0] = ft_strdup("echo");
 	if (sh->cmd[0] == NULL)
 		ft_putstr("Command not found\n");
 	else if(sh->is_pipe == 1 || sh->last_pipe == 1)
@@ -97,9 +99,6 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 	i = 0;
 	sh->fdd = 0;
 	sh->begin_lencmd = 0;
-	sh->is_redir = 0;
-	if (ft_strchr(line, '>') || ft_strchr(line, '<')) ////// A retirer et faire dans parsing
-		sh->is_redir = 1;
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 			ft_cmd(ft_strdup(line), sh, envp);
 	else
@@ -133,11 +132,14 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 
 int     main(int ac, char **av, char **envp)
 {
+	(void)ac;
+	(void)av;
     char    *line;
     int     ret;
     t_sh    sh;
-
+	
 	ft_init(&sh, envp);
+	ft_rank_export(g_export);
     line = NULL;
     ret = 0;
     ft_putstr_fd("$> ", 2);

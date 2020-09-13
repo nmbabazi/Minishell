@@ -9,6 +9,8 @@ int    ft_echo(char **cmd_builtin)
 
     i = 1;
     n = 0;
+    if (g_pid > 0)
+        return (0);
     if (cmd_builtin[1] && ft_strcmp(cmd_builtin[1], "-n") == 0)
         n = 1;
     i = i + n;

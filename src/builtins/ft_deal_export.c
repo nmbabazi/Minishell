@@ -8,7 +8,7 @@ void	ft_lstprint_rank_export(t_list *lst)
     char *str;
 
     i = 0;
-	if (!lst)
+	if (!lst || g_pid == 0)
 		return ;
 	while (lst)
 	{

@@ -24,6 +24,7 @@ void    ft_replace(t_list *export, char *newcmd, char *var)
     t_list  *next;
     char    *tmp;
     int     len_var;
+    //char *str = NULL;
 
     len_var = ft_strlen(var);
     if(ft_strchr(var, '='))
@@ -35,7 +36,10 @@ void    ft_replace(t_list *export, char *newcmd, char *var)
         {
             tmp = export->content;
             export->content = ft_strdup(newcmd);
+            //str = export->content;
+            //printf("content = %s\n", str);
             free(tmp);
+            //free(str);
             return ;
         }
         export = next;
