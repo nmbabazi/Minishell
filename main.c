@@ -39,7 +39,11 @@ static void	exec_cmd(t_sh *sh)
 
 void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 {
-	sh->cmd = ft_parse(cmd, sh);
+	if ((sh->cmd = ft_parse(cmd, sh)) == NULL)
+	{
+		free(cmd);
+		return ;
+	}
 	if (sh->cmd[0] == NULL)
 		ft_putstr("Command not found\n");
 	else if(sh->is_pipe == 1 || sh->last_pipe == 1)
