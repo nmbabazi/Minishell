@@ -110,7 +110,8 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 		while (line[i])
 		{
 			sh->last_pipe = 0;
-			if (line[i] == ';' && line[i - 1] == '\\')
+			if ((line[i] == ';' && line[i - 1] == '\\') ||
+			(line[i] == '|' && line[i - 1] == '\\'))
 				i++;
 			if (line[i] == ';' || (line[i + 1] == '\0' && line[i] != ';') ||
 			line[i] == '|')

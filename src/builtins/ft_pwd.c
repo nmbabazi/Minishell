@@ -7,7 +7,7 @@ int    ft_pwd(char **cmd_builtin)
     (void)cmd_builtin;
     if (!(getcwd(path, PATH_MAX)))
         return (ft_strerror(""));
-    else
+    else if (g_pid == 0)
     {
         ft_putstr_fd(path, 2);
         ft_putstr_fd("\n", 2);

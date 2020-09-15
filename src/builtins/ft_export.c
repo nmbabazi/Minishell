@@ -4,6 +4,8 @@ int     ft_error_var_export(char *cmd)
 {
 	int i;
 
+    if (g_pid > 0)
+        return (1);
 	if (*cmd != '_' &&
     *cmd != '=' &&
     (*cmd < 65 || *cmd > 90) &&
