@@ -20,7 +20,7 @@ void		ft_exec_pipe(t_sh *sh, char **cmd, char **envp)
 			ft_exec_builtin(g_env, sh->cmd);//	
 		else if (sh->cmd[0])
 		{
-			if(execve(cmd[0], cmd, NULL) == -1)
+			if(execve(cmd[0], cmd, g_env_tab) == -1)
 			exit(ft_strerror("minishell : "));
 		}
 		exit(1);

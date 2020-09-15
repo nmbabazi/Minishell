@@ -9,4 +9,5 @@ void    ft_init(t_sh *sh, char **envp)
 	g_env = NULL;
 	g_env = ft_tab_to_list(&g_env, envp);
 	g_export = ft_tab_to_list(&g_export, envp);
+	g_env_tab = ft_lststring_to_tab(g_env);
 }

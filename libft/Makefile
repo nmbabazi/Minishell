@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 10:39:20 by dmontgen          #+#    #+#              #
-#    Updated: 2020/09/15 16:38:03 by user42           ###   ########.fr        #
+#    Updated: 2020/09/15 18:42:18 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,8 @@ SRCS	=	ft_atoi.c \
 			ft_strndup.c \
 			ft_add_link.c \
 			ft_lstnew.c \
+			ft_lstlen.c \
+			ft_lststring_to_tab.c \
 			get_next_line.c \
 
 OBJ		=	$(SRCS:.c=.o)

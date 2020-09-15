@@ -30,7 +30,7 @@ static void	exec_cmd(t_sh *sh)
 		else if (sh->cmd[0])
 		{
 			ft_get_path_absolute(g_env, sh);
-			if (execve(sh->cmd[0], sh->cmd, NULL) == -1)
+			if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
 				exit(ft_strerror("minishell : "));
 		}
 		exit(EXIT_FAILURE);
