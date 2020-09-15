@@ -1,0 +1,4 @@
+minishell_test/
+*.o
+a.out
+minishell
