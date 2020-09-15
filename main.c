@@ -17,7 +17,7 @@ static void	exec_cmd(t_sh *sh)
 	else if (g_pid > 0)
 	{
 		waitpid(g_pid, &status, 0);
-		if (ft_is_bultin(sh->cmd[0]) == TRUE)
+		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		kill(g_pid, SIGTERM);
 	}
@@ -25,9 +25,9 @@ static void	exec_cmd(t_sh *sh)
 	{
 		if (sh->pars.out || sh->pars.in)
 			ft_deal_redir(sh);
-		if (ft_is_bultin(sh->cmd[0]) == TRUE)
+		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
-		else
+		else if (sh->cmd[0])
 		{
 			ft_get_path_absolute(g_env, sh);
 			if (execve(sh->cmd[0], sh->cmd, NULL) == -1)
@@ -44,13 +44,12 @@ void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 		free(cmd);
 		return ;
 	}
-//	if (sh->cmd[0] == NULL && cmd[0] == '>')
-	//	sh->cmd[0] = ft_strdup("echo");
-	if (sh->cmd[0] == NULL)
+	if (sh->cmd[0] == NULL && !sh->pars.out)
 		ft_putstr("Command not found\n");
 	else if(sh->is_pipe == 1 || sh->last_pipe == 1)
 	{
-		ft_get_path_absolute(g_env, sh);
+		if (sh->cmd[0])
+			ft_get_path_absolute(g_env, sh);
 		ft_exec_pipe(sh, sh->cmd, envp);
 	}
 	else 
@@ -86,7 +85,7 @@ int		ft_semilicon(char *line, int i, t_sh *sh, char **envp)
 			line = NULL;
 			free(tmp);
 			tmp = NULL;
-			exit(ft_strerror("minishell : erreur de syntaxe"));
+			ft_strerror("minishell : erreur de syntaxe");
 		}
 		else
 			ft_cmd(tmp, sh, envp);
@@ -101,12 +100,14 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 	i = 0;
 	sh->fdd = 0;
 	sh->begin_lencmd = 0;
+	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 			ft_cmd(ft_strdup(line), sh, envp);
+	else if (line[i] == ';' || ft_check_nbcmd(line) != 1)
+		ft_strerror("minishell : erreur de syntaxe près du symbole inattendu « ; »");
 	else
 	{
-		if (line[0] == ';')
-			exit(ft_strerror("minishell : erreur de syntaxe près du symbole inattendu « ; »"));
+
 		while (line[i])
 		{
 			sh->last_pipe = 0;
@@ -116,7 +117,7 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 			line[i] == '|')
 			{
 				if (line[i + 1] == '\0' && line[i] == '|')
-					exit(ft_strerror("minishell : erreur de syntaxe"));
+					ft_strerror("minishell : erreur de syntaxe");
 				if (line[i] == '|')
 					sh->is_pipe = 1;
 				if (line[i] != '|' && sh->is_pipe == 1)
