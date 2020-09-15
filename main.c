@@ -56,6 +56,8 @@ void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 	else 
 		exec_cmd(sh);
 	free_array(sh->cmd);
+	ft_lstclear(&sh->pars.out, lst_free_redir);
+	ft_lstclear(&sh->pars.in, lst_free_redir);
 	free(cmd);
 	cmd = NULL;
 }

@@ -28,62 +28,22 @@ int     ft_redir(char *file, int j, char chevron)
 
 int    ft_deal_redir(t_sh *sh)
 {
-    int i;
-    int j;
-    char *tmp;
-    t_list *temp;
+    t_list *iterator;
     t_redir *deal_redir;
 
-    i = 0;
-    j = 0;
-    tmp = NULL;
-    if (sh->pars.out)
+    iterator = sh->pars.out;
+    while(iterator)
     {
-        while(sh->pars.out)
-        {
-            deal_redir = sh->pars.out->content;
-            ft_redir(deal_redir->str, deal_redir->type, '>');
-            free_redir(deal_redir);
-            temp = sh->pars.out;
-            sh->pars.out = sh->pars.out->next;
-            free(temp);
-        }
+        deal_redir = iterator->content;
+        ft_redir(deal_redir->str, deal_redir->type, '>');
+        iterator = iterator->next;
     }
-    if (sh->pars.in)
+    iterator = sh->pars.in;
+    while(sh->pars.in)
     {
-        while(sh->pars.in)
-        {
-            deal_redir = sh->pars.in->content;
-            ft_redir(deal_redir->str, deal_redir->type, '<');
-            free_redir(deal_redir);
-            temp = sh->pars.out;
-            sh->pars.in = sh->pars.in->next;
-            free(temp);
-        }
+        deal_redir = iterator->content;
+        ft_redir(deal_redir->str, deal_redir->type, '>');
+        iterator = iterator->next;
     }
-  /*
-    while (sh->cmd[i])
-    {
-        j = 0;
-        while (sh->cmd[i][j])
-        {
-            if(sh->cmd[i][j] == '>' || sh->cmd[i][j] == '<')
-            {
-                while(sh->cmd[i][j] == '>' || sh->cmd[i][j] == '<')
-                    j++;
-                tmp = ft_substr(sh->cmd[i], j, ft_strlen(sh->cmd[i]) - j);
-                ft_redir(tmp, j, sh->cmd[i][0]);
-                free(sh->cmd[i]);
-                sh->cmd[i] = NULL;
-                free(tmp);
-                tmp= NULL;
-                break ;
-            }
-            j++;
-        }
-        i++;
-    }*/
-    sh->pars.out = NULL;
-    sh->pars.in = NULL;
     return(0);
 }
