@@ -30,8 +30,6 @@ SRCS = 	main.c \
 		src/parsing/getredirection.c \
 		src/parsing/pars_singlequote.c \
 		src/parsing/pars_var.c \
-		gnlfinal/get_next_line.c \
-		gnlfinal/get_next_line_utils.c \
 
 OBJSRCS = $(SRCS:.c=.o)
 

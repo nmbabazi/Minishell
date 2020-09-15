@@ -3,7 +3,6 @@
 
 #include "parsing.h"
 #include "../libft/libft.h"
-#include "../gnlfinal/get_next_line.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <signal.h>
