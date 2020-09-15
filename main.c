@@ -145,27 +145,34 @@ int     main(int ac, char **av, char **envp)
 	ft_rank_export(g_export);
     line = NULL;
     ret = 0;
-    ft_putstr_fd("$> ", 2);
-	signal(SIGQUIT, ft_deal_nothing);
-	signal(SIGINT, ft_insensitive_typing);
-	while ((ret = get_next_line(1, &line)) > 0)
+	if(ac == 3 && !ft_strcmp(av[1], "-c"))
 	{
-		// ft_verif erreur : \, quote...
-		sh.is_pipe= 0;
-		ft_get_cmd(line, &sh, envp);
+		ft_get_cmd(av[2], &sh, envp);
+	}
+	else 
+	{
+		ft_putstr_fd("$> ", 2);
+		signal(SIGQUIT, ft_deal_nothing);
+		signal(SIGINT, ft_insensitive_typing);
+		while ((ret = get_next_line(1, &line)) > 0)
+		{
+			// ft_verif erreur : \, quote...
+			sh.is_pipe= 0;
+			ft_get_cmd(line, &sh, envp);
+			free(line);
+			line = NULL;
+			ft_putstr_fd("$> ", 2);
+		}
+		if (ret == 0)
+		{
+			ft_putstr_fd("exit\n", 1);
+			exit(errno);
+		}
+		if (ret == -1)
+			exit(errno);
 		free(line);
 		line = NULL;
-		ft_putstr_fd("$> ", 2);
 	}
-	if (ret == 0)
-	{
-		ft_putstr_fd("exit\n", 1);
-		exit(errno);
-	}
-	if (ret == -1)
-		exit(errno);
-	free(line);
-	line = NULL;
     free_all(envp, &sh);
     return (0);
 }

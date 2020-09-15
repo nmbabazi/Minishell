@@ -39,7 +39,7 @@ int    ft_deal_redir(t_sh *sh)
         iterator = iterator->next;
     }
     iterator = sh->pars.in;
-    while(sh->pars.in)
+    while(iterator)
     {
         deal_redir = iterator->content;
         ft_redir(deal_redir->str, deal_redir->type, '>');
