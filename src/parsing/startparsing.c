@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/15 12:16:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/15 14:13:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ int     ft_check_nbcmd(char *line)
         if (line[i] == ';')
         {
             if (ft_checktocken(line, i) == 0)
-            {
-                ft_putstr_fd("parse error ;\n", 2);
                 return (0);
-            }
         }
         i++;
     }
@@ -111,15 +108,13 @@ char    **ft_parse(char *line, t_sh *sh)
         ft_putstr_fd("syntax error ' >' \n", 2);
             return (NULL);
     }
-    if ((nb_cmd = ft_check_nbcmd(line)) == 0)
-        return (NULL);
     line = ft_parscmd(line);
-    //printf("PARSED LINE %s\n", line);
+    // printf("PARSED LINE %s\n", line);
     cmd = ft_split(line, ' ');
     free(line);
     ft_addback_space(cmd);
-    //printf("---------------avant redir--------------\n");
-    //ft_printcmd(cmd);
+   // printf("---------------avant redir--------------\n");
+   // ft_printcmd(cmd);
     cmd = ft_cleancmd(cmd, sh);
    // printf("---------------apres redir--------------\n");
     //ft_printcmd(cmd);
