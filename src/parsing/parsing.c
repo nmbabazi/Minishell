@@ -6,11 +6,31 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/15 14:11:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/15 16:50:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int   ft_spaceafterslash(char *str)
+{
+    int i;
+    int n;
+
+    i = 0;
+    n = 0;
+    while (str[i])
+    {
+        if (str[i] == '\'' && ft_activslash(str, i) == 0)
+            i += (ft_passsinglequote(&str[i]));
+        if (str[i] == '\"' && ft_activslash(str, i) == 0)
+            i += (ft_passdblquote(&str[i]));
+        if (str[i] == ' ' && ft_activslash(str, i) == 1)
+            str[i] = '\t';
+        i++;
+    }
+    return (n);
+}
 
 int    ft_addspace(char *str)
 {
@@ -19,6 +39,7 @@ int    ft_addspace(char *str)
     i = 0;
     ft_spaceinsglquote(str);
     ft_spaceindblquote(str);
+    ft_spaceafterslash(str);
     i = ft_spaceredirection(str);
     return (i);
 }
@@ -36,7 +57,7 @@ int     ft_activslash(char *src, int i)
         i--;
         n++;
     }
-    if ((n % 2) != 0)
+    if ((n % 2) != 0 && n != 0)
         return (1);
     return (0);
 }
@@ -75,7 +96,7 @@ int     ft_escapechar_quote(char c)
 
 int     ft_escapechar(char c)
 {
-    if (ft_isalnum(c) == 0 && c != '>' && c != '<')
+    if (ft_isascii(c) == 1 && c != '>' && c != '<')
         return (1);
     return (0);
     
@@ -149,12 +170,11 @@ void    ft_cleanbackslash(char *str)
             str[i] = 127;
             bool = 1;
         }
-        if (str[i] == '\\' &&  bool == 1)
+        if (str[i] != '\\'  &&  bool == 1)
             bool = 0;
         i++;
     }
     ft_cleanbackslash_inquote(str);
-//    ft_addback_quote(str);
     return ;
 }
 
