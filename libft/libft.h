@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:05:03 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/09/12 15:22:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/15 16:38:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ t_list	*ft_str_to_list(t_list **lst, char *str);
 t_list	*ft_add_link(t_list *maps, char *line);
 t_list	*ft_lst_addstr(t_list *maps, char *line);
 t_list	*ft_lstnew(void *content);
+int		get_next_line(int fd, char **line);
 
 #endif

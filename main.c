@@ -81,11 +81,10 @@ int		ft_semilicon(char *line, int i, t_sh *sh, char **envp)
 		tmp = ft_substr(line, sh->begin_lencmd, (i + 1) - sh->begin_lencmd);
 		if (ft_openquote(tmp) == 1)
 		{
-			free(line);
-			line = NULL;
 			free(tmp);
 			tmp = NULL;
 			ft_strerror("minishell : erreur de syntaxe");
+			return (-1);
 		}
 		else
 			ft_cmd(tmp, sh, envp);
@@ -103,8 +102,8 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 			ft_cmd(ft_strdup(line), sh, envp);
-	else if (line[i] == ';' || ft_check_nbcmd(line) != 1)
-		ft_strerror("minishell : erreur de syntaxe près du symbole inattendu « ; »");
+	else if (line[i] == ';' || line[i] == '|' || ft_check_nbcmd(line) != 1)
+		ft_strerror("minishell : erreur de syntaxe.");
 	else
 	{
 
@@ -117,7 +116,10 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 			line[i] == '|')
 			{
 				if (line[i + 1] == '\0' && line[i] == '|')
+				{
 					ft_strerror("minishell : erreur de syntaxe");
+					break ;
+				}
 				if (line[i] == '|')
 					sh->is_pipe = 1;
 				if (line[i] != '|' && sh->is_pipe == 1)
@@ -126,6 +128,8 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 					sh->last_pipe = 1;
 				}
 				i = ft_semilicon(line, i, sh, envp);
+				if (i == -1)
+					break ;
 				sh->begin_lencmd = i + 1;
 			}
 			i++;
