@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/15 14:13:34 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/15 14:19:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ char    **ft_parse(char *line, t_sh *sh)
     nb_cmd = 0;
     if (ft_openquote(line) == 1 || ft_activslash(line, ft_strlen(line)) == 1)
     {
-        ft_putstr_fd("open quote\n", 2);
-            return (NULL);
+        ft_strerror("minishell : open quote");
+        return (NULL);
     }
     if (checksorti(line) == 0 || checkentre(line) == 0)
     {
-        ft_putstr_fd("syntax error ' >' \n", 2);
-            return (NULL);
+        ft_strerror("minishell : erreur de syntaxe près du symbole inattendu « > »");
+        return (NULL);
     }
     line = ft_parscmd(line);
     // printf("PARSED LINE %s\n", line);
