@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/15 16:53:07 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/15 18:30:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int     ft_activslash(char *src, int i)
         i--;
         n++;
     }
-    if ((n % 2) != 0 && n != 0)
+    if ((n % 2) != 0)
         return (1);
     return (0);
 }
@@ -212,6 +212,7 @@ char    *ft_parscmd(char *str)
     ft_cleanquote(str);      // virer les quote a virer
     ft_cleanbackslash(str);  // virer les backslash a virer
     str = ft_cpy_cleaned(str);
+//    printf("chaine %s\n", str);
     return (str);
 }
 
