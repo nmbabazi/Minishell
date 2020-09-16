@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/15 18:30:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/16 14:04:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void    ft_cleanquote(char *str)
             str[i] = 15;
         }
         i++;
+      //  printf("char -%c- indicde %d\n", str[i], i);
     }
     return ;
 }
@@ -167,7 +168,7 @@ void    ft_cleanbackslash(char *str)
         }
         if (str[i] == '\\' && bool == 0 && ft_escapechar(str[i + 1]) == 1)
         {
-            str[i] = 127;
+            str[i] = 11;
             bool = 1;
         }
         if (str[i] != '\\'  &&  bool == 1)
@@ -192,11 +193,16 @@ char    *ft_cpy_cleaned(char *str)
         return (NULL);
     while (str[i])
     {
-        if (str[i] == 11 || str[i] == 15 || str[i] == 127)
+        if (str[i] == 11 || str[i] == 15 || str[i] == 15)
+        {
             i++;
-        ret[l] = str[i];
-        i++;
-        l++;
+        }
+        else
+        {
+            ret[l] = str[i];
+            i++;
+            l++;
+        }
     }
     free(str);
     return (ret);
@@ -212,7 +218,6 @@ char    *ft_parscmd(char *str)
     ft_cleanquote(str);      // virer les quote a virer
     ft_cleanbackslash(str);  // virer les backslash a virer
     str = ft_cpy_cleaned(str);
-//    printf("chaine %s\n", str);
     return (str);
 }
 

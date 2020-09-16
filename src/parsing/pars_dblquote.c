@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/15 17:40:59 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/16 13:29:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,15 @@ void    ft_spaceindblquote(char *str)
                 if (str[i] == '\"' && ft_activslash(str, i) == 0)
                     break ;
                 if (str[i] == ' ')
+                {
                     str[i] = '\t';
+                }
                 i++;
             }
         }
         i++;
     }
+    //printf("chaine %s\n", str);
     return;
 }
 
