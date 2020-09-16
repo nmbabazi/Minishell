@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/16 14:36:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/16 15:28:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ char    **ft_parse(char *line, t_sh *sh)
     cmd = ft_split(line, ' ');
     free(line);
     ft_addback_space(cmd);
-   // printf("---------------avant redir--------------\n");
+    //printf("---------------avant redir--------------\n");
     //ft_printcmd(cmd);
     cmd = ft_cleancmd(cmd, sh);
-   // printf("---------------apres redir--------------\n");
+    //printf("---------------apres redir--------------\n");
     //ft_printcmd(cmd);
     return (cmd) ;
 }
