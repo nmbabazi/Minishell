@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/16 13:29:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/17 16:54:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ char    *ft_cpydblquote(char *src, char *dest, int i)
     dest[l] = src[i];
     i++;
     l++;
-    while (src[i] != '\"')
+    while (src[i])
     {
         if (src[i] == '\"' && ft_activslash(src, i) == 0)
-                    break ;
+            break ;
         dest[l] = src[i];
         l++;
         i++;
     }
+
     return (dest);
 }

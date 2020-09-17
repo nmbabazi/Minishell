@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/17 16:01:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/17 18:27:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,9 +212,14 @@ char    *ft_parscmd(char *str)
 {
     int nb_redir;
 
+    //printf("entering %s\n", str);
     nb_redir = ft_addspace(str);  //enregister les espaces in quote active
+    //printf("befor redi %s\n", str);
     str = ft_isolateredirection(str, nb_redir); // isoler les redirections (hors quote actives) par des espaces
+    //printf("befor var %s\n", str);
     str = ft_getactivvar(str);        // recuperer les variable (hors '' actives)
+    //printf("befor tab %s\n", str);
+    nb_redir = ft_addspace(str); 
     ft_cleanquote(str);      // virer les quote a virer
     ft_cleanbackslash(str);  // virer les backslash a virer
     str = ft_cpy_cleaned(str);
