@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/17 18:28:08 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/20 12:05:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,8 @@ int     ft_openquote(char *src)
             i += ft_passdblquote(&src[i]);
             if (src[i] != '\"')
                 return (1);
-        }
-        if ((src[i] == '\"') && ft_activslash(src, i) == 0)
             n++;
+        }
         i++;
     }
     if ((n % 2) != 0)
