@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/17 18:28:59 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/20 16:07:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_cleanvar(char *var)
 
 int ft_isvarname(char c)
 {
-    if (ft_isalnum(c) == 1 || (c != '\"' && c != '$' && c != '!' && c != '@' && c != '\n'
+    if (ft_isalnum(c) == 1 || (c != '\"' && c != '[' && c != ']' && c != '$' && c != '!' && c != '@' && c != '\n'
             && c != '|' && c != ',' && c != '&' && c != '\\' && c != ' ' && c != '\''))
         return (1);
     return (0);
@@ -125,7 +125,7 @@ static char    *ft_cpyvar(char *str, char *ret, int i, int l)
             i += (cnt + 1);
             l = ft_strlen(ret);
         }
-        if (str[i] && str[i] != '\'' && (str[i] != '$' || !str[i + 1] || ft_isvarname(str[i + 1]) == 0 || (str[i] == '$' && ft_activslash(str, i) == 1)))
+        if (str[i] && (str[i] != '\'' || (str[i] == '\'' && ft_activslash(str, i) == 1)) &&  (str[i] != '$' || !str[i + 1] || ft_isvarname(str[i + 1]) == 0 || (str[i] == '$' && ft_activslash(str, i) == 1)))
         {
             ret[l] = str[i];
             i++;

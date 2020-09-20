@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/17 17:21:41 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/20 15:29:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ void    ft_spaceinsglquote(char *str)
     i = 0;
     while (str[i])
     {
+        if (str[i] == '\"' && ft_activslash(str, i) == 0)
+        {
+            i++;
+            while (str[i])
+            {
+                if (str[i] == '\"' && ft_activslash(str, i) == 0)
+                    break ;
+                if (str[i] == ' ')
+                {
+                    str[i] = '\t';
+                }
+                i++;
+            }
+        }
         if (str[i] == '\'' && ft_activslash(str, i) == 0)
         {
             i++;
