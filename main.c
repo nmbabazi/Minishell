@@ -1,10 +1,11 @@
 #include "include/minishell.h"
 
-/*
-// A faire :
-// - Gerer >test
+/* A faire
 //
+// cd ''
+// cd ""
 */
+
 
 static void	exec_cmd(t_sh *sh)
 {
@@ -31,13 +32,13 @@ static void	exec_cmd(t_sh *sh)
 		{
 			ft_get_path_absolute(g_env, sh);
 			if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
-				exit(ft_strerror("minishell : "));
+				exit(ft_strerror("minishell : command not found"));
 		}
 		exit(EXIT_FAILURE);
 	}
 }
 
-void	ft_cmd(char *cmd, t_sh *sh, char **envp)
+void	ft_cmd(char *cmd, t_sh *sh)
 {
 	if ((sh->cmd = ft_parse(cmd, sh)) == NULL)
 	{
@@ -50,7 +51,7 @@ void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 	{
 		if (sh->cmd[0])
 			ft_get_path_absolute(g_env, sh);
-		ft_exec_pipe(sh, sh->cmd, envp);
+		ft_exec_pipe(sh, sh->cmd);
 	}
 	else 
 		exec_cmd(sh);
@@ -61,23 +62,24 @@ void	ft_cmd(char *cmd, t_sh *sh, char **envp)
 	cmd = NULL;
 }
 
-int		ft_semilicon(char *line, int i, t_sh *sh, char **envp)
+int		ft_semilicon(char *line, int i, t_sh *sh)
 {
-	int len;
-	char *tmp;
+	int 	len;
+	char	*tmp;
 
 	len  = 0;
-	tmp = NULL;
+	sh->continue_cmd = 0;
 	sh->begin_lencmd = ft_isspace(line, sh->begin_lencmd);
 	len = ft_len_cmd(line, i, sh->begin_lencmd);
 	tmp = ft_substr(line, sh->begin_lencmd, len);
 	if (ft_openquote(tmp) == 0)
-		ft_cmd(tmp, sh, envp);
+		ft_cmd(tmp, sh);
 	else if (ft_openquote(tmp) == 1 && line[i + 1] != '\0')
 	{
-		i++;
 		i = ft_isspace(line, i);
+		i++;
 		free(tmp);
+		
 		tmp = ft_substr(line, sh->begin_lencmd, (i + 1) - sh->begin_lencmd);
 		if (ft_openquote(tmp) == 1)
 		{
@@ -87,12 +89,16 @@ int		ft_semilicon(char *line, int i, t_sh *sh, char **envp)
 			return (-1);
 		}
 		else
-			ft_cmd(tmp, sh, envp);
+		{
+			sh->continue_cmd = 1;
+			free(tmp);
+			tmp = NULL;
+		}
 	}
 	return (i);
 }
 
-void	ft_get_cmd(char *line, t_sh *sh, char **envp)
+void	ft_get_cmd(char *line, t_sh *sh)
 {
 	int i;
 
@@ -101,12 +107,11 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 	sh->begin_lencmd = 0;
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
-			ft_cmd(ft_strdup(line), sh, envp);
+			ft_cmd(ft_strdup(line), sh);
 	else if (line[i] == ';' || line[i] == '|' || ft_check_nbcmd(line) != 1)
 		ft_strerror("minishell : erreur de syntaxe.");
 	else
 	{
-
 		while (line[i])
 		{
 			sh->last_pipe = 0;
@@ -128,10 +133,11 @@ void	ft_get_cmd(char *line, t_sh *sh, char **envp)
 					sh->is_pipe = 0;
 					sh->last_pipe = 1;
 				}
-				i = ft_semilicon(line, i, sh, envp);
+				i = ft_semilicon(line, i, sh);
 				if (i == -1)
 					break ;
-				sh->begin_lencmd = i + 1;
+				if (sh->continue_cmd == 0)
+					sh->begin_lencmd = i + 1;
 			}
 			i++;
 		}
@@ -152,7 +158,7 @@ int     main(int ac, char **av, char **envp)
     ret = 0;
 	if(ac == 3 && !ft_strcmp(av[1], "-c"))
 	{
-		ft_get_cmd(av[2], &sh, envp);
+		ft_get_cmd(av[2], &sh);
 	}
 	else 
 	{
@@ -161,9 +167,8 @@ int     main(int ac, char **av, char **envp)
 		signal(SIGINT, ft_insensitive_typing);
 		while ((ret = get_next_line(1, &line)) > 0)
 		{
-			// ft_verif erreur : \, quote...
 			sh.is_pipe= 0;
-			ft_get_cmd(line, &sh, envp);
+			ft_get_cmd(line, &sh);
 			free(line);
 			line = NULL;
 			ft_putstr_fd("$> ", 2);

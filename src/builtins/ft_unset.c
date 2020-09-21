@@ -57,9 +57,16 @@ int     ft_unset(char **cmd_builtin)
 
     i = 1;
     if (!cmd_builtin[1])
+    {
+        if (g_pid > 0);
+            return (0);
         return(ft_strerror(""));
+    }
+        
     while (cmd_builtin[i])
     {
+        if (ft_strchr(cmd_builtin[i], '=') && g_pid == 0)
+            return (ft_strerror("minisell : not a valid identifer."));
         if(ft_error_var_export(cmd_builtin[i]))
         {
             g_export = ft_del_element_lst(g_export, cmd_builtin[i]);

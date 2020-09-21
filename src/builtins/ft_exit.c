@@ -2,7 +2,8 @@
 
 int    ft_exit(char **cmd_builtin)
 {
-    ft_putstr_fd("exit\n", 1);
-    exit(0);
+    if (g_pid == 0)
+        ft_putstr_fd("exit\n", 1);
+    exit(errno);
     return (0);
 }

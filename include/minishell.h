@@ -36,6 +36,7 @@ typedef struct      s_sh
     char            *path;
     char            **cmd;
     int             begin_lencmd;
+    int             continue_cmd;
     int             is_pipe;
     int             last_pipe;
     int             fdd;
@@ -72,7 +73,7 @@ void                ft_insensitive_typing(int nb);
 void                ft_deal_nothing(int nb);
 int		            ft_len_cmd(char *line, int i, int begin);
 int		            ft_isspace(char *line, int index);
-void		        ft_exec_pipe(t_sh *sh, char **cmd, char **envp);
+void		        ft_exec_pipe(t_sh *sh, char **cmd);
 int                 ft_deal_redir(t_sh *sh);
 void                ft_replace(t_list *export, char *newcmd, char *var);
 int     ft_count_cmd(char *line);

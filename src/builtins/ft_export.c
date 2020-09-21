@@ -10,14 +10,14 @@ int     ft_error_var_export(char *cmd)
     *cmd != '=' &&
     (*cmd < 65 || *cmd > 90) &&
     (*cmd < 97 || *cmd > 122))
-		return (ft_strerror("minisell: export : not a valid identifer : "));
+		return (ft_strerror("minisell : not a valid identifer."));
 	i = 0;
 	while (cmd[++i] && cmd[i] != '=')
 		if (cmd[i] != '_' &&
         (cmd[i] < 65 || cmd[i] > 90) &&
         (cmd[i] < 97 || cmd[i] > 122) &&
         (cmd[i] < 48 || cmd[i] > 57))
-			return (ft_strerror("minisell: export : not a valid identifer : "));
+			return (ft_strerror("minisell : not a valid identifer."));
 	return (1);
 }
 
@@ -98,7 +98,10 @@ int     ft_export(char **cmd_builtin)
     {
         var = ft_var_cmd(cmd_builtin[i]);
         if (ft_surch_var(g_export, var))
+        {
             ft_replace(g_export, cmd_builtin[i], var);
+            ft_replace(g_env, cmd_builtin[i], var);
+        }
         else
             ft_add_var(cmd_builtin[i]);
         i++;
