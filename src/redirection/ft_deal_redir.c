@@ -12,14 +12,14 @@ int     ft_redir(char *file, int j, char chevron)
         else if (j == 2)
             fd = open(file, O_WRONLY | O_APPEND | O_CREAT, 0644);
         if (fd < 0)
-            return (ft_strerror(file));
+            return (ft_str_error("minishell: ", file, ": "));
         dup2(fd, 1);
         close(fd);
     }
     else if (chevron == '<')
     {
         if ((fd = open(file, O_RDONLY)) < 0)
-            return (ft_strerror(file));
+            return (ft_str_error("minishell: ", file, ": "));
         dup2(fd, 0);
         close(fd);
     }
@@ -35,14 +35,16 @@ int    ft_deal_redir(t_sh *sh)
     while(iterator)
     {
         deal_redir = iterator->content;
-        ft_redir(deal_redir->str, deal_redir->type, '>');
+        if (ft_redir(deal_redir->str, deal_redir->type, '>') != 0)
+            return (-1);
         iterator = iterator->next;
     }
     iterator = sh->pars.in;
     while(iterator)
     {
         deal_redir = iterator->content;
-        ft_redir(deal_redir->str, deal_redir->type, '>');
+        if(ft_redir(deal_redir->str, deal_redir->type, '<') != 0)
+            return (-1);
         iterator = iterator->next;
     }
     return(0);

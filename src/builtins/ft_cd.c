@@ -24,32 +24,46 @@ int     ft_update_pwd(void)
     free(old_pwd);
     free(all_pwd);
     free(all_old_pwd);
+    return(0);
 }
 
-int    ft_cd(t_list *list, char **cmd_builtin)
+int     ft_home(void)
 {
     char *home;
+
+    if (!(home = ft_get_var(g_env, "HOME=")))
+    {
+        ft_putstr_fd("cd: HOME not set\n", 1);
+        return (1);
+    }
+    if ((chdir(home)) == -1)
+        return (ft_strerror("home: home"));
+    free(home);
+    return (0);
+}
+
+int     ft_cd(t_list *list, char **cmd_builtin)
+{
     int nb;
 
     nb = ft_lentab(cmd_builtin);
     if (nb == 1)
     {
-        if (!(home = ft_get_var(g_env, "HOME=")))
-        {
-            ft_putstr_fd("cd: HOME not set\n", 1);
-            return (1);
-        }
-        if ((chdir(home)) == -1)
-            return (ft_strerror("home: home"));
-        free(home);
+        ft_home();
     }
-    if (nb > 1)
+    else if (nb == 2)
     {
         if (cmd_builtin[1] == "")
             return (0);
-        if (chdir(cmd_builtin[1]) == -1)
-            return (ft_strerror("minishell: "));
+        else if (cmd_builtin[1][0] == '~')
+            ft_home();
+        else if (chdir(cmd_builtin[1]) == -1 && g_pid > 0)
+            return (ft_error("minishell: cd: «", cmd_builtin[1], 
+        "» : Aucun fichier ou dossier de ce type\n"));
     }
+    else if (nb > 2 && g_pid > 0)
+        return (ft_error("minishell: cd: ", NULL, 
+        "trop d'arguments\n"));
     if(g_pid > 0)
         ft_update_pwd();
     return (errno);

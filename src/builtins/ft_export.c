@@ -4,21 +4,29 @@ int     ft_error_var_export(char *cmd)
 {
 	int i;
 
-    if (g_pid > 0)
-        return (1);
 	if (*cmd != '_' &&
-    *cmd != '=' &&
-    (*cmd < 65 || *cmd > 90) &&
-    (*cmd < 97 || *cmd > 122))
-		return (ft_strerror("minisell : not a valid identifer."));
+        *cmd != '=' &&
+        (*cmd < 'A' || *cmd > 'Z') &&
+        (*cmd < 'a' || *cmd > 'z'))
+        {
+            if (g_pid > 0)
+                return (1);
+            return(ft_error("minishell: export: « ", cmd, 
+            " » : identifiant non valable\n"));
+        }
 	i = 0;
 	while (cmd[++i] && cmd[i] != '=')
 		if (cmd[i] != '_' &&
-        (cmd[i] < 65 || cmd[i] > 90) &&
-        (cmd[i] < 97 || cmd[i] > 122) &&
-        (cmd[i] < 48 || cmd[i] > 57))
-			return (ft_strerror("minisell : not a valid identifer."));
-	return (1);
+            (cmd[i] < 'A' || cmd[i] > 'Z') &&
+            (cmd[i] < 'a' || cmd[i] > 'z') &&
+            (cmd[i] < '0' || cmd[i] > '9'))
+        {
+            if (g_pid > 0)
+                return (1);
+            return(ft_error("minishell: export: « ", cmd, 
+            " » : identifiant non valable\n"));
+        }
+	return (0);
 }
 
 void    ft_replace(t_list *export, char *newcmd, char *var)
@@ -55,11 +63,14 @@ int    ft_create_var(char *newvar, t_list **list)
 		return (1);
 	temp->next = 0;
 	ft_lstadd_back(list, temp);
-	return (0);
+	return(0);
 }
 
-void    ft_add_var(char *newvar)
+int     ft_add_var(char *newvar)
 {
+    if (newvar[0] == '=' && g_pid > 0)
+        return (ft_error("minishell: export: « ", newvar, 
+        " » : identifiant non valable\n"));
     ft_create_var(newvar, &g_export);
     if (ft_strchr(newvar, '='))
     {
@@ -67,6 +78,7 @@ void    ft_add_var(char *newvar)
         free_array(g_env_tab);
         g_env_tab = ft_lststring_to_tab(g_env);
     }
+    return(0);
 }
 
 char    *ft_var_cmd(char *cmd)
@@ -78,7 +90,8 @@ char    *ft_var_cmd(char *cmd)
     var = NULL;
     while (cmd[i] != '=' && cmd[i])
         i++;
-    if (ft_strchr(cmd, '='))
+    //if (ft_strchr(cmd, '='))
+    if (cmd[i] == '=')
         i++;
     var = ft_substr(cmd, 0, i);
     return (var);
@@ -94,16 +107,22 @@ int     ft_export(char **cmd_builtin)
         return (ft_rank_export(g_export));
     i = 1;
     j = 0;
-    while (cmd_builtin[i] && ft_error_var_export(cmd_builtin[i]))
+    while (cmd_builtin[i] && ft_error_var_export(cmd_builtin[i]) == 0)
     {
         var = ft_var_cmd(cmd_builtin[i]);
+        //printf("var = %s\n", var);
         if (ft_surch_var(g_export, var))
         {
-            ft_replace(g_export, cmd_builtin[i], var);
-            ft_replace(g_env, cmd_builtin[i], var);
+            if (ft_strchr(var, '='))
+            {
+                ft_replace(g_export, cmd_builtin[i], var);
+                ft_replace(g_env, cmd_builtin[i], var);
+            }
         }
         else
+        {
             ft_add_var(cmd_builtin[i]);
+        }
         i++;
         free(var);
     }

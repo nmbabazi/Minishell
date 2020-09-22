@@ -25,14 +25,15 @@ static void	exec_cmd(t_sh *sh)
 	else
 	{
 		if (sh->pars.out || sh->pars.in)
-			ft_deal_redir(sh);
+			if(ft_deal_redir(sh) == -1)
+				exit(EXIT_FAILURE);
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		else if (sh->cmd[0])
 		{
 			ft_get_path_absolute(g_env, sh);
 			if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
-				exit(ft_strerror("minishell : command not found"));
+				exit(ft_str_error("minishell : ", NULL, NULL));
 		}
 		exit(EXIT_FAILURE);
 	}
@@ -40,13 +41,14 @@ static void	exec_cmd(t_sh *sh)
 
 void	ft_cmd(char *cmd, t_sh *sh)
 {
+	//printf("cmd = %s\n", cmd);
 	if ((sh->cmd = ft_parse(cmd, sh)) == NULL)
 	{
 		free(cmd);
 		return ;
 	}
 	if (sh->cmd[0] == NULL && !sh->pars.out)
-		ft_putstr("Command not found\n");
+		ft_putstr("\n");
 	else if(sh->is_pipe == 1 || sh->last_pipe == 1)
 	{
 		if (sh->cmd[0])
@@ -72,11 +74,19 @@ int		ft_semilicon(char *line, int i, t_sh *sh)
 	sh->begin_lencmd = ft_isspace(line, sh->begin_lencmd);
 	len = ft_len_cmd(line, i, sh->begin_lencmd);
 	tmp = ft_substr(line, sh->begin_lencmd, len);
+	
 	if (ft_openquote(tmp) == 0)
-		ft_cmd(tmp, sh);
-	else if (ft_openquote(tmp) == 1 && line[i + 1] != '\0')
 	{
-		i = ft_isspace(line, i);
+		sh->nb_cmd++;
+		ft_cmd(tmp, sh);
+	}
+	else if (ft_openquote(tmp) == 1)
+	{
+		//printf("tmp = %s\n", tmp);
+		sh->continue_cmd = 1;
+		free(tmp);
+		tmp = NULL;
+		/*i = ft_isspace(line, i);
 		i++;
 		free(tmp);
 		
@@ -85,7 +95,7 @@ int		ft_semilicon(char *line, int i, t_sh *sh)
 		{
 			free(tmp);
 			tmp = NULL;
-			ft_strerror("minishell : erreur de syntaxe");
+			ft_strerror("minishell : erreur de syntaxe allo");
 			return (-1);
 		}
 		else
@@ -93,7 +103,7 @@ int		ft_semilicon(char *line, int i, t_sh *sh)
 			sh->continue_cmd = 1;
 			free(tmp);
 			tmp = NULL;
-		}
+		}*/
 	}
 	return (i);
 }
@@ -109,7 +119,9 @@ void	ft_get_cmd(char *line, t_sh *sh)
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 			ft_cmd(ft_strdup(line), sh);
 	else if (line[i] == ';' || line[i] == '|' || ft_check_nbcmd(line) != 1)
-		ft_strerror("minishell : erreur de syntaxe.");
+		ft_error("minishell: erreur de syntaxe près du symbole inattendu ",
+		"« ; » ou « | »", 
+    	"\n");
 	else
 	{
 		while (line[i])
@@ -134,13 +146,16 @@ void	ft_get_cmd(char *line, t_sh *sh)
 					sh->last_pipe = 1;
 				}
 				i = ft_semilicon(line, i, sh);
-				if (i == -1)
-					break ;
+				//if (i == -1)
+				//	break ;
+				//printf("i = %d\n", i);
 				if (sh->continue_cmd == 0)
 					sh->begin_lencmd = i + 1;
 			}
 			i++;
 		}
+		if (sh->nb_cmd == 0 && ft_openquote(line))
+			ft_strerror("minishell : erreur de syntaxe");
 	}
 }
 
