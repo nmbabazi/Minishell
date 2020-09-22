@@ -9,9 +9,10 @@
 
 static void	exec_cmd(t_sh *sh)
 {
-	g_pid = 0;
-	int		status = 0;
+	int	status;
 
+	g_pid = 0;
+	status = g_status;
 	g_pid = fork();
 	if (g_pid < 0)
 		ft_strerror("fork : ");

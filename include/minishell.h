@@ -50,6 +50,7 @@ t_list	*g_env;
 t_list	*g_export;
 char    **g_env_tab;
 pid_t   g_pid;
+int     g_status;
 
 void                free_all(char **env, t_sh *sh);
 void                free_array(char **array);
