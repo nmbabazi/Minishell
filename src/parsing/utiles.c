@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/10 15:15:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/22 17:39:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char    *ft_get_var_parsing(t_list *list, char *var)
 	t_list *next;
 
 	if(ft_strncmp("?=", var, ft_strlen(var)) == 0)
-		return(ft_substr("0", 0, 1));
+		return(ft_itoa(g_status));
 	while(list)
 	{
 		next = list->next;

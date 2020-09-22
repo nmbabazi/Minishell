@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/22 16:22:30 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/22 18:32:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,10 @@ void    ft_cleanbackslash(char *str)
         }
         if (str[i] == '\\' && bool == 0 && ft_escapechar(str[i + 1]) == 1)
         {
-            str[i] = 11;
+            str[i] = 127;
             bool = 1;
         }
-        if (str[i] != '\\'  &&  bool == 1)
+        if (str[i] == '\\' &&  bool == 1)
             bool = 0;
         i++;
     }

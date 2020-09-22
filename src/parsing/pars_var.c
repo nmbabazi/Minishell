@@ -6,33 +6,12 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/22 16:16:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/22 17:16:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-void	ft_cleanvar(char *var)
-{
-	int i; 
-	//int l;
-	//char *ret;
-	
-	i = 0;
-	if (!var)
-		return ;
-	//l = 0;
-	//if (!(ret = malloc(sizeof(char) * ft_strlen(var) + 1)))
-	//	return (NULL);
-	while (var[i])
-	{
-		if (var[i] == ' ')
-			var[i] = '\t';
-		i++;
-	}
-	
-}
 
 int ft_isvarname(char c)
 {
