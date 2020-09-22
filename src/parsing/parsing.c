@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/20 16:21:49 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/22 16:22:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ char    *ft_parscmd(char *str)
     //printf("befor var %s\n", str);
     str = ft_getactivvar(str);        // recuperer les variable (hors '' actives)
     //printf("befor tab %s\n", str);
-    nb_redir = ft_addspace(str); 
+    nb_redir = ft_addspace(str);
     //printf("la %s\n", str);
     ft_cleanquote(str);      // virer les quote a virer
     //printf("befor tab %s\n", str);

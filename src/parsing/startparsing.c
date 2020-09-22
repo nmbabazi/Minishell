@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/20 16:07:41 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/22 16:24:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,13 @@ char    **ft_parse(char *line, t_sh *sh)
     nb_cmd = 0;
     if (ft_openquote(line) == 1 || ft_activslash(line, ft_strlen(line)) == 1)
     {
+        g_status = 1;
         ft_strerror("minishell : open quote");
         return (NULL);
     }
     if (checksorti(line) == 0 || checkentre(line) == 0)
     {
+        g_status = 1;
         ft_strerror("minishell : erreur de syntaxe près du symbole inattendu « > »");
         return (NULL);
     }
@@ -117,5 +119,6 @@ char    **ft_parse(char *line, t_sh *sh)
     cmd = ft_cleancmd(cmd, sh);
     //printf("---------------apres redir--------------\n");
     //ft_printcmd(cmd);
+    g_status = 0;
     return (cmd) ;
 }
