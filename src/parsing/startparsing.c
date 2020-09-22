@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/22 16:24:14 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/22 16:39:50 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ int     ft_is_builtin(char *cmd)
     return (0);
 }
 
-int     ft_checktocken(char *str, int i)
+int     ft_checktocken(char *str, int i, char c)
 {
     if (i == 0)
         return (0);
     i--;
-    while(i > 0 && str[i] != ';')
+    while(i > 0 && str[i] != c)
     {
         if (str[i] != ' ')
             return (1);
         i--;
     }
-    if (str[i] == ';')
+    if (str[i] == c)
         return (0);
     return (1);
 }
 
-int     ft_check_nbcmd(char *line)
+int     ft_check_nbcmd(char *line, char c)
 {
     int i;
 
@@ -49,9 +49,9 @@ int     ft_check_nbcmd(char *line)
             i += (ft_passsinglequote(&line[i]));
         if (line[i] == '\"' && ft_activslash(line, i) == 0)
             i += (ft_passdblquote(&line[i]));
-        if (line[i] == ';')
+        if (line[i] == c)
         {
-            if (ft_checktocken(line, i) == 0)
+            if (ft_checktocken(line, i, c) == 0)
                 return (0);
         }
         i++;
