@@ -9,6 +9,8 @@ int     ft_error_var_export(char *cmd)
         (*cmd < 'A' || *cmd > 'Z') &&
         (*cmd < 'a' || *cmd > 'z'))
         {
+            g_status = 1;
+            errno = 1;
             if (g_pid > 0)
                 return (1);
             return(ft_error("minishell: export: « ", cmd, 
@@ -21,6 +23,8 @@ int     ft_error_var_export(char *cmd)
             (cmd[i] < 'a' || cmd[i] > 'z') &&
             (cmd[i] < '0' || cmd[i] > '9'))
         {
+            g_status = 1;
+            errno = 1;
             if (g_pid > 0)
                 return (1);
             return(ft_error("minishell: export: « ", cmd, 
@@ -110,7 +114,6 @@ int     ft_export(char **cmd_builtin)
     while (cmd_builtin[i] && ft_error_var_export(cmd_builtin[i]) == 0)
     {
         var = ft_var_cmd(cmd_builtin[i]);
-        //printf("var = %s\n", var);
         if (ft_surch_var(g_export, var))
         {
             if (ft_strchr(var, '='))

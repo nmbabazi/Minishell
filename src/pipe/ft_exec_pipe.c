@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-void		ft_exec_pipe(t_sh *sh, char **cmd)
+int		ft_exec_pipe(t_sh *sh, char **cmd)
 {
+	int	status;
+
+	status = g_status;
 	pipe(sh->fd);
-	if ((sh->pid = fork()) == -1)
-	{
-		perror("fork");
-		exit(1);
-	}
+	if ((sh->pid = fork()) < 0)
+		ft_strerror("fork : ");
 	else if (sh->pid == 0)
 	{
 		dup2(sh->fdd, 0);
@@ -15,22 +15,28 @@ void		ft_exec_pipe(t_sh *sh, char **cmd)
 			dup2(sh->fd[1], 1);
 		close(sh->fd[0]);
 		if (sh->pars.out || sh->pars.in)
-			ft_deal_redir(sh);
+			if(ft_deal_redir(sh) == -1)
+				exit(g_status);
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		else if (sh->cmd[0])
 		{
 			if(execve(cmd[0], cmd, g_env_tab) == -1)
-			exit(ft_strerror("minishell : "));
+			{
+				g_status = ft_error(sh->cmd[0], " : commande introuvable\n", NULL);
+				exit(g_status);
+			}
 		}
-		exit(1);
+		exit(g_status);
 	}
 	else
 	{
-		wait(NULL);
+		if (waitpid(sh->pid, &status, 0) == -1)
+			return(ft_str_error("minishell: ", "wait", NULL));
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		close(sh->fd[1]);
 		sh->fdd = sh->fd[0];
+		ft_deal_signal(status);
 	}
 }

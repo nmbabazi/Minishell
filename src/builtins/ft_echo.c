@@ -14,9 +14,10 @@ int    ft_echo(char **cmd_builtin)
     if (cmd_builtin[1] && ft_strcmp(cmd_builtin[1], "-n") == 0)
         n = 1;
     i = i + n;
+    while (cmd_builtin[i] && ft_strcmp(cmd_builtin[i], "-n") == 0)
+        i++;
     while (cmd_builtin[i])
     {
-        
         ft_putstr_fd(cmd_builtin[i], 1);
         if (cmd_builtin[i + 1])
             ft_putstr_fd(" ", 1);

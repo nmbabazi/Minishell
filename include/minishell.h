@@ -78,7 +78,7 @@ void                ft_insensitive_typing(int nb);
 void                ft_deal_nothing(int nb);
 int		            ft_len_cmd(char *line, int i, int begin);
 int		            ft_isspace(char *line, int index);
-void		        ft_exec_pipe(t_sh *sh, char **cmd);
+int 		        ft_exec_pipe(t_sh *sh, char **cmd);
 int                 ft_deal_redir(t_sh *sh);
 void                ft_replace(t_list *export, char *newcmd, char *var);
 int     ft_count_cmd(char *line);
@@ -128,4 +128,5 @@ char    **ft_parse(char *line, t_sh *sh);
 int     ft_openquote(char *src);
 char    *ft_get_var_parsing(t_list *list, char *var);
 void	ft_printredir(t_list *lst);
+void	ft_deal_signal(int status);
 #endif

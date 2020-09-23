@@ -4,13 +4,21 @@
 //
 // cd ''
 // cd ""
+// echo || echo
+// echo a '' b '' c '' d
 */
 
+void	ft_deal_signal(int status)
+{
+	g_status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		g_status = 128 + WTERMSIG(status);
+}
 
-static void	exec_cmd(t_sh *sh)
+int		exec_cmd(t_sh *sh)
 {
 	int	status;
-
+	
 	g_pid = 0;
 	status = g_status;
 	g_pid = fork();
@@ -18,31 +26,35 @@ static void	exec_cmd(t_sh *sh)
 		ft_strerror("fork : ");
 	else if (g_pid > 0)
 	{
-		waitpid(g_pid, &status, 0);
+		if (waitpid(g_pid, &status, 0) == -1)
+			return(ft_str_error("minishell: ", "wait", NULL));
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
+		ft_deal_signal(status);
 		kill(g_pid, SIGTERM);
 	}
 	else
 	{
 		if (sh->pars.out || sh->pars.in)
 			if(ft_deal_redir(sh) == -1)
-				exit(EXIT_FAILURE);
+				exit(g_status);
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		else if (sh->cmd[0])
 		{
 			ft_get_path_absolute(g_env, sh);
 			if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
-				exit(ft_str_error("minishell : ", NULL, NULL));
+			{
+				g_status = ft_error(sh->cmd[0], " : commande introuvable\n", NULL);
+				exit(g_status);
+			}
 		}
-		exit(EXIT_FAILURE);
+		exit(g_status);
 	}
 }
 
 void	ft_cmd(char *cmd, t_sh *sh)
 {
-	//printf("cmd = %s\n", cmd);
 	if ((sh->cmd = ft_parse(cmd, sh)) == NULL)
 	{
 		free(cmd);
@@ -65,7 +77,7 @@ void	ft_cmd(char *cmd, t_sh *sh)
 	cmd = NULL;
 }
 
-int		ft_semilicon(char *line, int i, t_sh *sh)
+int		ft_separate(char *line, int i, t_sh *sh)
 {
 	int 	len;
 	char	*tmp;
@@ -83,28 +95,10 @@ int		ft_semilicon(char *line, int i, t_sh *sh)
 	}
 	else if (ft_openquote(tmp) == 1)
 	{
-		//printf("tmp = %s\n", tmp);
 		sh->continue_cmd = 1;
 		free(tmp);
 		tmp = NULL;
-		/*i = ft_isspace(line, i);
-		i++;
-		free(tmp);
-		
-		tmp = ft_substr(line, sh->begin_lencmd, (i + 1) - sh->begin_lencmd);
-		if (ft_openquote(tmp) == 1)
-		{
-			free(tmp);
-			tmp = NULL;
-			ft_strerror("minishell : erreur de syntaxe allo");
-			return (-1);
-		}
-		else
-		{
-			sh->continue_cmd = 1;
-			free(tmp);
-			tmp = NULL;
-		}*/
+		sh->is_pipe = 0;
 	}
 	return (i);
 }
@@ -148,10 +142,7 @@ void	ft_get_cmd(char *line, t_sh *sh)
 					sh->is_pipe = 0;
 					sh->last_pipe = 1;
 				}
-				i = ft_semilicon(line, i, sh);
-				//if (i == -1)
-				//	break ;
-				//printf("i = %d\n", i);
+				i = ft_separate(line, i, sh);
 				if (sh->continue_cmd == 0)
 					sh->begin_lencmd = i + 1;
 			}

@@ -18,9 +18,6 @@ void	ft_lstprint_rank_export(t_list *lst)
             while(str[i] != '=' && str[i])
                 i++;
             var = ft_substr(str, 0, i + 1);
-            //printf("var = %s\n", var);
-            
-            //printf("value = %s\n", value);
             ft_putstr_fd("declare -x ", 1);
             ft_putstr(var);
             if (ft_strchr(str, '='))

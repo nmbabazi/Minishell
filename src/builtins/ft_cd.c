@@ -33,7 +33,8 @@ int     ft_home(void)
 
     if (!(home = ft_get_var(g_env, "HOME=")))
     {
-        ft_putstr_fd("cd: HOME not set\n", 1);
+        if (g_pid > 0)
+            ft_putstr_fd("minishell: cd: HOME not set\n", 1);
         return (1);
     }
     if ((chdir(home)) == -1)
@@ -49,14 +50,14 @@ int     ft_cd(t_list *list, char **cmd_builtin)
     nb = ft_lentab(cmd_builtin);
     if (nb == 1)
     {
-        ft_home();
+        g_status = ft_home();
     }
     else if (nb == 2)
     {
-        if (cmd_builtin[1] == "")
+        if (cmd_builtin[1][0] == '\0')
             return (0);
         else if (cmd_builtin[1][0] == '~')
-            ft_home();
+            g_status = ft_home();
         else if (chdir(cmd_builtin[1]) == -1 && g_pid > 0)
             return (ft_error("minishell: cd: «", cmd_builtin[1], 
         "» : Aucun fichier ou dossier de ce type\n"));
