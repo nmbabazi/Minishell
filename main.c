@@ -2,14 +2,11 @@
 
 /* A faire
 //
-// cd ""
 // echo || echo
 // $> pwd | cat -e
 //home/user42/Documents/mini_fusion$
-//$> unset PATH
 //$> export
-// echo -> si tab gere espace
-// exit + code
+// '     echo' bonjour
 // msg erreur avec "succes"
 */
 
@@ -29,7 +26,6 @@ int		exec_cmd(t_sh *sh)
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		status = WEXITSTATUS(status);
-		//printf("status = %d\n", status);
 		g_status = WEXITSTATUS(status);
 		if (WIFSIGNALED(status))
 			g_status = WTERMSIG(status);
@@ -47,7 +43,7 @@ int		exec_cmd(t_sh *sh)
 			ft_get_path_absolute(g_env, sh);
 			if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
 			{
-				ft_str_error(sh->cmd[0], " : commande introuvable\n", NULL);
+				ft_error("minishell: ", sh->cmd[0], ": commande introuvable\n");
 				g_status = 127;
 				exit(g_status);
 			}
