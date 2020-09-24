@@ -25,7 +25,13 @@ void    ft_get_path_absolute(t_list *list, t_sh *sh)
     path_split = NULL;
     bin = NULL;
     i = 0;
-    sh->path = ft_get_var(g_env,"PATH=");
+    if (!(sh->path = ft_get_var(g_env,"PATH=")))
+    {
+        g_status = 127;
+        if (g_pid == 0)
+        ft_error("minishell: ", sh->cmd[0], ": Aucun fichier ou dossier de ce type\n");
+        exit(g_status);
+    }
     if (sh->cmd[0][0] != '/' || strncmp(sh->cmd[0], "./", 2) != 0)
     {
         path_split = ft_split(sh->path, ':');

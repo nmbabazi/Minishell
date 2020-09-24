@@ -64,7 +64,7 @@ void	ft_cmd(char *cmd, t_sh *sh)
 		return ;
 	}
 	if (sh->cmd[0] == NULL && !sh->pars.out)
-		ft_putstr("\n");
+		ft_putstr("");
 	else if(sh->is_pipe == 1 || sh->last_pipe == 1)
 	{
 		if (sh->cmd[0])
