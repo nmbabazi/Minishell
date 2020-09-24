@@ -37,6 +37,9 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 			ft_exec_builtin(g_env, sh->cmd);
 		close(sh->fd[1]);
 		sh->fdd = sh->fd[0];
-		ft_deal_signal(status);
+		status = WEXITSTATUS(status);
+		g_status = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			g_status = WTERMSIG(status);
 	}
 }

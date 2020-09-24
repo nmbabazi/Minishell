@@ -1,4 +1,5 @@
 #include "../../include/minishell.h"
+
 int     ft_update_pwd(void)
 {
     char *old_pwd;
@@ -13,7 +14,10 @@ int     ft_update_pwd(void)
     old_pwd = ft_get_var(g_env, "PWD=");
     pwd = getcwd(pwd, 0);
     if (!old_pwd || !pwd)
+    {
         ft_strerror("");
+        g_status = 1;
+    }
     all_pwd = ft_strjoin("PWD=", pwd);
     all_old_pwd = ft_strjoin("OLDPWD=", old_pwd);
     ft_replace(g_env, all_pwd, "PWD=");
@@ -58,13 +62,26 @@ int     ft_cd(t_list *list, char **cmd_builtin)
             return (0);
         else if (cmd_builtin[1][0] == '~')
             g_status = ft_home();
-        else if (chdir(cmd_builtin[1]) == -1 && g_pid > 0)
-            return (ft_error("minishell: cd: «", cmd_builtin[1], 
-        "» : Aucun fichier ou dossier de ce type\n"));
+        else if (chdir(cmd_builtin[1]) == -1)
+        {
+            if (errno == EACCES && g_pid > 0)
+                ft_str_error("minishell: cd: ", cmd_builtin[1], ": ");
+            else if (g_pid > 0)
+                ft_error("minishell: cd: «", cmd_builtin[1], 
+                "» : Aucun fichier ou dossier de ce type\n");
+            g_status = 1;
+            return (g_status);
+        }
+
     }
-    else if (nb > 2 && g_pid > 0)
-        return (ft_error("minishell: cd: ", NULL, 
-        "trop d'arguments\n"));
+    else if (nb > 2)
+    {
+            if (g_pid > 0)
+                ft_error("minishell: cd: ", NULL, 
+                "trop d'arguments\n");
+            g_status = 1;
+        return (g_status);
+    }
     if(g_pid > 0)
         ft_update_pwd();
     return (errno);

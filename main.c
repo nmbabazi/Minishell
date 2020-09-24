@@ -8,13 +8,6 @@
 // echo a '' b '' c '' d
 */
 
-void	ft_deal_signal(int status)
-{
-	g_status = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-		g_status = 128 + WTERMSIG(status);
-}
-
 int		exec_cmd(t_sh *sh)
 {
 	int	status;
@@ -30,7 +23,12 @@ int		exec_cmd(t_sh *sh)
 			return(ft_str_error("minishell: ", "wait", NULL));
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
-		ft_deal_signal(status);
+		status = WEXITSTATUS(status);
+		//printf("status = %d\n", status);
+		g_status = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			g_status = WTERMSIG(status);
+		//printf("g_status = %d\n", g_status);
 		kill(g_pid, SIGTERM);
 	}
 	else
