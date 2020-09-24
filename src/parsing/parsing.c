@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/24 13:11:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 14:40:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void    ft_cleanbackslash(char *str)
     return ;
 }
 
-char    *ft_cpy_cleaned(char *str)
+char    *ft_delate_backslash(char *str)
 {
     int len;
     int i;
@@ -193,7 +193,7 @@ char    *ft_cpy_cleaned(char *str)
         return (NULL);
     while (str[i])
     {
-        if (str[i] == 11 || str[i] == 15 || str[i] == 127)
+        if (str[i] == 127)
         {
             i++;
         }
@@ -225,7 +225,7 @@ char    *ft_parscmd(char *str)
     //printf("befor tab %s\n", str);
     ft_cleanbackslash(str);  // virer les backslash a virer
     //printf("befor tab %s\n", str);
-    str = ft_cpy_cleaned(str);
+    str = ft_delate_backslash(str);
     return (str);
 }
 
@@ -259,4 +259,52 @@ void    ft_addback_space(char **cmd)
         }
         i++;
     }
+}
+
+char    *ft_cpyandclean(char *str)
+{
+    int len;
+    int i;
+    int l;
+    char *ret;
+
+    i = 0;
+    l = 0;
+    len = ft_strlen(str);
+    if (!(ret = calloc(sizeof(char), len + 1)))
+        return (NULL);
+    while (str[i])
+    {
+        if (str[i] == 11 || str[i] == 15)
+        {
+            i++;
+        }
+        else
+        {
+            ret[l] = str[i];
+            i++;
+            l++;
+        }
+    }
+    free(str);
+    return (ret);
+}
+
+void    ft_delate_quote(char **cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if ((cmd[i][0] == 11 && cmd[i][1] == 11 && !cmd[i][2]) || (cmd[i][0] == 15 && cmd[i][1] == 15 && !cmd[i][2]))
+        {
+            cmd[i][0] == '\t';
+            cmd[i][1] == '\t';
+        }
+        else 
+            cmd[i] = ft_cpyandclean(cmd[i]);
+        i++;
+    }
+    
 }
