@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/24 14:40:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/24 14:52:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,13 +297,7 @@ void    ft_delate_quote(char **cmd)
     i = 0;
     while (cmd[i])
     {
-        if ((cmd[i][0] == 11 && cmd[i][1] == 11 && !cmd[i][2]) || (cmd[i][0] == 15 && cmd[i][1] == 15 && !cmd[i][2]))
-        {
-            cmd[i][0] == '\t';
-            cmd[i][1] == '\t';
-        }
-        else 
-            cmd[i] = ft_cpyandclean(cmd[i]);
+        cmd[i] = ft_cpyandclean(cmd[i]);
         i++;
     }
     
