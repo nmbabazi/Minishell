@@ -29,7 +29,7 @@ int		exec_cmd(t_sh *sh)
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		status = WEXITSTATUS(status);
-		printf("status = %d\n", status);
+		//printf("status = %d\n", status);
 		g_status = WEXITSTATUS(status);
 		if (WIFSIGNALED(status))
 			g_status = WTERMSIG(status);
