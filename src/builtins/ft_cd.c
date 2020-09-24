@@ -64,15 +64,14 @@ int     ft_cd(t_list *list, char **cmd_builtin)
             g_status = ft_home();
         else if (chdir(cmd_builtin[1]) == -1)
         {
-            if (errno == EACCES && g_pid > 0)
-                ft_str_error("minishell: cd: ", cmd_builtin[1], ": ");
-            else if (g_pid > 0)
-                ft_error("minishell: cd: «", cmd_builtin[1], 
-                "» : Aucun fichier ou dossier de ce type\n");
-            g_status = 1;
+           // if (errno == EACCES && g_pid == 0)
+            //    g_status = ft_str_error("minishell: cd: ", cmd_builtin[1], ": ");
+            if (g_pid == 0)
+                g_status = ft_str_error("minishell: cd: ", cmd_builtin[1], ": ");
+            //strerror(errno);
+            //g_status = errno;
             return (g_status);
         }
-
     }
     else if (nb > 2)
     {

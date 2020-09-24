@@ -35,16 +35,18 @@ int    ft_deal_redir(t_sh *sh)
     while(iterator)
     {
         deal_redir = iterator->content;
-        if (ft_redir(deal_redir->str, deal_redir->type, '>') != 0)
-            return (-1);
+        g_status = ft_redir(deal_redir->str, deal_redir->type, '>');
+        if (g_status != 0)
+            return (g_status);
         iterator = iterator->next;
     }
     iterator = sh->pars.in;
     while(iterator)
     {
         deal_redir = iterator->content;
-        if(ft_redir(deal_redir->str, deal_redir->type, '<') != 0)
-            return (-1);
+        g_status = ft_redir(deal_redir->str, deal_redir->type, '<');
+        if(g_status != 0)
+            return (g_status);
         iterator = iterator->next;
     }
     return(0);
