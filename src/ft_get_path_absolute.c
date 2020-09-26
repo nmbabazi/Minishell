@@ -16,7 +16,7 @@ int     ft_verif_path(char *bin)
     return (TRUE);
 }
 
-void    ft_get_path_absolute(t_list *list, t_sh *sh)
+int     ft_get_path_absolute(t_list *list, t_sh *sh)
 {
     char **path_split;
     char *bin;
@@ -60,4 +60,5 @@ void    ft_get_path_absolute(t_list *list, t_sh *sh)
             sh->path = NULL;
         }
     }
+    return (0);
 }

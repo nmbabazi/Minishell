@@ -3,7 +3,6 @@
 int     ft_error_var_export(char *cmd)
 {
 	int i;
-
 	if (*cmd != '_' &&
         *cmd != '=' &&
         (*cmd < 'A' || *cmd > 'Z') &&
@@ -73,8 +72,11 @@ int    ft_create_var(char *newvar, t_list **list)
 int     ft_add_var(char *newvar)
 {
     if (newvar[0] == '=' && g_pid > 0)
+    {
+        g_status = 1;
         return (ft_error("minishell: export: « ", newvar, 
         " » : identifiant non valable\n"));
+    }
     ft_create_var(newvar, &g_export);
     if (ft_strchr(newvar, '='))
     {

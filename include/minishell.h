@@ -56,7 +56,7 @@ void                free_all(char **env, t_sh *sh);
 void                free_array(char **array);
 char                *ft_get_var(t_list *list, char *var);
 int                 ft_surch_var(t_list *list, char *var);
-void                ft_get_path_absolute(t_list *list, t_sh *sh);
+int                 ft_get_path_absolute(t_list *list, t_sh *sh);
 int                 ft_is_bultin(char *cmd);
 void                ft_exec_builtin(t_list *list, char **cmd_builtin);
 int                 ft_cd(t_list *list, char **cmd_builtin);

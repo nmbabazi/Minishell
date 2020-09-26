@@ -15,7 +15,7 @@ int     ft_update_pwd(void)
     pwd = getcwd(pwd, 0);
     if (!old_pwd || !pwd)
     {
-        ft_strerror("");
+        ft_error("", NULL, NULL);
         g_status = 1;
     }
     all_pwd = ft_strjoin("PWD=", pwd);

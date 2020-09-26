@@ -3,11 +3,11 @@
 /* A faire
 //
 // echo || echo
-// $> pwd | cat -e
-//home/user42/Documents/mini_fusion$
-//$> export
-// '     echo' bonjour
-// msg erreur avec "succes"
+// status 127 si cmd not found
+//
+//
+// 
+// 
 */
 
 int		exec_cmd(t_sh *sh)
@@ -21,14 +21,23 @@ int		exec_cmd(t_sh *sh)
 		ft_strerror("fork : ");
 	else if (g_pid > 0)
 	{
+
 		if (waitpid(g_pid, &status, 0) == -1)
 			return(ft_str_error("minishell: ", "wait", NULL));
-		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
-			ft_exec_builtin(g_env, sh->cmd);
+    	
+
 		status = WEXITSTATUS(status);
+
 		g_status = WEXITSTATUS(status);
+		if (WIFSTOPPED(status))
+			g_status = WSTOPSIG(status);
+			//printf("status = %d\n", g_status);
 		if (WIFSIGNALED(status))
 			g_status = WTERMSIG(status);
+			//printf("status = %d\n", g_status);
+		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
+			ft_exec_builtin(g_env, sh->cmd);
+		//printf("main status = %d\n", g_status);
 		kill(g_pid, SIGTERM);
 	}
 	else
@@ -43,8 +52,10 @@ int		exec_cmd(t_sh *sh)
 			ft_get_path_absolute(g_env, sh);
 			if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
 			{
+				//printf("errno = %d\n", errno);
 				ft_error("minishell: ", sh->cmd[0], ": commande introuvable\n");
 				g_status = 127;
+				//printf("main status = %d\n", g_status);
 				exit(g_status);
 			}
 		}
@@ -144,6 +155,7 @@ void	ft_get_cmd(char *line, t_sh *sh)
 				i = ft_separate(line, i, sh);
 				if (sh->continue_cmd == 0)
 					sh->begin_lencmd = i + 1;
+				//g_status = 0;
 			}
 			i++;
 		}
