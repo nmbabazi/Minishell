@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/22 17:16:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/26 18:43:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,60 @@ static char    *ft_cpyvar(char *str, char *ret, int i, int l)
     return (ret);
 }
 
+void    mute_sgl_in_dbl(char *str)
+{
+    int i;
+    
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '\'' && ft_activslash(str, i) == 0)
+            i += (ft_passsinglequote(&str[i]));
+        if (str[i] == '\"' && ft_activslash(str, i) == 0)
+        {
+            i++;
+            while (str[i])
+            {
+                if (str[i] == '\"' && ft_activslash(str, i) == 0)
+                    break ;
+                if (str[i] == '\'')
+                {
+                    str[i] = 11;
+                }
+                i++;
+            }
+        }
+        i++;
+    }
+}
+
+void    unmute_sgl_in_dbl(char *str)
+{
+    int i;
+    
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == '\'' && ft_activslash(str, i) == 0)
+            i += (ft_passsinglequote(&str[i]));
+        if (str[i] == '\"' && ft_activslash(str, i) == 0)
+        {
+            i++;
+            while (str[i])
+            {
+                if (str[i] == '\"' && ft_activslash(str, i) == 0)
+                    break ;
+                if (str[i] == 11)
+                {
+                    str[i] = '\'';
+                }
+                i++;
+            }
+        }
+        i++;
+    }
+}
+
 char    *ft_getactivvar(char *str)
 {
     int len;
@@ -124,10 +178,12 @@ char    *ft_getactivvar(char *str)
     ret = NULL;
     i = 0;
     l = 0;
+    mute_sgl_in_dbl(str);
     len = add_varsize(str) + ft_strlen(str);
     if (!(ret = calloc((len + 1), sizeof(char))))
         return (NULL);
-    ret = ft_cpyvar(str, ret, i, l);
+    ret = ft_cpyvar(str, ret, i, l);    
+    unmute_sgl_in_dbl(ret);
     free(str);
     return (ret);
 }

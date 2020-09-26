@@ -6,23 +6,23 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/24 17:34:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/26 18:40:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int     ft_is_builtin(char *cmd)
+int		ft_is_builtin(char *cmd)
 {
-    if (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0
-        || ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0
+	if (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0
+		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0
         || ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
-        || ft_strcmp(cmd, "exit") == 0)
+    	|| ft_strcmp(cmd, "exit") == 0)
             return (1);
     return (0);
 }
 
-int     ft_checktocken(char *str, int i, char c)
+int		ft_checktocken(char *str, int i, char c)
 {
     if (i == 0)
         return (0);
@@ -110,15 +110,11 @@ char    **ft_parse(char *line, t_sh *sh)
         return (NULL);
     }
     line = ft_parscmd(line);
-    //printf("PARSED LINE %s\n", line);
     cmd = ft_split(line, ' ');
     free(line);
     ft_addback_space(cmd);
     ft_delate_quote(cmd);
-    //printf("---------------avant redir--------------\n");
-    //ft_printcmd(cmd);
     cmd = ft_cleancmd(cmd, sh);
-    //printf("---------------apres redir--------------\n");
-    //ft_printcmd(cmd);
     return (cmd) ;
 }
+
