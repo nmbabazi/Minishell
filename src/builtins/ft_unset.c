@@ -10,6 +10,14 @@ int     ft_len_var(char *str)
     return (i);
 }
 
+int     ft_var_here(char *content, char *var)
+{
+    if (ft_strncmp(content, var, ft_len_var(content)) == 0 &&
+    ft_len_var(content) == ft_strlen(var))
+        return (1);
+    return (0);
+}
+
 t_list  *ft_del_element_lst(t_list *list, char *var)
 {    
     t_list  *tmp;
@@ -18,8 +26,7 @@ t_list  *ft_del_element_lst(t_list *list, char *var)
     if (list == NULL) 
         return (list);
     previous = list;
-    if (ft_strncmp(previous->content, var, ft_len_var(previous->content)) == 0 &&
-    ft_len_var(previous->content) == ft_strlen(var))
+    if (ft_var_here(previous->content, var) == 1)
     {
         list = previous->next;
         ft_lstdelone(previous, free);
@@ -28,8 +35,7 @@ t_list  *ft_del_element_lst(t_list *list, char *var)
     tmp = previous->next;
     while(tmp != NULL)
     {
-        if (ft_strncmp(tmp->content, var, ft_len_var(tmp->content)) == 0 &&
-        ft_len_var(tmp->content) == ft_strlen(var))
+        if (ft_var_here(tmp->content, var) == 1)
         {
             previous->next = tmp->next;
             ft_lstdelone(tmp, free);
@@ -48,17 +54,14 @@ int     ft_unset(char **cmd_builtin)
 
     i = 1;
     if (!cmd_builtin[1])
-    {
-        if (g_pid > 0)
-            return (0);
         return(ft_error("", NULL, NULL));
-    }
     while (cmd_builtin[i])
     {
         if (ft_strchr(cmd_builtin[i], '=') && g_pid == 0)
         {
             g_status = 1;
-            return (ft_error("minisell : unset: « ", cmd_builtin[1], " »: identifiant non valable\n"));
+            return (ft_error("minisell : unset: « ", cmd_builtin[1],
+            " »: identifiant non valable\n"));
         }
         if(ft_error_var_export(cmd_builtin[i]) == 0)
         {

@@ -1,9 +1,26 @@
 #include "../../include/minishell.h"
 
+void    ft_print_export(char *var, char *str)
+{
+    char *value;
+
+    ft_putstr_fd("declare -x ", 1);
+    ft_putstr(var);
+    if (ft_strchr(str, '='))
+    {
+        value = ft_get_var(g_export, var);
+        ft_putstr("\"");
+        ft_putstr(value);
+        ft_putstr("\"");
+        free(value);
+    }
+    ft_putstr("\n");
+}
+
 void	ft_lstprint_rank_export(t_list *lst)
 {
     char *var;
-    char *value;
+
     int i;
     char *str;
 
@@ -18,18 +35,7 @@ void	ft_lstprint_rank_export(t_list *lst)
             while(str[i] != '=' && str[i])
                 i++;
             var = ft_substr(str, 0, i + 1);
-            ft_putstr_fd("declare -x ", 1);
-            ft_putstr(var);
-            if (ft_strchr(str, '='))
-            {
-                value = ft_get_var(g_export, var);
-                ft_putstr("\"");
-                ft_putstr(value);
-                ft_putstr("\"");
-                
-                free(value);
-            }
-            ft_putstr("\n");
+            ft_print_export(var, str);
             free(var);
         }
 		lst = lst->next;
@@ -43,8 +49,6 @@ int     ft_rank_export(t_list *export)
     char *tmp;
     int rank;
 
-	if (!export->next)
-		return (0);
     begin = export;
     rank = 1;
     while (rank)

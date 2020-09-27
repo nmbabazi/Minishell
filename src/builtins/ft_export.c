@@ -3,31 +3,28 @@
 int     ft_error_var_export(char *cmd)
 {
 	int i;
-	if (*cmd != '_' &&
-        *cmd != '=' &&
+
+	if (*cmd != '_' && *cmd != '=' &&
         (*cmd < 'A' || *cmd > 'Z') &&
         (*cmd < 'a' || *cmd > 'z'))
-        {
-            g_status = 1;
-            errno = 1;
-            if (g_pid > 0)
-                return (1);
-            return(ft_error("minishell: export: « ", cmd, 
-            " » : identifiant non valable\n"));
-        }
+    {
+        g_status = 1;
+        if (g_pid > 0)
+            return (1);
+        return(ft_error("minishell: export: « ", cmd, 
+        " » : not a valid identifier\n"));
+    }
 	i = 0;
 	while (cmd[++i] && cmd[i] != '=')
-		if (cmd[i] != '_' &&
-            (cmd[i] < 'A' || cmd[i] > 'Z') &&
-            (cmd[i] < 'a' || cmd[i] > 'z') &&
-            (cmd[i] < '0' || cmd[i] > '9'))
+		if (cmd[i] != '_' && (cmd[i] < 'A' ||
+            cmd[i] > 'Z') && (cmd[i] < 'a' || cmd[i] > 'z')
+            && (cmd[i] < '0' || cmd[i] > '9'))
         {
             g_status = 1;
-            errno = 1;
             if (g_pid > 0)
                 return (1);
             return(ft_error("minishell: export: « ", cmd, 
-            " » : identifiant non valable\n"));
+            " » : not a valid identifier\n"));
         }
 	return (0);
 }
@@ -75,7 +72,7 @@ int     ft_add_var(char *newvar)
     {
         g_status = 1;
         return (ft_error("minishell: export: « ", newvar, 
-        " » : identifiant non valable\n"));
+        " » : not a valid identifier\n"));
     }
     ft_create_var(newvar, &g_export);
     if (ft_strchr(newvar, '='))
@@ -96,7 +93,6 @@ char    *ft_var_cmd(char *cmd)
     var = NULL;
     while (cmd[i] != '=' && cmd[i])
         i++;
-    //if (ft_strchr(cmd, '='))
     if (cmd[i] == '=')
         i++;
     var = ft_substr(cmd, 0, i);
@@ -125,9 +121,7 @@ int     ft_export(char **cmd_builtin)
             }
         }
         else
-        {
             ft_add_var(cmd_builtin[i]);
-        }
         i++;
         free(var);
     }

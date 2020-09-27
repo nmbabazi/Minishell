@@ -23,8 +23,9 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 		{
 			if(execve(cmd[0], cmd, g_env_tab) == -1)
 			{
-				g_status = ft_error(sh->cmd[0], " : commande introuvable\n", NULL);
-				exit(g_status);
+				ft_error("minishell: ", sh->cmd[0], ": command not found\n");
+				g_status = 127;
+				exit(127);
 			}
 		}
 		exit(g_status);
@@ -39,6 +40,8 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 		sh->fdd = sh->fd[0];
 		status = WEXITSTATUS(status);
 		g_status = WEXITSTATUS(status);
+		if (WIFSTOPPED(status))
+			g_status = WSTOPSIG(status);
 		if (WIFSIGNALED(status))
 			g_status = WTERMSIG(status);
 	}

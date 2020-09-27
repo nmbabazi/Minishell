@@ -1,7 +1,5 @@
 #include "../../include/minishell.h"
 
-/*voir afficher les variables d'env, exite ou pas ?*/
-
 int    ft_echo(char **cmd_builtin)
 {
     int i;

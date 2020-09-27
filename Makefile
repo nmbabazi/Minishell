@@ -3,6 +3,7 @@ NAME = minishell
 SRCS = 	main.c \
 		src/ft_get_var.c \
 		src/ft_get_path_absolute.c \
+		src/ft_get_cmd.c \
 		src/free.c \
 		src/builtins/ft_is_builtin.c \
 		src/builtins/ft_exec_builtin.c \

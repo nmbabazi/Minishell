@@ -9,23 +9,20 @@ int     ft_str_is_digit(char *str)
         i++;
     if (!str[i])
         return (0);
-    while(str[i])
+    while (str[i])
     {
-        if(ft_isdigit(str[i]) == 0)
+        if (ft_isdigit(str[i]) == 0)
             return (0);
         i++;
     }
     return (1);
 }
+
 int    ft_exit(char **cmd_builtin)
 {
-    int nb;
-
-    nb = 0;
     if (cmd_builtin[1])
     {
-
-        if(ft_str_is_digit(cmd_builtin[1]) == 0)
+        if (ft_str_is_digit(cmd_builtin[1]) == 0)
         {
             if (g_pid > 0)
                 ft_error("minishell: exit: ", cmd_builtin[1], 
@@ -34,14 +31,11 @@ int    ft_exit(char **cmd_builtin)
             exit(g_status);
         }
         else
-        {
-            nb = ft_atoi(cmd_builtin[1]);
-            g_status = nb % 256;
-        }
+            g_status = ft_atoi(cmd_builtin[1]) % 256;
     }
     if (cmd_builtin[1] && cmd_builtin[2])
     {
-        if(ft_str_is_digit(cmd_builtin[1]) == 1)
+        if (ft_str_is_digit(cmd_builtin[1]) == 1)
             g_status = 1;
         if (g_pid > 0)
             ft_error("minishell: exit: ", NULL, 
