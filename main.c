@@ -11,6 +11,9 @@
 //
 //echo a | export A=a; echo $A
 //export A=a | cat; echo $A
+//
+//
+// echo $'A'
 */
 
 

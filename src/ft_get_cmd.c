@@ -7,7 +7,7 @@ void	ft_cmd(char *cmd, t_sh *sh)
 		free(cmd);
 		return ;
 	}
-	if (ft_strcmp(sh->cmd[0], "export") == 0)
+	if (sh->cmd[0] && ft_strcmp(sh->cmd[0], "export") == 0)
 		sh->is_export = 1;
 	if (sh->cmd[0] == NULL && !sh->pars.out)
 		ft_putstr("");
