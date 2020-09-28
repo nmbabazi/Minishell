@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/28 13:48:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/28 15:23:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@ int		ft_isvarname(char c)
 			&& c != ' ' && c != '\t' && c != '\''))
 		return (1);
 	return (0);
+}
+
+char	*ft_strcat_norm(char *dest, const char *src)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (!src)
+		return (dest);
+	while (dest[i])
+		i++;
+	while (src[j])
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	free(src);
+	return (dest);
 }
 
 int		ft_namesize(char *src)
@@ -69,15 +91,42 @@ int		add_varsize(char *src, int i, int len)
 	return (len);
 }
 
-char	*ft_cpyvar(char *str, char *ret, int i, int l)
+int		ft_isvar(char *str, int i)
+{
+	if ((str[i] == '$' && ft_activslash(str, i) == 0)
+		&& (ft_isvarname(str[i + 1]) == 1
+		|| str[i + 1] == '?') && str[i + 1])
+		return (1);
+	return (0);
+}
+
+int		ft_verifstring(char *str, int i)
+{
+	if (str[i] && (str[i] != '\'' || (str[i] == '\''
+		&& ft_activslash(str, i) == 1)) && (str[i] != '$'
+		|| !str[i + 1] || ft_isvarname(str[i + 1]) == 0
+		|| (str[i] == '$' && ft_activslash(str, i) == 1)))
+		return (1);
+	return (0);
+}
+
+char	*ft_addvar(char *str, int i)
 {
 	int		cnt;
 	char	*name;
 	char	*var;
 
-	cnt = 0;
 	name = NULL;
 	var = NULL;
+	cnt = ft_namesize(&str[i + 1]);
+	name = ft_strvardup(&str[i + 1], cnt);
+	var = ft_get_var_parsing(g_env, name);
+	free(name);
+	return (var);
+}
+
+char	*ft_cpyvar(char *str, char *ret, int i, int l)
+{
 	while (str[i])
 	{
 		if (str[i] == '\'' && ft_activslash(str, i) == 0)
@@ -89,23 +138,13 @@ char	*ft_cpyvar(char *str, char *ret, int i, int l)
 			i++;
 			l++;
 		}
-		if ((str[i] == '$' && ft_activslash(str, i) == 0)
-			&& (ft_isvarname(str[i + 1]) == 1
-			|| str[i + 1] == '?') && str[i + 1])
+		if (ft_isvar(str, i) == 1)
 		{
-			cnt = ft_namesize(&str[i + 1]);
-			name = ft_strvardup(&str[i + 1], cnt);
-			var = ft_get_var_parsing(g_env, name);
-			ret = ft_strcat(ret, var);
-			free(name);
-			free(var);
-			i += (cnt + 1);
+			ret = ft_strcat_norm(ret, ft_addvar(str, i));
+			i += (ft_namesize(&str[i + 1]) + 1);
 			l = ft_strlen(ret);
 		}
-		if (str[i] && (str[i] != '\'' || (str[i] == '\''
-			&& ft_activslash(str, i) == 1)) && (str[i] != '$'
-			|| !str[i + 1] || ft_isvarname(str[i + 1]) == 0
-			|| (str[i] == '$' && ft_activslash(str, i) == 1)))
+		if (ft_verifstring(str, i) == 1)
 		{
 			ret[l] = str[i];
 			i++;
