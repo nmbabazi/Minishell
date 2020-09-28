@@ -16,7 +16,21 @@
 // echo $'A'
 */
 
+void     ft_verif_permission(char *cmd)
+{
+    struct stat mystat;
 
+    errno = 0;
+    stat(cmd, &mystat);
+	if ((mystat.st_mode & S_IFMT) == S_IFREG && strncmp(cmd, "./", 2) == 0)
+	{
+		if (!((mystat.st_mode & S_IFMT) == S_IXUSR))
+		{
+			ft_error("minishell: ", cmd, ": Permission denied\n");
+			exit(126);
+		}
+	}
+}
 
 int		exec_cmd(t_sh *sh)
 {
@@ -32,7 +46,10 @@ int		exec_cmd(t_sh *sh)
 		if (waitpid(g_pid, &status, 0) == -1)
 			return(ft_str_error("minishell: ", "wait", NULL));
 		status = WEXITSTATUS(status);
+		if (WTERMSIG(status) == 3)
+			ft_putstr_fd("Quitter (core dumped)\n", 1);
 		g_status = WEXITSTATUS(status);
+
 		if (WIFSTOPPED(status))
 			g_status = WSTOPSIG(status);
 		else if (WIFSIGNALED(status))
@@ -56,6 +73,7 @@ int		exec_cmd(t_sh *sh)
 			if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
 			{
 				//printf("errno = %d\n", errno);
+				ft_verif_permission(sh->cmd[0]);
 				/*if (errno == 13 || errno == 8)
 				{
 					ft_str_error("minishell: ", sh->cmd[0], ": ");
@@ -82,6 +100,8 @@ int     main(int ac, char **av, char **envp)
 	ft_rank_export(g_export);
     line = NULL;
     ret = 0;
+	signal(SIGQUIT, ft_deal_nothing);
+	signal(SIGINT, ft_insensitive_typing);
 	if(ac == 3 && !ft_strcmp(av[1], "-c"))
 	{
 		ft_get_cmd(av[2], &sh);
@@ -89,8 +109,7 @@ int     main(int ac, char **av, char **envp)
 	else 
 	{
 		ft_putstr_fd("$> ", 2);
-		signal(SIGQUIT, ft_deal_nothing);
-		signal(SIGINT, ft_insensitive_typing);
+
 		while ((ret = get_next_line(1, &line)) > 0)
 		{
 			sh.is_pipe= 0;

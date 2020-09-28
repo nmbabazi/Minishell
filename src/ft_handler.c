@@ -4,8 +4,11 @@
 void	ft_deal_nothing(int nb)
 {
 	(void)nb;
-	if (write(STDOUT_FILENO, " \b\b \b", 5) < 0)
-		return ;
+	g_status = 131;
+	if (g_pid == 0)
+		ft_putstr("\b\b \b\b \b\b");
+	//if (write(STDOUT_FILENO, " \b\b \b", 5) < 0)
+	//	return ;
 	return ;
 }
 
@@ -16,4 +19,5 @@ void	ft_insensitive_typing(int nb)
 	signal(SIGINT, ft_insensitive_typing);
 	ft_putstr("\n");
 	ft_putstr("$> ");
+	g_status = 130;
 }

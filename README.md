@@ -39,6 +39,10 @@ Récupère l'état du fichier pointé par path et remplit le tampon buf (structu
 - (mystat.st_mode & S_IFMT) == S_IFDIR -> vérifie si path est un dossier.
 si oui -> on definie errno = EISDIR (is a directory) et on retourne erreur.
 
+- S_IXUSR	00100	le propriétaire a le droit d'exécution
+- S_ISUID	0004000	bit set-UID : le bit Set-User-ID permet à un utilisateur d'exécuter le programme avec les droits du propriétaire, c'est ainsi que sudo nous permet d'exécuter des commandes en "root"
+- S_ISGID	0002000	bit set-GID : le bit Set-Group-ID idem que le User-ID mais par rapport au groupe
+
 **cursor movements**
 
 CUR_RIGHT="\033[1C"
