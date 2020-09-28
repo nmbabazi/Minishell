@@ -109,21 +109,25 @@ int     ft_export(char **cmd_builtin)
         return (ft_rank_export(g_export));
     i = 1;
     j = 0;
-    while (cmd_builtin[i] && ft_error_var_export(cmd_builtin[i]) == 0)
+    while (cmd_builtin[i])
     {
-        var = ft_var_cmd(cmd_builtin[i]);
-        if (ft_surch_var(g_export, var))
+       // printf("cmd = %s\n", cmd_builtin[i]);
+        if (!ft_error_var_export(cmd_builtin[i]))
         {
-            if (ft_strchr(var, '='))
+            var = ft_var_cmd(cmd_builtin[i]);
+            if (ft_surch_var(g_export, var))
             {
-                ft_replace(g_export, cmd_builtin[i], var);
-                ft_replace(g_env, cmd_builtin[i], var);
+                if (ft_strchr(var, '='))
+                {
+                    ft_replace(g_export, cmd_builtin[i], var);
+                    ft_replace(g_env, cmd_builtin[i], var);
+                }
             }
+            else
+                ft_add_var(cmd_builtin[i]);
+            free(var);
         }
-        else
-            ft_add_var(cmd_builtin[i]);
         i++;
-        free(var);
     }
     return (0);
 }

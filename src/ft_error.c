@@ -19,7 +19,7 @@ int    ft_str_error(char *cmd_name, char *arg, char *msg)
     if (errno == 2)
         errno = 1;
     else if (errno == 13)
-        errno = 126;
+      errno = 1;
     return (errno);
 }
 

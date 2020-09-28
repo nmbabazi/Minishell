@@ -7,15 +7,17 @@ void	ft_cmd(char *cmd, t_sh *sh)
 		free(cmd);
 		return ;
 	}
+	if (ft_strcmp(sh->cmd[0], "export") == 0)
+		sh->is_export = 1;
 	if (sh->cmd[0] == NULL && !sh->pars.out)
 		ft_putstr("");
-	else if(sh->is_pipe == 1 || sh->last_pipe == 1)
+	else if((sh->is_pipe == 1 || sh->last_pipe == 1) && sh->is_export == 0)
 	{
 		if (sh->cmd[0])
 			ft_get_path_absolute(g_env, sh);
 		ft_exec_pipe(sh, sh->cmd);
 	}
-	else 
+	else if ((sh->is_pipe == 0 && sh->last_pipe == 0))
 		exec_cmd(sh);
 	free_array(sh->cmd);
 	ft_lstclear(&sh->pars.out, lst_free_redir);
@@ -95,6 +97,9 @@ void	ft_get_cmd(char *line, t_sh *sh)
 	i = 0;
 	sh->fdd = 0;
 	sh->begin_lencmd = 0;
+	sh->is_pipe = 0;
+	sh->last_pipe = 0;
+	sh->is_export = 0;
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 			ft_cmd(ft_strdup(line), sh);

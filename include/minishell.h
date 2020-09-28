@@ -40,6 +40,7 @@ typedef struct      s_sh
     int             nb_cmd;
     int             is_pipe;
     int             last_pipe;
+    int             is_export;
     int             fdd;
     int             fd[2];
     pid_t           pid;

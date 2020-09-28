@@ -35,7 +35,7 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 		if (waitpid(sh->pid, &status, 0) == -1)
 			return(ft_str_error("minishell: ", "wait", NULL));
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
-			ft_exec_builtin(g_env, sh->cmd);
+				ft_exec_builtin(g_env, sh->cmd);
 		close(sh->fd[1]);
 		sh->fdd = sh->fd[0];
 		status = WEXITSTATUS(status);

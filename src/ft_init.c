@@ -6,6 +6,7 @@ void    ft_init(t_sh *sh, char **envp)
 	sh->path = NULL;
 	sh->last_pipe = 0;
 	sh->is_pipe = 0;
+	sh->is_export = 0;
 	sh->continue_cmd = 0;
 	sh->nb_cmd = 0;
 	g_status = 0;

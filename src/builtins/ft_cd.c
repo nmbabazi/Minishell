@@ -7,6 +7,10 @@ int     ft_update_pwd(void)
     char *all_pwd;
     char *all_old_pwd;
 
+    old_pwd = NULL;
+    pwd = NULL;
+    all_pwd = NULL;
+    all_old_pwd = NULL;
     old_pwd = ft_get_var(g_env, "PWD=");
     pwd = getcwd(pwd, 0);
     if (!old_pwd || !pwd)
