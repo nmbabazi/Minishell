@@ -6,13 +6,13 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/22 17:39:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/28 13:59:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void    ft_initpars(t_sh *sh)
+void	ft_initpars(t_sh *sh)
 {
 	sh->pars.in = NULL;
 	sh->pars.out = NULL;
@@ -37,20 +37,22 @@ char	*ft_strvardup(const char *s, int n)
 	return (new_string);
 }
 
-char    *ft_get_var_parsing(t_list *list, char *var)
+char	*ft_get_var_parsing(t_list *list, char *var)
 {
 	t_list *next;
 
-	if(ft_strncmp("?=", var, ft_strlen(var)) == 0)
-		return(ft_itoa(g_status));
-	while(list)
+	if (ft_strncmp("?=", var, ft_strlen(var)) == 0)
+		return (ft_itoa(g_status));
+	while (list)
 	{
 		next = list->next;
-		if(ft_strncmp(list->content, var, ft_strlen(var)) == 0)
-			return(ft_substr(list->content, ft_strlen(var), ft_strlen(list->content) - ft_strlen(var)));
-		list = next;
+		if (ft_strncmp(list->content, var, ft_strlen(var)) == 0)
+			return (ft_substr(list->content, ft_strlen(var),
+					ft_strlen(list->content) - ft_strlen(var)));
+		else
+			list = next;
 	}
-	return(NULL);
+	return (NULL);
 }
 
 int		ft_len_cmd(char *line, int i, int begin)

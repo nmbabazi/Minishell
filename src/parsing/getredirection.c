@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   getredirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/13 23:09:38 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/09/28 11:33:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 void	ft_add_file(char *cmd, t_list **out, int type)
 {
@@ -26,10 +25,10 @@ void	ft_add_file(char *cmd, t_list **out, int type)
 	return ;
 }
 
-void    ft_getredir(char **cmd, t_sh *sh)
+void	ft_getredir(char **cmd, t_sh *sh)
 {
 	int i;
-	
+
 	i = 0;
 	while (cmd[i])
 	{
@@ -58,7 +57,7 @@ void	ft_printredir(t_list *lst)
 	}
 }
 
-static	void	ft_dell_backslash(char **cmd)
+void	ft_dell_backslash(char **cmd)
 {
 	int i;
 
@@ -109,8 +108,8 @@ void	ft_array_cpy(char **new, char **tab)
 
 char	**ft_dell_redir(char **cmd)
 {
-	size_t len;
-	char **new;
+	size_t	len;
+	char	**new;
 
 	len = ft_array_len(cmd);
 	if (ft_isredirected(cmd) == 0)
@@ -121,7 +120,7 @@ char	**ft_dell_redir(char **cmd)
 	return (new);
 }
 
-char    **ft_cleancmd(char **cmd, t_sh *sh)
+char	**ft_cleancmd(char **cmd, t_sh *sh)
 {
 	sh->pars.in = NULL;
 	sh->pars.out = NULL;

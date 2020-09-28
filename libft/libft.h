@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 18:05:03 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/09/15 18:41:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/28 14:01:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ t_list	*ft_lstnew(void *content);
 int		get_next_line(int fd, char **line);
 size_t  ft_lstlen(t_list *lst);
 char    **ft_lststring_to_tab(t_list *lst);
+size_t	ft_array_len(char **tab);
 
 #endif

@@ -125,8 +125,6 @@ t_redir	*malloc_redir(char *str, int type);
 void	destroy_redir(t_redir to_destroy);
 void	free_redir(t_redir *to_free);
 void    lst_free_redir(void *to_free);
-char	**ft_array_delone(char **tab, int nb);
-size_t  ft_array_len(char **tab);
 char    **ft_parse(char *line, t_sh *sh);
 int     ft_openquote(char *src);
 char    *ft_get_var_parsing(t_list *list, char *var);

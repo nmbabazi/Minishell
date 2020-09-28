@@ -6,184 +6,185 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/26 18:43:42 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/28 13:48:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-int ft_isvarname(char c)
+int		ft_isvarname(char c)
 {
-    if (ft_isalnum(c) == 1 || (c != '\"' && c != '[' && c != ']' && c != '$' && c != '!' && c != '@' && c != '\n'
-            && c != '|' && c != ',' && c != '&' && c != '\\' && c != ' ' && c != '\t' && c != '\''))
-        return (1);
-    return (0);
+	if (ft_isalnum(c) == 1 || (c != '\"' && c != '[' && c != ']'
+		&& c != '$' && c != '!' && c != '@' && c != '\n'
+			&& c != '|' && c != ',' && c != '&' && c != '\\'
+			&& c != ' ' && c != '\t' && c != '\''))
+		return (1);
+	return (0);
 }
 
-static int     ft_namesize(char *src)
+int		ft_namesize(char *src)
 {
-    int i;
+	int i;
 
-    i = 0;
-    if (src[i] == '?')
-    {
-        i = 1;
-        return (i);
-    }
-    while (src[i]) 
-    {
-       if (ft_isvarname(src[i]) != 1)
-            break ;
-        i++;
-    }
-    return (i);
+	i = 0;
+	if (src[i] == '?')
+	{
+		i = 1;
+		return (i);
+	}
+	while (src[i])
+	{
+		if (ft_isvarname(src[i]) != 1)
+			break ;
+		i++;
+	}
+	return (i);
 }
 
-static int     add_varsize(char *src)
+int		add_varsize(char *src, int i, int len)
 {
-    int i;
-    char *name;
-    int cnt;
-    int len;
-    char *var;
+	char	*name;
+	int		cnt;
+	char	*var;
 
-    i = 0;
-    name = NULL;
-    len = 0;
-    var = NULL;
-    while (src[i])
-    {
-        if (src[i] == '\'' && ft_activslash(src, i) == 0)
-            i += (ft_passsinglequote(&src[i]));
-        if ((src[i] == '$' && ft_activslash(src, i) == 0)
-            && (ft_isvarname(src[i + 1]) == 1 || src[i + 1] == '?'))
-        {
-            cnt = ft_namesize(&src[i + 1]);
-            name = ft_strvardup(&src[i + 1], cnt);
-            var = ft_get_var_parsing(g_env, name);
-            len += ft_strlen(var);
-            free(name);
-            free(var);
-            i += cnt;
-        }
-        i++;
-    }
-    return (len);
+	name = NULL;
+	var = NULL;
+	while (src[i])
+	{
+		if (src[i] == '\'' && ft_activslash(src, i) == 0)
+			i += (ft_passsinglequote(&src[i]));
+		if ((src[i] == '$' && ft_activslash(src, i) == 0)
+			&& (ft_isvarname(src[i + 1]) == 1 || src[i + 1] == '?'))
+		{
+			cnt = ft_namesize(&src[i + 1]);
+			name = ft_strvardup(&src[i + 1], cnt);
+			var = ft_get_var_parsing(g_env, name);
+			len += ft_strlen(var);
+			free(name);
+			free(var);
+			i += cnt;
+		}
+		i++;
+	}
+	return (len);
 }
 
-static char    *ft_cpyvar(char *str, char *ret, int i, int l)
+char	*ft_cpyvar(char *str, char *ret, int i, int l)
 {
-    int cnt;
-    char *name;
-    char *var;
+	int		cnt;
+	char	*name;
+	char	*var;
 
-    cnt = 0;
-    name = NULL;
-    var = NULL;
-    while (str[i])
-    {   
-        if (str[i] == '\'' && ft_activslash(str, i) == 0)
-        {
-            ret = ft_cpysignlequote(str, ret, i);
-            i += ft_passsinglequote(&str[i]);
-            l = ft_strlen(ret);
-            ret[l] = str[i];
-            i++;
-            l++;
-        }
-        if ((str[i] == '$' && ft_activslash(str, i) == 0)
-            && (ft_isvarname(str[i + 1]) == 1 || str[i + 1] == '?') && str[i + 1])
-        {
-            cnt = ft_namesize(&str[i + 1]);
-            name = ft_strvardup(&str[i + 1], cnt);
-            var = ft_get_var_parsing(g_env, name);
-            ret = ft_strcat(ret, var);
-            free(name);
-            free(var);
-            i += (cnt + 1);
-            l = ft_strlen(ret);
-        }
-        if (str[i] && (str[i] != '\'' || (str[i] == '\'' && ft_activslash(str, i) == 1)) &&  (str[i] != '$' || !str[i + 1] || ft_isvarname(str[i + 1]) == 0 || (str[i] == '$' && ft_activslash(str, i) == 1)))
-        {
-            ret[l] = str[i];
-            i++;
-        }
-        l++;
-    }
-    return (ret);
+	cnt = 0;
+	name = NULL;
+	var = NULL;
+	while (str[i])
+	{
+		if (str[i] == '\'' && ft_activslash(str, i) == 0)
+		{
+			ret = ft_cpysignlequote(str, ret, i);
+			i += ft_passsinglequote(&str[i]);
+			l = ft_strlen(ret);
+			ret[l] = str[i];
+			i++;
+			l++;
+		}
+		if ((str[i] == '$' && ft_activslash(str, i) == 0)
+			&& (ft_isvarname(str[i + 1]) == 1
+			|| str[i + 1] == '?') && str[i + 1])
+		{
+			cnt = ft_namesize(&str[i + 1]);
+			name = ft_strvardup(&str[i + 1], cnt);
+			var = ft_get_var_parsing(g_env, name);
+			ret = ft_strcat(ret, var);
+			free(name);
+			free(var);
+			i += (cnt + 1);
+			l = ft_strlen(ret);
+		}
+		if (str[i] && (str[i] != '\'' || (str[i] == '\''
+			&& ft_activslash(str, i) == 1)) && (str[i] != '$'
+			|| !str[i + 1] || ft_isvarname(str[i + 1]) == 0
+			|| (str[i] == '$' && ft_activslash(str, i) == 1)))
+		{
+			ret[l] = str[i];
+			i++;
+		}
+		l++;
+	}
+	return (ret);
 }
 
-void    mute_sgl_in_dbl(char *str)
+void	mute_sgl_in_dbl(char *str)
 {
-    int i;
-    
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == '\'' && ft_activslash(str, i) == 0)
-            i += (ft_passsinglequote(&str[i]));
-        if (str[i] == '\"' && ft_activslash(str, i) == 0)
-        {
-            i++;
-            while (str[i])
-            {
-                if (str[i] == '\"' && ft_activslash(str, i) == 0)
-                    break ;
-                if (str[i] == '\'')
-                {
-                    str[i] = 11;
-                }
-                i++;
-            }
-        }
-        i++;
-    }
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' && ft_activslash(str, i) == 0)
+			i += (ft_passsinglequote(&str[i]));
+		if (str[i] == '\"' && ft_activslash(str, i) == 0)
+		{
+			i++;
+			while (str[i])
+			{
+				if (str[i] == '\"' && ft_activslash(str, i) == 0)
+					break ;
+				if (str[i] == '\'')
+				{
+					str[i] = 11;
+				}
+				i++;
+			}
+		}
+		i++;
+	}
 }
 
-void    unmute_sgl_in_dbl(char *str)
+void	unmute_sgl_in_dbl(char *str)
 {
-    int i;
-    
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == '\'' && ft_activslash(str, i) == 0)
-            i += (ft_passsinglequote(&str[i]));
-        if (str[i] == '\"' && ft_activslash(str, i) == 0)
-        {
-            i++;
-            while (str[i])
-            {
-                if (str[i] == '\"' && ft_activslash(str, i) == 0)
-                    break ;
-                if (str[i] == 11)
-                {
-                    str[i] = '\'';
-                }
-                i++;
-            }
-        }
-        i++;
-    }
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' && ft_activslash(str, i) == 0)
+			i += (ft_passsinglequote(&str[i]));
+		if (str[i] == '\"' && ft_activslash(str, i) == 0)
+		{
+			i++;
+			while (str[i])
+			{
+				if (str[i] == '\"' && ft_activslash(str, i) == 0)
+					break ;
+				if (str[i] == 11)
+				{
+					str[i] = '\'';
+				}
+				i++;
+			}
+		}
+		i++;
+	}
 }
 
-char    *ft_getactivvar(char *str)
+char	*ft_getactivvar(char *str)
 {
-    int len;
-    char *ret;
-    int i;
-    int l;
+	int		len;
+	char	*ret;
+	int		i;
+	int		l;
 
-    ret = NULL;
-    i = 0;
-    l = 0;
-    mute_sgl_in_dbl(str);
-    len = add_varsize(str) + ft_strlen(str);
-    if (!(ret = calloc((len + 1), sizeof(char))))
-        return (NULL);
-    ret = ft_cpyvar(str, ret, i, l);    
-    unmute_sgl_in_dbl(ret);
-    free(str);
-    return (ret);
+	ret = NULL;
+	i = 0;
+	l = 0;
+	mute_sgl_in_dbl(str);
+	len = add_varsize(str, i, l) + ft_strlen(str);
+	if (!(ret = calloc((len + 1), sizeof(char))))
+		return (NULL);
+	ret = ft_cpyvar(str, ret, i, l);
+	unmute_sgl_in_dbl(ret);
+	free(str);
+	return (ret);
 }

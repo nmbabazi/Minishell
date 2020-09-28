@@ -27,7 +27,6 @@ SRCS = 	main.c \
 		src/parsing/pars_dblquote.c \
 		src/parsing/pars_redirection.c \
 		src/parsing/redirection.c \
-		src/parsing/tableau.c \
 		src/parsing/getredirection.c \
 		src/parsing/pars_singlequote.c \
 		src/parsing/pars_var.c \
