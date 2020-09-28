@@ -16,6 +16,8 @@ int     ft_update_pwd(void)
     if (!old_pwd || !pwd)
     {
         ft_error("", NULL, NULL);
+        free(old_pwd);
+        free(pwd);
         g_status = 0;
         return (0);
     }

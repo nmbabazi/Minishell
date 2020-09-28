@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/28 15:23:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/28 15:32:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_isvarname(char c)
 	return (0);
 }
 
-char	*ft_strcat_norm(char *dest, const char *src)
+char	*ft_strcat_norm(char *dest, char *src)
 {
 	int i;
 	int j;
