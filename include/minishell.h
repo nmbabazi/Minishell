@@ -6,14 +6,13 @@
 /*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 12:19:19 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/09/29 13:43:00 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "parsing.h"
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>

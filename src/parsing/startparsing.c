@@ -6,7 +6,7 @@
 /*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 13:25:12 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/09/29 13:38:31 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int		ft_openquote_norm(char *src, int i, int n)
 	if ((n % 2) != 0)
 		return (1);
 	return (0);
-	
 }
 
 int		ft_openquote(char *src)
