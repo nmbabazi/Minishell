@@ -103,17 +103,16 @@ void	ft_get_cmd(char *line, t_sh *sh)
 	sh->is_export = 0;
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
-			ft_cmd(ft_strdup(line), sh);
-	else if (line[i] == ';' || line[i] == '|' ||
+		ft_cmd(ft_strdup(line), sh);
+	else if (line[i] == ';' || line[i] == '|' || ft_openquote(line) == 1 ||
 			ft_check_nbcmd(line, ';') != 1 ||
 			ft_check_nbcmd(line, '|') != 1)
 	{
 		ft_error("minishell: syntax error near unexpected token ",
 		"« ; » ou « | »", 
 		"\n");
-		g_status = 1;
+		g_status = 2;
 	}
-
 	else
 	{
         ft_split_cmd(line, i, sh);

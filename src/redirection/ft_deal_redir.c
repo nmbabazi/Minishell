@@ -19,7 +19,10 @@ int     ft_redir(char *file, int j, char chevron)
     else if (chevron == '<')
     {
         if ((fd = open(file, O_RDONLY)) < 0)
-            return (ft_str_error("minishell: ", file, ": "));
+        {
+            ft_str_error("minishell: ", file, ": ");
+            exit (1);
+        }
         dup2(fd, 0);
         close(fd);
     }

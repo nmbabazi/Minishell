@@ -4,6 +4,7 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 {
 	int	status;
 
+	g_fork = 1;
 	status = g_status;
 	pipe(sh->fd);
 	if ((sh->pid = fork()) < 0)
@@ -44,6 +45,7 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 			g_status = WSTOPSIG(status);
 		if (WIFSIGNALED(status))
 			g_status = WTERMSIG(status);
+		g_fork = 0;
 	}
 	return (0);
 }

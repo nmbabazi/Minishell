@@ -117,6 +117,7 @@ int     main(int ac, char **av, char **envp)
 
 		while ((ret = get_next_line(1, &line)) > 0)
 		{
+			
 			sh.is_pipe= 0;
 			ft_get_cmd(line, &sh);
 			free(line);
