@@ -46,20 +46,22 @@ int		exec_cmd(t_sh *sh)
 	{
 		if (waitpid(g_pid, &status, 0) == -1)
 			return(ft_str_error("minishell: ", "wait", NULL));
-		status = WEXITSTATUS(status);
-		if (WTERMSIG(status) == 3)
-			ft_putstr_fd("Quitter (core dumped)\n", 1);
+		//printf("g_status1 = %d\n", g_status);
+		//status = WEXITSTATUS(status);
 		g_status = WEXITSTATUS(status);
-
+		//printf("g_status2 = %d\n", g_status);
 		if (WIFSTOPPED(status))
 			g_status = WSTOPSIG(status);
 		else if (WIFSIGNALED(status))
 			g_status = WTERMSIG(status);
 		if (status == 127)
 			g_status = 127;
+		if (WTERMSIG(status) == 3)
+			g_status = 131;
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		g_fork = 0;
+		//printf("g_status3 = %d\n", g_status);
 		kill(g_pid, SIGTERM);
 	}
 	else

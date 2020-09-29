@@ -5,7 +5,6 @@ void	ft_deal_nothing(int nb)
 {
 	(void)nb;
 
-	//printf("g_fork = %d\n", g_fork);
 	if (g_fork == 0)
 	{
 		ft_putstr("\033[1C");
@@ -16,7 +15,6 @@ void	ft_deal_nothing(int nb)
 	{
 		ft_putstr("Quit (core dumped)\n");
 		g_status = 131;
-		exit(131);
 	}
 	return ;
 }
