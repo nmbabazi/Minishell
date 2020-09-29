@@ -1,19 +1,7 @@
 #include "include/minishell.h"
 
 /* A faire
-//
-// echo || echo
-// status 127 si cmd not found
-//
-// ->test cmd/cmd
-// echo\t\v\f\r�123456789:;=?@AB...
-// 
-//
-//echo a | export A=a; echo $A
-//export A=a | cat; echo $A
-//
-//
-// echo $'A'
+//echo salut || echo ca va
 */
 
 
