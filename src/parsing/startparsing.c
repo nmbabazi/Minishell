@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 13:38:31 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/09/29 16:33:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	**ft_parse(char *line, t_sh *sh)
 	}
 	if (checksorti(line) == 0 || checkentre(line) == 0)
 	{
-		g_status = 1;
+		g_status = 2;
 		ft_error("minishell :", NULL, "syntax error near unexpected token\n");
 		return (NULL);
 	}
