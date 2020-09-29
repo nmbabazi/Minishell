@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_singlequote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/28 12:04:02 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/29 11:44:05 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,16 @@ char	*ft_cpysignlequote(char *src, char *dest, int i)
 		i++;
 	}
 	return (dest);
+}
+
+void	ft_delate_quote(char **cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		cmd[i] = ft_cpyandclean(cmd[i]);
+		i++;
+	}
 }

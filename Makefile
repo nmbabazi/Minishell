@@ -30,6 +30,11 @@ SRCS = 	main.c \
 		src/parsing/getredirection.c \
 		src/parsing/pars_singlequote.c \
 		src/parsing/pars_var.c \
+		src/parsing/check_redirection.c \
+		src/parsing/ft_strcat_minishell.c \
+		src/parsing/pars_slash.c \
+		src/parsing/pars_space.c \
+		src/parsing/utiles_var.c \
 
 OBJSRCS = $(SRCS:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/28 11:49:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/29 11:46:05 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,58 +101,4 @@ char	*ft_isolateredirection(char *str, int nb_redir)
 		return (NULL);
 	p = ft_startisolation(str, p, i, l);
 	return (p);
-}
-
-int		checksorti(char *line)
-{
-	int i;
-	int cnt;
-
-	i = 0;
-	cnt = 0;
-	while (line[i])
-	{
-		if (line[i] == '>')
-		{
-			cnt = 0;
-			while (line[i] == '>')
-			{
-				i++;
-				cnt++;
-			}
-			while (line[i] == ' ')
-				i++;
-			if (cnt > 2 || ft_isalnum(line[i]) == 0)
-				return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-int		checkentre(char *line)
-{
-	int i;
-	int cnt;
-
-	i = 0;
-	cnt = 0;
-	while (line[i])
-	{
-		if (line[i] == '<')
-		{
-			cnt = 0;
-			while (line[i] == '<')
-			{
-				i++;
-				cnt++;
-			}
-			while (line[i] == ' ')
-				i++;
-			if (cnt > 1 || ft_isalnum(line[i]) == 0)
-				return (0);
-		}
-		i++;
-	}
-	return (1);
 }

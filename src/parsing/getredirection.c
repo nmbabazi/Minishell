@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getredirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/28 11:33:43 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/29 11:48:42 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,48 +40,6 @@ void	ft_getredir(char **cmd, t_sh *sh)
 			ft_add_file(cmd[i], &sh->pars.in, 1);
 		i++;
 	}
-}
-
-void	ft_printredir(t_list *lst)
-{
-	t_redir *actual_redir;
-
-	while (lst)
-	{
-		actual_redir = lst->content;
-		ft_putstr(actual_redir->str);
-		ft_putstr("\t");
-		ft_putnbr(actual_redir->type);
-		ft_putstr("\n");
-		lst = lst->next;
-	}
-}
-
-void	ft_dell_backslash(char **cmd)
-{
-	int i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i][0] == '\\' && (cmd[i][1] == '>' || cmd[i][1] == '<'))
-			cmd[i][0] = 127;
-		i++;
-	}
-}
-
-int		ft_isredirected(char **cmd)
-{
-	int i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (cmd[i][0] == '>' || cmd[i][0] == '<')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 void	ft_array_cpy(char **new, char **tab)
@@ -125,10 +83,6 @@ char	**ft_cleancmd(char **cmd, t_sh *sh)
 	sh->pars.in = NULL;
 	sh->pars.out = NULL;
 	ft_getredir(cmd, sh);
-	//printf("---------------sorti--------------\n");
-	//ft_printredir(sh->pars.out);
-	//printf("---------------entre--------------\n");
-	//ft_printredir(sh->pars.in);
 	cmd = ft_dell_redir(cmd);
 	ft_dell_backslash(cmd);
 	return (cmd);

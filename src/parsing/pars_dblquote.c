@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_dblquote.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/28 11:35:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/29 11:41:30 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,40 @@ char	*ft_cpydblquote(char *src, char *dest, int i)
 		i++;
 	}
 	return (dest);
+}
+
+int		ft_escapechar_quote(char c)
+{
+	if (c == '$' || c == '\"' || c == '\\' || c == '`')
+		return (1);
+	return (0);
+}
+
+void	ft_cleanbackslash_inquote(char *str)
+{
+	int i;
+	int bool;
+
+	i = 0;
+	bool = 0;
+	while (str[i])
+	{
+		if (str[i] == 15)
+		{
+			i++;
+			while (str[i] != 15)
+			{
+				if (str[i] == '\\' && bool == 0 &&
+					ft_escapechar_quote(str[i + 1]) == 1)
+				{
+					str[i] = 127;
+					bool = 1;
+				}
+				if (str[i] == '\\' && bool == 1)
+					bool = 0;
+				i++;
+			}
+		}
+		i++;
+	}
 }

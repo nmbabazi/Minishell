@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 11:33:20 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/29 12:15:41 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,29 @@ int					ft_openquote(char *src);
 char				*ft_get_var_parsing(t_list *list, char *var);
 void				ft_printredir(t_list *lst);
 void				ft_delate_quote(char **cmd);
+int					ft_isredirected(char **cmd);
+void				ft_dell_backslash(char **cmd);
+char				*ft_strcat_norm(char *dest, char *src);
+char				**ft_dell_redir(char **cmd);
+void				ft_array_cpy(char **new, char **tab);
+void				ft_getredir(char **cmd, t_sh *sh);
+void				ft_add_file(char *cmd, t_list **out, int type);
+void				ft_cleanbackslash_inquote(char *str);
+int					ft_escapechar_quote(char c);
+int					ft_isredirection(char *str, int i);
+int					ft_passdbl_insgl(char *str);
+int					ft_spaceafterslash(char *str);
+char				*ft_cpyvar(char *str, char *ret, int i, int l);
+char				*ft_addvar(char *str, int i);
+int					add_varsize(char *src, int i, int len);
+int					ft_namesize(char *src);
+char				*ft_cpyandclean(char *str);
+char				*ft_delate_backslash(char *str);
+void				ft_addback_quote(char *str);
+int					ft_verifstring(char *str, int i);
+int					ft_isvar(char *str, int i);
+int					ft_isvarname(char c);
+void				unmute_sgl_in_dbl(char *str);
+void				mute_sgl_in_dbl(char *str);
 
 #endif
