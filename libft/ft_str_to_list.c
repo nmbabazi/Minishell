@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_to_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:59:59 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/09/09 11:49:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/29 11:01:48 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static  char	*ft_cdup(char c)
+static	char	*ft_cdup(char c)
 {
 	int		i;
 	char	*new_string;
@@ -21,12 +21,12 @@ static  char	*ft_cdup(char c)
 	if (!(new_string = malloc(sizeof(char) * (2))))
 		return (0);
 	new_string[i] = c;
-		i++;
+	i++;
 	new_string[i] = '\0';
 	return (new_string);
 }
 
-t_list          *ft_str_to_list(t_list **lst, char *str)
+t_list			*ft_str_to_list(t_list **lst, char *str)
 {
 	t_list	*temp;
 	int		i;
