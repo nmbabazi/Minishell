@@ -4,11 +4,20 @@
 void	ft_deal_nothing(int nb)
 {
 	(void)nb;
-	g_status = 131;
-	if (g_pid == 0)
+
+	//printf("g_fork = %d\n", g_fork);
+	if (g_fork == 0)
+	{
+		ft_putstr("\033[1C");
 		ft_putstr("\b\b \b\b \b\b");
-	//if (write(STDOUT_FILENO, " \b\b \b", 5) < 0)
-	//	return ;
+		ft_putstr("\033[1C");
+	}
+	else
+	{
+		ft_putstr("Quit (core dumped)\n");
+		g_status = 131;
+		exit(131);
+	}
 	return ;
 }
 

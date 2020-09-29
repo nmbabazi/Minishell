@@ -36,6 +36,7 @@ int		exec_cmd(t_sh *sh)
 {
 	int	status;
 	
+	g_fork = 1;
 	g_pid = 0;
 	status = g_status;
 	g_pid = fork();
@@ -58,6 +59,7 @@ int		exec_cmd(t_sh *sh)
 			g_status = 127;
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
+		g_fork = 0;
 		kill(g_pid, SIGTERM);
 	}
 	else

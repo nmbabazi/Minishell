@@ -9,6 +9,7 @@ void    ft_init(t_sh *sh, char **envp)
 	sh->is_export = 0;
 	sh->continue_cmd = 0;
 	sh->nb_cmd = 0;
+	g_fork = 0;
 	g_status = 0;
 	g_env = NULL;
 	g_env = ft_tab_to_list(&g_env, envp);

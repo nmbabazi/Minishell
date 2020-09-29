@@ -94,6 +94,7 @@ void	ft_get_cmd(char *line, t_sh *sh)
 {
 	int i;
 
+	g_fork = 0;
 	i = 0;
 	sh->fdd = 0;
 	sh->begin_lencmd = 0;

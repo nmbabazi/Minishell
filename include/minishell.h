@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 11:16:14 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/09/29 11:33:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_list				*g_export;
 char				**g_env_tab;
 pid_t				g_pid;
 int					g_status;
+int					g_fork;
 
 void				free_all(char **env, t_sh *sh);
 void				free_array(char **array);
