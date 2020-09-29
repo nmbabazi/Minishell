@@ -45,4 +45,5 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 		if (WIFSIGNALED(status))
 			g_status = WTERMSIG(status);
 	}
+	return (0);
 }

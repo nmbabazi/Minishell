@@ -90,6 +90,7 @@ int		exec_cmd(t_sh *sh)
 		}
 		exit(g_status);
 	}
+	return (0);
 }
 
 int     main(int ac, char **av, char **envp)
