@@ -2,7 +2,7 @@
 
 void	ft_cmd(char *cmd, t_sh *sh)
 {
-	if ((sh->cmd = ft_parse(cmd, sh)) == NULL)
+	if ((sh->cmd = ft_parse(cmd, sh)) == NULL || g_status > 0)
 	{
 		free(cmd);
 		return ;

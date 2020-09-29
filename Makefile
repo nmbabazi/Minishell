@@ -15,6 +15,7 @@ SRCS = 	main.c \
 		src/builtins/ft_export.c \
 		src/builtins/ft_unset.c \
 		src/builtins/ft_deal_export.c \
+		src/exec/exec_cmd.c \
 		src/ft_error.c \
 		src/ft_lentab.c \
 		src/ft_init.c \
