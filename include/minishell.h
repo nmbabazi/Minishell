@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 13:43:00 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/09/30 20:06:32 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct		s_sh
 	int				is_export;
 	int				fdd;
 	int				fd[2];
-	pid_t			pid;
 	t_pars			pars;
 }					t_sh;
 
@@ -72,6 +71,8 @@ int					ft_get_path_absolute(t_list *list, t_sh *sh);
 void				ft_get_cmd(char *line, t_sh *sh);
 void				ft_cmd(char *cmd, t_sh *sh);
 int					exec_cmd(t_sh *sh);
+void				ft_deal_status(int status);
+void				ft_verif_permission(char *cmd);
 int					ft_is_bultin(char *cmd);
 void				ft_exec_builtin(t_list *list, char **cmd_builtin);
 int					ft_cd(t_list *list, char **cmd_builtin);

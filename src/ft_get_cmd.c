@@ -1,29 +1,24 @@
 #include "../include/minishell.h"
 
-void	ft_cmd(char *cmd, t_sh *sh)
+int		ft_double_pipe(char *line, int i, t_sh *sh)
 {
-	if ((sh->cmd = ft_parse(cmd, sh)) == NULL || g_status > 0)
+	char	*tmp;
+
+	tmp = ft_substr(line, 0, i);
+	while (line[i])
+		i++;
+	if (ft_openquote(tmp) == 0)
 	{
-		free(cmd);
-		return ;
+		sh->nb_cmd++;
+		ft_cmd(tmp, sh);
 	}
-	if (sh->cmd[0] && ft_strcmp(sh->cmd[0], "export") == 0)
-		sh->is_export = 1;
-	if (sh->cmd[0] == NULL && !sh->pars.out)
-		ft_putstr("");
-	else if((sh->is_pipe == 1 || sh->last_pipe == 1) && sh->is_export == 0)
+	else
 	{
-		if (sh->cmd[0])
-			ft_get_path_absolute(g_env, sh);
-		ft_exec_pipe(sh, sh->cmd);
+		free(tmp);
+		ft_strerror("minishell : syntax error");
+		g_status = 1;
 	}
-	else if ((sh->is_pipe == 0 && sh->last_pipe == 0))
-		exec_cmd(sh);
-	free_array(sh->cmd);
-	ft_lstclear(&sh->pars.out, lst_free_redir);
-	ft_lstclear(&sh->pars.in, lst_free_redir);
-	free(cmd);
-	cmd = NULL;
+	return (i);
 }
 
 int		ft_separate(char *line, int i, t_sh *sh)
@@ -33,6 +28,8 @@ int		ft_separate(char *line, int i, t_sh *sh)
 
 	len  = 0;
 	sh->continue_cmd = 0;
+	if (line[i] == '|' && line[i + 1] == '|')
+		return (ft_double_pipe(line, i, sh));
 	sh->begin_lencmd = ft_isspace(line, sh->begin_lencmd);
 	len = ft_len_cmd(line, i, sh->begin_lencmd);
 	tmp = ft_substr(line, sh->begin_lencmd, len);
@@ -75,7 +72,7 @@ void    ft_split_cmd(char *line, int i, t_sh *sh)
         {
             if (ft_error_pipe(line, i) == 1)
                 break ;
-            if (line[i] == '|')
+			if (line[i] == '|' && line[i - 1] != '|' && line[i + 1] != '|')
                 sh->is_pipe = 1;
             if (line[i] != '|' && sh->is_pipe == 1)
             {
@@ -101,6 +98,7 @@ void	ft_get_cmd(char *line, t_sh *sh)
 	sh->is_pipe = 0;
 	sh->last_pipe = 0;
 	sh->is_export = 0;
+	//g_status = 0;//////////////////////////////////////////////////////////////////////////////////////////
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 		ft_cmd(ft_strdup(line), sh);

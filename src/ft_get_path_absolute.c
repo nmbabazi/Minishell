@@ -7,13 +7,13 @@ int     ft_verif_path(char *bin)
     errno = 0;
     stat(bin, &mystat);
     if(errno)
-        return (FALSE);
+        return (1);
 	if ((mystat.st_mode & S_IFMT) == S_IFDIR)
 	{
         ft_error("minishell: ", bin, ": Is a directory\n");
 		exit(126);
 	}
-    return (TRUE);
+    return (0);
 }
 
 void    ft_check_path(char **path_split, t_sh *sh)
@@ -55,9 +55,9 @@ int     ft_get_path_absolute(t_list *list, t_sh *sh)
         ft_error("minishell: ", sh->cmd[0], ": No such file or directory\n");
         exit(g_status);
     }
-    if (strncmp(sh->cmd[0], "./", 2) == 0)
+    if (ft_strncmp(sh->cmd[0], "./", 2) == 0)
         ft_verif_path(sh->cmd[0]);
-    else if (sh->cmd[0][0] != '/' || strncmp(sh->cmd[0], "./", 2) != 0)
+    else if (sh->cmd[0][0] != '/' || ft_strncmp(sh->cmd[0], "./", 2) != 0)
     {
         path_split = ft_split(sh->path, ':');
         ft_check_path(path_split, sh);

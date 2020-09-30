@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lststring_to_tab.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 17:59:59 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/09/29 11:02:57 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/09/30 19:47:23 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ char	**ft_lststring_to_tab(t_list *lst)
 
 	i = 0;
 	iterator = lst;
-	if (!(str = (char **)malloc(sizeof(char*) * ft_lstlen(lst) + 1)))
+	if (!(str = malloc(sizeof(*str) * (ft_lstlen(lst) + 1))))
 		return (NULL);
 	while (iterator)
 	{
-		str[i] = ft_strdup(iterator->content);
+		if(!(str[i] = ft_strdup(iterator->content)))
+			return (NULL);
 		iterator = iterator->next;
 		i++;
 	}

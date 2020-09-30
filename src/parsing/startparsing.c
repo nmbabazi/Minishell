@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 16:33:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/30 17:23:59 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		ft_checktocken(char *str, int i, char c)
 	if (i == 0)
 		return (0);
 	i--;
+	if (c == '|' && str[i] == '|')
+		return (1);
 	while (i > 0 && str[i] != c)
 	{
 		if (str[i] != ' ')
@@ -112,5 +114,6 @@ char	**ft_parse(char *line, t_sh *sh)
 	ft_addback_space(cmd);
 	ft_delate_quote(cmd);
 	cmd = ft_cleancmd(cmd, sh);
+	g_status = 0;
 	return (cmd);
 }

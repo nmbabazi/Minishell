@@ -4,7 +4,12 @@ SRCS = 	main.c \
 		src/ft_get_var.c \
 		src/ft_get_path_absolute.c \
 		src/ft_get_cmd.c \
+		src/ft_cmd.c \
 		src/free.c \
+		src/ft_error.c \
+		src/ft_lentab.c \
+		src/ft_init.c \
+		src/ft_handler.c \
 		src/builtins/ft_is_builtin.c \
 		src/builtins/ft_exec_builtin.c \
 		src/builtins/ft_cd.c \
@@ -16,11 +21,9 @@ SRCS = 	main.c \
 		src/builtins/ft_unset.c \
 		src/builtins/ft_deal_export.c \
 		src/exec/exec_cmd.c \
-		src/ft_error.c \
-		src/ft_lentab.c \
-		src/ft_init.c \
-		src/ft_handler.c \
-		src/pipe/ft_exec_pipe.c \
+		src/exec/ft_deal_status.c \
+		src/exec/ft_verif_permission.c \
+		src/exec/ft_exec_pipe.c \
 		src/redirection/ft_deal_redir.c \
 		src/parsing/parsing.c \
 		src/parsing/startparsing.c \
@@ -42,7 +45,8 @@ OBJSRCS = $(SRCS:.c=.o)
 $(NAME) : $(OBJSRCS)
 	@rm -rf $(NAME)
 	$(MAKE) -C ./libft
-	@gcc -o $(NAME) -I include/minishell.h $(OBJSRCS) ./libft/libft.a $(MLX) -Wall -Wextra -Werror -g -fsanitize=address -fstack-protector
+	@gcc -o $(NAME) -I include/minishell.h $(OBJSRCS) ./libft/libft.a $(MLX) -Wall -Wextra -Werror -g
+	#-fsanitize=address -fstack-protector
 	@echo "\033[33m[Done !]"
 
 all : $(NAME)
