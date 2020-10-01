@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/30 20:06:32 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/01 13:46:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ int					ft_surch_var(t_list *list, char *var);
 int					ft_get_path_absolute(t_list *list, t_sh *sh);
 void				ft_get_cmd(char *line, t_sh *sh);
 void				ft_cmd(char *cmd, t_sh *sh);
+void				ft_init_get_cmd(t_sh *sh);
 int					exec_cmd(t_sh *sh);
 void				ft_deal_status(int status);
 void				ft_verif_permission(char *cmd);
 int					ft_is_bultin(char *cmd);
 void				ft_exec_builtin(t_list *list, char **cmd_builtin);
 int					ft_cd(t_list *list, char **cmd_builtin);
+int					ft_error_var_export(char *cmd);
 int					ft_pwd(char **cmd_builtin);
 int					ft_echo(char **cmd_builtin);
 int					ft_exit(char **cmd_builtin);
@@ -83,8 +85,8 @@ int					ft_env(char **cmd_builtin);
 int					ft_export(char **cmd_builtin);
 int					ft_error(char *cmd_name, char *arg, char *msg);
 int					ft_error_var_export(char *cmd);
+int					ft_error_pipe(char *line, int i);
 int					ft_unset(char **cmd_builtin);
-int					ft_strerror(char *msg);
 int					ft_str_error(char *cmd_name, char *arg, char *msg);
 int					ft_lentab(char **tab);
 int					ft_rank_export(t_list *export);

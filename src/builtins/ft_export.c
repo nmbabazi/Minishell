@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:53:13 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 14:03:56 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:03:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int		ft_error_var_export(char *cmd)
-{
-	int	i;
-
-	if (*cmd != '_' && *cmd != '=' &&
-		(*cmd < 'A' || *cmd > 'Z') &&
-		(*cmd < 'a' || *cmd > 'z'))
-	{
-		g_status = 1;
-		if (g_pid > 0)
-			return (1);
-		return (ft_error("minishell: export: « ", cmd,
-		" » : not a valid identifier\n"));
-	}
-	i = 0;
-	while (cmd[++i] && cmd[i] != '=')
-		if (cmd[i] != '_' && (cmd[i] < 'A' ||
-			cmd[i] > 'Z') && (cmd[i] < 'a' || cmd[i] > 'z')
-			&& (cmd[i] < '0' || cmd[i] > '9'))
-		{
-			g_status = 1;
-			if (g_pid > 0)
-				return (1);
-			return (ft_error("minishell: export: « ", cmd,
-			" » : not a valid identifier\n"));
-		}
-	return (0);
-}
 
 void	ft_replace(t_list *export, char *newcmd, char *var)
 {
@@ -115,13 +86,11 @@ int		ft_export(char **cmd_builtin)
 {
 	int		i;
 	char	*var;
-	int		j;
 
 	if (!cmd_builtin[1])
 		return (ft_rank_export(g_export));
-	i = 1;
-	j = 0;
-	while (cmd_builtin[i])
+	i = 0;
+	while (cmd_builtin[++i])
 	{
 		if (!ft_error_var_export(cmd_builtin[i]))
 		{
@@ -138,7 +107,6 @@ int		ft_export(char **cmd_builtin)
 				ft_add_var(cmd_builtin[i]);
 			free(var);
 		}
-		i++;
 	}
 	return (0);
 }

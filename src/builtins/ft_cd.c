@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:44:55 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 13:46:28 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/01 13:14:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_replace_pwd(char *all_pwd, char *all_old_pwd)
+{
+	ft_replace(g_env, all_pwd, "PWD=");
+	ft_replace(g_env, all_old_pwd, "OLDPWD=");
+	ft_replace(g_export, all_pwd, "PWD=");
+	ft_replace(g_export, all_old_pwd, "OLDPWD=");
+	free(all_pwd);
+	free(all_old_pwd);
+}
 
 int		ft_update_pwd(void)
 {
@@ -35,14 +45,9 @@ int		ft_update_pwd(void)
 	}
 	all_pwd = ft_strjoin("PWD=", pwd);
 	all_old_pwd = ft_strjoin("OLDPWD=", old_pwd);
-	ft_replace(g_env, all_pwd, "PWD=");
-	ft_replace(g_env, all_old_pwd, "OLDPWD=");
-	ft_replace(g_export, all_pwd, "PWD=");
-	ft_replace(g_export, all_old_pwd, "OLDPWD=");
+	ft_replace_pwd(all_pwd, all_old_pwd);
 	free(pwd);
 	free(old_pwd);
-	free(all_pwd);
-	free(all_old_pwd);
 	return (0);
 }
 
@@ -57,7 +62,7 @@ int		ft_home(void)
 		return (1);
 	}
 	if ((chdir(home)) == -1)
-		return (ft_strerror("home: home"));
+		return (ft_str_error("home: home ", NULL, NULL));
 	free(home);
 	return (0);
 }

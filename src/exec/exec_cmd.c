@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
+/*   Updated: 2020/10/01 13:17:50 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	ft_deal_child(t_sh *sh)
 {
 	if (sh->pars.out || sh->pars.in)
-		if(ft_deal_redir(sh) != 0)
+		if (ft_deal_redir(sh) != 0)
 			exit(g_status);
 	if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 		ft_exec_builtin(g_env, sh->cmd);
@@ -23,16 +35,16 @@ void	ft_deal_child(t_sh *sh)
 int		exec_cmd(t_sh *sh)
 {
 	int	status;
-	
+
 	g_fork = 1;
 	g_pid = 0;
 	status = g_status;
 	if ((g_pid = fork()) < 0)
-		ft_strerror("fork : ");
+		ft_str_error("fork : ", NULL, NULL);
 	else if (g_pid > 0)
 	{
 		if (waitpid(g_pid, &status, 0) == -1)
-			return(ft_str_error("minishell: ", "wait", NULL));
+			return (ft_str_error("minishell: ", "wait", NULL));
 		ft_deal_status(status);
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
