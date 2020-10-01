@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:41:32 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/01 13:10:07 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/01 16:18:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_insensitive_typing(int nb)
 	(void)nb;
 	signal(SIGINT, ft_insensitive_typing);
 	ft_putstr("\n");
-	ft_putstr("$> ");
+	if (g_fork == 0)
+		ft_putstr("$> ");
 	g_status = 130;
 }

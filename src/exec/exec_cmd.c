@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 13:17:50 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/01 15:47:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	ft_deal_child(t_sh *sh)
 	else if (sh->cmd[0])
 	{
 		ft_get_path_absolute(g_env, sh);
+		ft_verif_permission(sh->cmd[0]);
 		if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
 		{
-			ft_verif_permission(sh->cmd[0]);
+			ft_is_file(sh->cmd[0]);
 			ft_error("minishell: ", sh->cmd[0], ": command not found\n");
 			g_status = 127;
 			exit(127);

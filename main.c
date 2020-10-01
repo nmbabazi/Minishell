@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 13:16:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/01 16:25:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	ft_get_next_cmd(t_sh *sh)
 		ft_get_cmd(line, sh);
 		free(line);
 		line = NULL;
-		ft_putstr_fd("$> ", 2);
+		if (g_status != 130)
+			ft_putstr_fd("$> ", 2);
 	}
 	if (ret == 0)
 	{
@@ -49,7 +50,7 @@ int		main(int ac, char **av, char **envp)
 	ft_rank_export(g_export);
 	signal(SIGQUIT, ft_deal_nothing);
 	signal(SIGINT, ft_insensitive_typing);
-	if (ac == 3 && !ft_strcmp(av[1], "-c"))
+	if (ac == 3 && !ft_strcmp(av[1], "-c"))//////////////////
 	{
 		ft_get_cmd(av[2], &sh);
 	}

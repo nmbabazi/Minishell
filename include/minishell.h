@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/01 13:46:09 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/01 15:46:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void				ft_init(t_sh *sh, char **envp);
 void				ft_insensitive_typing(int nb);
 void				ft_deal_nothing(int nb);
 int					ft_len_cmd(char *line, int i, int begin);
+void				ft_is_file(char *cmd);
 int					ft_isspace(char *line, int index);
 int					ft_exec_pipe(t_sh *sh, char **cmd);
 int					ft_deal_redir(t_sh *sh);
