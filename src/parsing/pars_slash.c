@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_slash.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 11:42:00 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/05 11:29:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int				ft_activslash(char *src, int i)
 
 static	int		ft_escapechar(char c)
 {
-	if (ft_isascii(c) == 1 && c != '>' && c != '<')
+	if (ft_isascii(c) == 1 && c != '>' && c != '<' )
 		return (1);
 	return (0);
 }
 
-static	void	ft_cleanbackslash_norm(char *str, int i, int bool)
+static	void	ft_cleanbackslash_norm(char *str, int i)
 {
 	while (str[i])
 	{
@@ -73,13 +73,9 @@ static	void	ft_cleanbackslash_norm(char *str, int i, int bool)
 			while (str[i] != 15)
 				i++;
 		}
-		if (str[i] == '\\' && bool == 0 && ft_escapechar(str[i + 1]) == 1)
-		{
+		if (str[i] == '\\' && ft_escapechar(str[i + 1]) == 1
+			&& (ft_activslash_bis(str, i) == 0 && ft_activdell(str, i) == 0))
 			str[i] = 127;
-			bool = 1;
-		}
-		if ((str[i] == '\\' && bool == 1) || str[i] != '\\')
-			bool = 0;
 		i++;
 	}
 }
@@ -87,11 +83,9 @@ static	void	ft_cleanbackslash_norm(char *str, int i, int bool)
 void			ft_cleanbackslash(char *str)
 {
 	int i;
-	int bool;
 
 	i = 0;
-	bool = 0;
-	ft_cleanbackslash_norm(str, i, bool);
+	ft_cleanbackslash_norm(str, i);
 	ft_cleanbackslash_inquote(str);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/30 17:23:59 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/05 11:12:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,19 @@ int		ft_openquote(char *src)
 	return (ret);
 }
 
+void    ft_printcmd(char **cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd[i])
+    {
+        printf("%d--%s--\n", i, cmd[i]);
+        i++;
+    }
+    
+}
+
 char	**ft_parse(char *line, t_sh *sh)
 {
 	int		nb_cmd;
@@ -111,6 +124,7 @@ char	**ft_parse(char *line, t_sh *sh)
 	line = ft_parscmd(line);
 	cmd = ft_split(line, ' ');
 	free(line);
+	//ft_printcmd(cmd);
 	ft_addback_space(cmd);
 	ft_delate_quote(cmd);
 	cmd = ft_cleancmd(cmd, sh);
