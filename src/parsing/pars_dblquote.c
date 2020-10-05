@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/05 11:33:42 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/05 12:00:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,43 +80,6 @@ int		ft_escapechar_quote(char c)
 	return (0);
 }
 
-int				ft_activdell(char *src, int i)
-{
-	int n;
-
-	n = 0;
-	if (i == 0)
-		return (0);
-	i--;
-	while (i >= 0 && (src[i] == 127 || src[i] == '\\'))
-	{
-		i--;
-		n++;
-	}
-	if ((n % 2) != 0)
-		return (1);
-	return (0);
-}
-
-int				ft_activslash_bis(char *src, int i)
-{
-	int n;
-	int start = i;
-
-	n = 0;
-	if (i == 0)
-		return (0);
-	i--;
-	while (i >= 0 && (src[i] == '\\' || src[i] == 127))
-	{
-		i--;
-		n++;
-	}
-	if ((n % 2) != 0)
-		return (1);
-	return (0);
-}
-
 void	ft_cleanbackslash_inquote(char *str)
 {
 	int i;
@@ -131,7 +94,7 @@ void	ft_cleanbackslash_inquote(char *str)
 			{
 				if (str[i] == '\\' &&
 					ft_escapechar_quote(str[i + 1]) == 1 &&
-					(ft_activslash_bis(str, i) == 0 && ft_activdell(str, i) == 0))
+					ft_activslash_dell(str, i) == 0)
 					str[i] = 127;
 				i++;
 			}

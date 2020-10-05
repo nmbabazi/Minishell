@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/05 11:29:49 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/05 12:00:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				ft_activslash(char *src, int i)
 
 static	int		ft_escapechar(char c)
 {
-	if (ft_isascii(c) == 1 && c != '>' && c != '<' )
+	if (ft_isascii(c) == 1 && c != '>' && c != '<')
 		return (1);
 	return (0);
 }
@@ -74,7 +74,7 @@ static	void	ft_cleanbackslash_norm(char *str, int i)
 				i++;
 		}
 		if (str[i] == '\\' && ft_escapechar(str[i + 1]) == 1
-			&& (ft_activslash_bis(str, i) == 0 && ft_activdell(str, i) == 0))
+			&& ft_activslash_dell(str, i) == 0)
 			str[i] = 127;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/05 11:29:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/05 11:59:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ int					ft_isvar(char *str, int i);
 int					ft_isvarname(char c);
 void				unmute_sgl_in_dbl(char *str);
 void				mute_sgl_in_dbl(char *str);
-int					ft_activdell(char *src, int i);
-int					ft_activslash_bis(char *src, int i);
+int					ft_activslash_dell(char *src, int i);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_space.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 11:41:42 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/05 12:00:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,22 @@ void	ft_addback_space(char **cmd)
 		}
 		i++;
 	}
+}
+
+int		ft_activslash_dell(char *src, int i)
+{
+	int n;
+
+	n = 0;
+	if (i == 0)
+		return (0);
+	i--;
+	while (i >= 0 && (src[i] == '\\' || src[i] == 127))
+	{
+		i--;
+		n++;
+	}
+	if ((n % 2) != 0)
+		return (1);
+	return (0);
 }
