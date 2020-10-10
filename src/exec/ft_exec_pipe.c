@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 15:47:54 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/10 12:58:55 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,22 @@ void	ft_deal_pipe_parent(t_sh *sh)
 	sh->fdd = sh->fd[0];
 }
 
+void	ft_deal_last_pipe(int status)
+{
+	int pid;
+
+	pid = 0;
+	while (pid != -1)
+		pid = waitpid(g_pid, &status, 0);
+	ft_deal_status(status);
+	g_fork = 0;
+}
+
 int		ft_exec_pipe(t_sh *sh, char **cmd)
 {
 	int	status;
 
-	g_fork = 1;
+	g_fork = 2;
 	g_pid = 0;
 	status = g_status;
 	pipe(sh->fd);
@@ -54,19 +65,16 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 		ft_str_error("fork : ", NULL, NULL);
 	else if (g_pid > 0)
 	{
-		if (waitpid(g_pid, &status, 0) == -1)
-			return (ft_str_error("minishell: ", "wait", NULL));
-		ft_deal_status(status);
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		ft_deal_pipe_parent(sh);
-		g_fork = 0;
-		kill(g_pid, SIGTERM);
 	}
 	else
 	{
 		ft_deal_pipe_child(sh, cmd);
 		exit(g_status);
 	}
+	if (sh->last_pipe == 1)
+		ft_deal_last_pipe(status);
 	return (0);
 }

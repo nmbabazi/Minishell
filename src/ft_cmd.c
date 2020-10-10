@@ -3,19 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 11:59:37 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/10 11:43:15 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+int		ft_endstring(char *line, int i)
+{
+	while (line[i])
+		i++;
+	return (i);
+}
+
 void	ft_cmd(char *cmd, t_sh *sh)
 {
-	if ((sh->cmd = ft_parse(cmd, sh)) == NULL || g_status > 0)
+	if ((sh->cmd = ft_parse(cmd, sh)) == NULL)
 	{
+		error_parsing = 1;
 		free(cmd);
 		return ;
 	}
@@ -26,7 +34,7 @@ void	ft_cmd(char *cmd, t_sh *sh)
 	else if ((sh->is_pipe == 1 || sh->last_pipe == 1) && sh->is_export == 0)
 	{
 		if (sh->cmd[0])
-			ft_get_path_absolute(g_env, sh);
+			ft_get_path_absolute(sh);
 		ft_exec_pipe(sh, sh->cmd);
 	}
 	else if ((sh->is_pipe == 0 && sh->last_pipe == 0))

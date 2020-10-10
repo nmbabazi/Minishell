@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_path_absolute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 12:10:46 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/07 12:47:00 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_check_path(char **path_split, t_sh *sh)
 	}
 }
 
-int		ft_get_path_absolute(t_list *list, t_sh *sh)
+int		ft_get_path_absolute(t_sh *sh)
 {
 	char **path_split;
 

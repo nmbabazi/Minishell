@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 13:46:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/09 17:57:07 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		ft_double_pipe(char *line, int i, t_sh *sh)
 			sh->last_pipe = 1;
 		}
 		ft_cmd(tmp, sh);
+		if (error_parsing == 1)
+			i = ft_endstring(line, i);
 	}
 	else
 	{
@@ -66,6 +68,8 @@ int		ft_separate(char *line, int i, t_sh *sh)
 	{
 		sh->nb_cmd++;
 		ft_cmd(tmp, sh);
+		if (error_parsing == 1)
+			i = ft_endstring(line, i);
 	}
 	else if (ft_openquote(tmp) == 1)
 	{
@@ -111,7 +115,7 @@ void	ft_get_cmd(char *line, t_sh *sh)
 
 	i = 0;
 	ft_init_get_cmd(sh);
-	//g_status = 0;
+	error_parsing = 0;
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 		ft_cmd(ft_strdup(line), sh);

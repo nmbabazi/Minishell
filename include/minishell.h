@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/05 11:59:50 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/10 11:33:47 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ t_list				*g_export;
 char				**g_env_tab;
 pid_t				g_pid;
 int					g_status;
+int					error_parsing;
 int					g_fork;
 
 void				free_all(char **env, t_sh *sh);
 void				free_array(char **array);
 char				*ft_get_var(t_list *list, char *var);
 int					ft_surch_var(t_list *list, char *var);
-int					ft_get_path_absolute(t_list *list, t_sh *sh);
+int					ft_get_path_absolute(t_sh *sh);
 void				ft_get_cmd(char *line, t_sh *sh);
 void				ft_cmd(char *cmd, t_sh *sh);
 void				ft_init_get_cmd(t_sh *sh);
@@ -80,6 +81,7 @@ int					ft_cd(t_list *list, char **cmd_builtin);
 int					ft_error_var_export(char *cmd);
 int					ft_pwd(char **cmd_builtin);
 int					ft_echo(char **cmd_builtin);
+int					ft_shlvl(char ** cmd_builtin);
 int					ft_exit(char **cmd_builtin);
 int					ft_env(char **cmd_builtin);
 int					ft_export(char **cmd_builtin);
@@ -89,6 +91,7 @@ int					ft_error_pipe(char *line, int i);
 int					ft_unset(char **cmd_builtin);
 int					ft_str_error(char *cmd_name, char *arg, char *msg);
 int					ft_lentab(char **tab);
+int					ft_endstring(char *line, int i);
 int					ft_rank_export(t_list *export);
 void				ft_lstprint_rank_export(t_list *lst);
 void				ft_init(t_sh *sh, char **envp);

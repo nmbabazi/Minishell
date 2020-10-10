@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 15:47:59 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/10 12:17:51 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	ft_deal_child(t_sh *sh)
 		ft_exec_builtin(g_env, sh->cmd);
 	else if (sh->cmd[0])
 	{
-		ft_get_path_absolute(g_env, sh);
+		ft_get_path_absolute(sh);
 		ft_verif_permission(sh->cmd[0]);
+		if (sh->cmd[0] && ft_strcmp(sh->cmd[0], "./minishell") == 0)
+			ft_shlvl(sh->cmd);
 		if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
 		{
 			ft_is_file(sh->cmd[0]);
@@ -49,6 +51,8 @@ int		exec_cmd(t_sh *sh)
 		ft_deal_status(status);
 		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
+		if (sh->cmd[0] && ft_strcmp(sh->cmd[0], "./minishell") == 0)
+			ft_shlvl(sh->cmd);
 		g_fork = 0;
 		kill(g_pid, SIGTERM);
 	}

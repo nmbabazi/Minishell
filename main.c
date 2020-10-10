@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 16:25:51 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/10 11:14:24 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ void	ft_get_next_cmd(t_sh *sh)
 		ft_get_cmd(line, sh);
 		free(line);
 		line = NULL;
-		if (g_status != 130)
-			ft_putstr_fd("$> ", 2);
+		ft_putstr_fd("$> ", 2);
 	}
 	if (ret == 0)
 	{
 		ft_putstr_fd("exit\n", 1);
-		exit(errno);
+		exit(0);
 	}
 	if (ret == -1)
 		exit(errno);

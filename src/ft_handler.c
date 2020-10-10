@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:41:32 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/01 16:18:33 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/10 12:59:20 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_deal_nothing(int nb)
 	(void)nb;
 	if (g_fork == 0)
 	{
+		printf("fork > 0\n");
 		ft_putstr("\033[1C");
 		ft_putstr("\b\b \b\b \b\b");
 		ft_putstr("\033[1C");
@@ -32,9 +33,12 @@ void	ft_deal_nothing(int nb)
 void	ft_insensitive_typing(int nb)
 {
 	(void)nb;
-	signal(SIGINT, ft_insensitive_typing);
-	ft_putstr("\n");
+	if (g_fork == 2)
+		ft_putstr("\n");
 	if (g_fork == 0)
+	{
+		ft_putstr("\n");
 		ft_putstr("$> ");
+	}
 	g_status = 130;
 }

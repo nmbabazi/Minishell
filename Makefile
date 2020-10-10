@@ -19,6 +19,7 @@ SRCS = 	main.c \
 		src/builtins/ft_env.c \
 		src/builtins/ft_export.c \
 		src/builtins/ft_unset.c \
+		src/builtins/ft_shlvl.c \
 		src/builtins/ft_deal_export.c \
 		src/exec/exec_cmd.c \
 		src/exec/ft_deal_status.c \

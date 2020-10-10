@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:44:55 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/01 13:14:36 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/07 12:39:01 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_replace_pwd(char *all_pwd, char *all_old_pwd)
 {
 	ft_replace(g_env, all_pwd, "PWD=");
 	ft_replace(g_env, all_old_pwd, "OLDPWD=");
+	free_array(g_env_tab);
+	g_env_tab = ft_lststring_to_tab(g_env);
 	ft_replace(g_export, all_pwd, "PWD=");
 	ft_replace(g_export, all_old_pwd, "OLDPWD=");
 	free(all_pwd);
@@ -95,7 +97,7 @@ int		ft_cd(t_list *list, char **cmd_builtin)
 	{
 		if (g_pid > 0)
 			ft_error("minishell: cd: ", NULL,
-				"trop d'arguments\n");
+				"too many arguments\n");
 		g_status = 1;
 		return (0);
 	}

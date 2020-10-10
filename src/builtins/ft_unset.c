@@ -3,14 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:56:26 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 14:00:50 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/07 12:44:07 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int		ft_error_var_unset(char *cmd)
+{
+	int	i;
+
+	if (*cmd != '_' && *cmd != '=' &&
+		(*cmd < 'A' || *cmd > 'Z') &&
+		(*cmd < 'a' || *cmd > 'z'))
+	{
+		g_status = 1;
+		if (g_pid > 0)
+			return (1);
+		return (ft_error("minishell: unset: « ", cmd,
+		" » : not a valid identifier\n"));
+	}
+	i = 0;
+	while (cmd[++i] && cmd[i] != '=')
+	{
+		if (cmd[i] != '_' && (cmd[i] < 'A' ||
+			cmd[i] > 'Z') && (cmd[i] < 'a' || cmd[i] > 'z')
+			&& (cmd[i] < '0' || cmd[i] > '9'))
+		{
+			g_status = 1;
+			if (g_pid > 0)
+				return (1);
+			return (ft_error("minishell: unset: « ", cmd,
+			" » : not a valid identifier\n"));
+		}
+	}
+	g_status = 0;
+	return (0);
+}
 
 int		ft_len_var(char *str)
 {
@@ -75,12 +107,13 @@ int		ft_unset(char **cmd_builtin)
 			return (ft_error("minisell : unset: « ", cmd_builtin[1],
 			" »: identifiant non valable\n"));
 		}
-		if (ft_error_var_export(cmd_builtin[i]) == 0)
+		if (ft_error_var_unset(cmd_builtin[i]) == 0)
 		{
 			g_export = ft_del_element_lst(g_export, cmd_builtin[i]);
 			g_env = ft_del_element_lst(g_env, cmd_builtin[i]);
 		}
 		i++;
 	}
+	g_status = 0;
 	return (0);
 }

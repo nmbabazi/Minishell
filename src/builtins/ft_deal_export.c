@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deal_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:47:48 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/01 12:35:30 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/07 10:13:44 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_error_var_export(char *cmd)
 	}
 	i = 0;
 	while (cmd[++i] && cmd[i] != '=')
+	{
 		if (cmd[i] != '_' && (cmd[i] < 'A' ||
 			cmd[i] > 'Z') && (cmd[i] < 'a' || cmd[i] > 'z')
 			&& (cmd[i] < '0' || cmd[i] > '9'))
@@ -38,6 +39,8 @@ int		ft_error_var_export(char *cmd)
 			return (ft_error("minishell: export: « ", cmd,
 			" » : not a valid identifier\n"));
 		}
+	}
+	g_status = 0;
 	return (0);
 }
 
