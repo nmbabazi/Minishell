@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:41:32 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/10 12:59:20 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/10 13:15:43 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_deal_nothing(int nb)
 	(void)nb;
 	if (g_fork == 0)
 	{
-		printf("fork > 0\n");
 		ft_putstr("\033[1C");
 		ft_putstr("\b\b \b\b \b\b");
 		ft_putstr("\033[1C");
