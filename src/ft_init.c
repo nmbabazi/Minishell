@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/04 12:21:58 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/12 15:14:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_init(t_sh *sh, char **envp)
 	sh->continue_cmd = 0;
 	sh->nb_cmd = 0;
 	g_fork = 0;
-	//g_status = 0;
 	g_env = NULL;
 	g_env = ft_tab_to_list(&g_env, envp);
 	g_export = ft_tab_to_list(&g_export, envp);

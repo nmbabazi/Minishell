@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/09 17:57:07 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/12 16:03:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int		ft_double_pipe(char *line, int i, t_sh *sh)
 
 	j = ft_began_double_pipe(j, i, line);
 	tmp = ft_substr(line, j, i - j);
-	while (line[i])
-		i++;
+	i = ft_endstring(line, i);
+	i--;
 	if (ft_openquote(tmp) == 0)
 	{
 		sh->nb_cmd++;
@@ -40,7 +40,7 @@ int		ft_double_pipe(char *line, int i, t_sh *sh)
 			sh->last_pipe = 1;
 		}
 		ft_cmd(tmp, sh);
-		if (error_parsing == 1)
+		if (g_error_parsing == 1)
 			i = ft_endstring(line, i);
 	}
 	else
@@ -68,7 +68,7 @@ int		ft_separate(char *line, int i, t_sh *sh)
 	{
 		sh->nb_cmd++;
 		ft_cmd(tmp, sh);
-		if (error_parsing == 1)
+		if (g_error_parsing == 1)
 			i = ft_endstring(line, i);
 	}
 	else if (ft_openquote(tmp) == 1)
@@ -85,9 +85,10 @@ void	ft_split_cmd(char *line, int i, t_sh *sh)
 {
 	while (line[i])
 	{
+		
 		sh->last_pipe = 0;
-		if ((line[i] == ';' && line[i - 1] == '\\') ||
-				(line[i] == '|' && line[i - 1] == '\\'))
+		if ((line[i] == ';' && ft_activslash(line, i) == 1) ||
+				(line[i] == '|' && ft_activslash(line, i) == 1))
 			i++;
 		if (line[i] == ';' || (line[i + 1] == '\0' && line[i] != ';') ||
 				line[i] == '|')
@@ -115,7 +116,7 @@ void	ft_get_cmd(char *line, t_sh *sh)
 
 	i = 0;
 	ft_init_get_cmd(sh);
-	error_parsing = 0;
+	g_error_parsing = 0;
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 		ft_cmd(ft_strdup(line), sh);

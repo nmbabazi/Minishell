@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   startparsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/09 17:23:37 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/12 15:10:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**ft_parse(char *line, t_sh *sh)
 {
 	int		nb_cmd;
 	char	**cmd;
-	
+
 	nb_cmd = 0;
 	if (ft_openquote(line) == 1 || ft_activslash(line, ft_strlen(line)) == 1)
 	{

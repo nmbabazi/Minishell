@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lststring_to_tab.c                              :+:      :+:    :+:   */
+/*   ft_utils_builtins.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 17:59:59 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/10/12 15:22:09 by user42           ###   ########.fr       */
+/*   Created: 2020/09/29 13:56:26 by nmbabazi          #+#    #+#             */
+/*   Updated: 2020/10/12 15:06:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-char	**ft_lststring_to_tab(t_list *lst)
+int		ft_len_var(char *str)
 {
-	char	**str;
-	t_list	*iterator;
-	int		i;
+	int	i;
 
 	i = 0;
-	iterator = lst;
-	if (!(str = malloc(sizeof(*str) * (ft_lstlen(lst) + 1))))
-		return (NULL);
-	while (iterator)
-	{
-		if (!(str[i] = ft_strdup(iterator->content)))
-			return (NULL);
-		iterator = iterator->next;
+	while (str[i] != '=' && str[i])
 		i++;
-	}
-	str[i] = NULL;
-	return (str);
+	return (i);
 }

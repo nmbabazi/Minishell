@@ -3,29 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:56:26 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/07 12:44:07 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/12 15:06:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		ft_error_var_unset(char *cmd)
+int		ft_error_variable_unset(char *cmd)
 {
 	int	i;
 
-	if (*cmd != '_' && *cmd != '=' &&
-		(*cmd < 'A' || *cmd > 'Z') &&
-		(*cmd < 'a' || *cmd > 'z'))
-	{
-		g_status = 1;
-		if (g_pid > 0)
-			return (1);
-		return (ft_error("minishell: unset: « ", cmd,
-		" » : not a valid identifier\n"));
-	}
 	i = 0;
 	while (cmd[++i] && cmd[i] != '=')
 	{
@@ -40,18 +30,25 @@ int		ft_error_var_unset(char *cmd)
 			" » : not a valid identifier\n"));
 		}
 	}
-	g_status = 0;
 	return (0);
 }
 
-int		ft_len_var(char *str)
+int		ft_error_var_unset(char *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '=' && str[i])
-		i++;
-	return (i);
+	if (*cmd != '_' && *cmd != '=' &&
+		(*cmd < 'A' || *cmd > 'Z') &&
+		(*cmd < 'a' || *cmd > 'z'))
+	{
+		g_status = 1;
+		if (g_pid > 0)
+			return (1);
+		return (ft_error("minishell: unset: « ", cmd,
+		" » : not a valid identifier\n"));
+	}
+	if (ft_error_variable_unset(cmd) != 0)
+		return (1);
+	g_status = 0;
+	return (0);
 }
 
 int		ft_var_here(char *content, char *var)

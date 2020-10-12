@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_verif_permission.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/10 11:56:43 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/12 15:08:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ void	ft_verif_permission(char *cmd)
 	stat(cmd, &permstat);
 	if (errno)
 		return ;
-	
 	if ((permstat.st_mode & S_IFMT) == S_IFREG)
 	{
-
 		if ((permstat.st_mode & S_IXUSR) == 0)
 		{
 			ft_error("minishell: ", cmd, ": Permission denied\n");

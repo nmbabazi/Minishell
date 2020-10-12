@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/01 13:45:52 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/12 15:14:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_error_pipe(char *line, int i)
 	return (0);
 }
 
-int	ft_str_error(char *cmd_name, char *arg, char *msg)
+int		ft_str_error(char *cmd_name, char *arg, char *msg)
 {
 	ft_putstr_fd(cmd_name, 2);
 	ft_putstr_fd(arg, 2);
@@ -37,7 +37,7 @@ int	ft_str_error(char *cmd_name, char *arg, char *msg)
 	return (errno);
 }
 
-int	ft_error(char *cmd_name, char *arg, char *msg)
+int		ft_error(char *cmd_name, char *arg, char *msg)
 {
 	ft_putstr_fd(cmd_name, 2);
 	ft_putstr_fd(arg, 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/10 11:43:15 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/12 15:20:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_cmd(char *cmd, t_sh *sh)
 {
 	if ((sh->cmd = ft_parse(cmd, sh)) == NULL)
 	{
-		error_parsing = 1;
+		g_error_parsing = 1;
 		free(cmd);
 		return ;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deal_status.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/10 13:01:29 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/12 15:09:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	ft_deal_status(int status)
 	if (WTERMSIG(status) == 3)
 		g_status = 131;
 	if (WTERMSIG(status) == 2 && g_fork == 1)
-	 	ft_putstr("\n");
+		ft_putstr("\n");
 }

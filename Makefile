@@ -1,5 +1,8 @@
 NAME = minishell
 
+CC = gcc
+CFAG = -Wall -Werror -Wextra
+
 SRCS = 	main.c \
 		src/ft_get_var.c \
 		src/ft_get_path_absolute.c \
@@ -21,6 +24,7 @@ SRCS = 	main.c \
 		src/builtins/ft_unset.c \
 		src/builtins/ft_shlvl.c \
 		src/builtins/ft_deal_export.c \
+		src/builtins/ft_utils_builtins.c \
 		src/exec/exec_cmd.c \
 		src/exec/ft_deal_status.c \
 		src/exec/ft_verif_permission.c \
@@ -46,7 +50,7 @@ OBJSRCS = $(SRCS:.c=.o)
 $(NAME) : $(OBJSRCS)
 	@rm -rf $(NAME)
 	$(MAKE) -C ./libft
-	@gcc -o $(NAME) -I include/minishell.h $(OBJSRCS) ./libft/libft.a $(MLX) -Wall -Wextra -Werror
+	@gcc -o $(NAME) -I include/minishell.h $(OBJSRCS) ./libft/libft.a $(MLX) -Wall -Wextra -Werror -g
 	@echo "\033[33m[Done !]"
 
 all : $(NAME)
