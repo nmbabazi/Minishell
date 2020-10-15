@@ -39,7 +39,8 @@ char	*ft_strvardup(const char *s, int n)
 
 char	*ft_get_var_parsing(t_list *list, char *var)
 {
-	t_list *next;
+	t_list	*next;
+	char	*ret;
 
 	if (ft_strncmp("?=", var, ft_strlen(var)) == 0)
 		return (ft_itoa(g_status));
@@ -47,8 +48,11 @@ char	*ft_get_var_parsing(t_list *list, char *var)
 	{
 		next = list->next;
 		if (ft_strncmp(list->content, var, ft_strlen(var)) == 0)
-			return (ft_substr(list->content, ft_strlen(var),
-					ft_strlen(list->content) - ft_strlen(var)));
+		{
+			ret = ft_substr(list->content, ft_strlen(var),ft_strlen(list->content) - ft_strlen(var));
+			ft_saveslash(ret, '\\', 7);
+			return (ret);
+		}
 		else
 			list = next;
 	}

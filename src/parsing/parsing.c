@@ -118,5 +118,6 @@ char	*ft_parscmd(char *str)
 	ft_cleanquote(str);
 	ft_cleanbackslash(str);
 	str = ft_delate_backslash(str);
+	ft_saveslash(str, 7, '\\');
 	return (str);
 }

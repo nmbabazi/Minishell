@@ -175,5 +175,6 @@ int					ft_isvarname(char c);
 void				unmute_sgl_in_dbl(char *str);
 void				mute_sgl_in_dbl(char *str);
 int					ft_activslash_dell(char *src, int i);
+void				ft_saveslash(char *str, char in, char fin);
 
 #endif

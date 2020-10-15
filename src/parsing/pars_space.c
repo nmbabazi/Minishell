@@ -60,3 +60,16 @@ int		ft_activslash_dell(char *src, int i)
 		return (1);
 	return (0);
 }
+
+void	ft_saveslash(char *str, char in, char fin)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == in)
+			str[i] = fin;
+		i++;
+	}
+}
