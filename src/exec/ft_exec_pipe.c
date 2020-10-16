@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/10 12:58:55 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/16 18:51:30 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 		ft_str_error("fork : ", NULL, NULL);
 	else if (g_pid > 0)
 	{
-		if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
+		if (sh->cmd[0] && ft_strcmp(sh->cmd[0], "exit") != 0 &&
+		ft_is_bultin(sh->cmd[0]) == TRUE)
 			ft_exec_builtin(g_env, sh->cmd);
 		ft_deal_pipe_parent(sh);
 	}

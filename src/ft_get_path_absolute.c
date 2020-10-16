@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/07 12:47:00 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/16 18:29:40 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,17 @@ int		ft_get_path_absolute(t_sh *sh)
 {
 	char **path_split;
 
-	if (!(sh->path = ft_get_var(g_env, "PATH=")))
+	if (ft_strncmp(sh->cmd[0], "./", 2) != 0 &&
+	sh->cmd[0][0] != '/' && !(sh->path = ft_get_var(g_env, "PATH=")))
 	{
 		g_status = 127;
 		if (g_pid == 0)
-			ft_error("minishell: ", sh->cmd[0],
-			": No such file or directory\n");
+			ft_error("minishell: ", sh->cmd[0], ":No such file or directory\n");
 		exit(g_status);
 	}
-	if (ft_strncmp(sh->cmd[0], "./", 2) == 0)
+	if (ft_strncmp(sh->cmd[0], "./", 2) == 0 || sh->cmd[0][0] == '/')
 		ft_verif_path(sh->cmd[0]);
-	else if (sh->cmd[0][0] != '/' || ft_strncmp(sh->cmd[0], "./", 2) != 0)
+	else
 	{
 		path_split = ft_split(sh->path, ':');
 		ft_check_path(path_split, sh);

@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:49:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/07 17:13:21 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/16 20:03:54 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,25 @@
 int		ft_str_is_digit(char *str)
 {
 	int i;
+	int nb;
+	int space;
 
 	i = 0;
+	nb = 0;
+	space = 0;
 	if (str[0] == '-' || str[0] == '+')
 		i++;
 	if (!str[i])
 		return (0);
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]) == 0)
+		if (ft_isdigit(str[i]) == 0 && str[i] != ' ')
+			return (0);
+		if (ft_isdigit(str[i]) == 1)
+			nb = 1;
+		if (str[i] == ' ' && nb == 1)
+			space = 1;
+		if (ft_isdigit(str[i]) == 1 && space == 1)
 			return (0);
 		i++;
 	}
@@ -53,6 +63,8 @@ int		ft_exit(char **cmd_builtin)
 			ft_error("minishell: exit: ", NULL,
 			"too many arguments\n");
 	}
+	if (g_pid > 0)
+		ft_putstr_fd("exit\n", 1);
 	exit(g_status);
 	return (0);
 }
