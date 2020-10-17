@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:49:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/16 20:03:54 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/17 15:35:03 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int		ft_str_is_digit(char *str)
 
 int		ft_exit(char **cmd_builtin)
 {
+	if (g_pid > 0)
+		ft_putstr_fd("exit\n", 1);
 	if (cmd_builtin[1])
 	{
 		if (ft_str_is_digit(cmd_builtin[1]) == 0)
@@ -63,8 +65,6 @@ int		ft_exit(char **cmd_builtin)
 			ft_error("minishell: exit: ", NULL,
 			"too many arguments\n");
 	}
-	if (g_pid > 0)
-		ft_putstr_fd("exit\n", 1);
 	exit(g_status);
 	return (0);
 }

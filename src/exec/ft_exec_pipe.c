@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/16 18:51:30 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/17 14:24:05 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_deal_pipe_child(t_sh *sh, char **cmd)
 		ft_exec_builtin(g_env, sh->cmd);
 	else if (sh->cmd[0])
 	{
+		ft_get_path_absolute(sh);
 		ft_verif_permission(sh->cmd[0]);
 		if (execve(cmd[0], cmd, g_env_tab) == -1)
 		{

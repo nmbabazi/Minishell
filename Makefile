@@ -50,7 +50,7 @@ OBJSRCS = $(SRCS:.c=.o)
 $(NAME) : $(OBJSRCS)
 	@rm -rf $(NAME)
 	$(MAKE) -C ./libft
-	@gcc -o $(NAME) -I include/minishell.h $(OBJSRCS) ./libft/libft.a $(MLX) -Wall -Wextra -Werror -g 
+	@gcc -o $(NAME) -I include/minishell.h $(OBJSRCS) ./libft/libft.a $(MLX) -Wall -Wextra -Werror -g -fsanitize=address -fstack-protector
 	@echo "\033[33m[Done !]"
 
 all : $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/12 15:20:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/17 14:25:52 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,7 @@ void	ft_cmd(char *cmd, t_sh *sh)
 	if (sh->cmd[0] == NULL && !sh->pars.out)
 		ft_putstr("");
 	else if ((sh->is_pipe == 1 || sh->last_pipe == 1) && sh->is_export == 0)
-	{
-		if (sh->cmd[0])
-			ft_get_path_absolute(sh);
 		ft_exec_pipe(sh, sh->cmd);
-	}
 	else if ((sh->is_pipe == 0 && sh->last_pipe == 0))
 		exec_cmd(sh);
 	free_array(sh->cmd);
