@@ -49,7 +49,8 @@ char	*ft_get_var_parsing(t_list *list, char *var)
 		next = list->next;
 		if (ft_strncmp(list->content, var, ft_strlen(var)) == 0)
 		{
-			ret = ft_substr(list->content, ft_strlen(var),ft_strlen(list->content) - ft_strlen(var));
+			ret = ft_substr(list->content, ft_strlen(var),
+			ft_strlen(list->content) - ft_strlen(var));
 			ft_saveslash(ret, '\\', 7);
 			return (ret);
 		}

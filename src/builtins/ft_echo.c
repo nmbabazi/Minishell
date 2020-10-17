@@ -38,19 +38,11 @@ int		ft_echo(char **cmd_builtin)
 	g_status = 0;
 	if (g_pid > 0)
 		return (0);
-
-	//if (cmd_builtin[1] && ft_is_n_option(cmd_builtin[1]) == 1)
-	//	n = 1;
-	//if (cmd_builtin[1] && ft_strcmp(cmd_builtin[1], "-n") == 0)
-	//	n = 1;
 	while (cmd_builtin[i] && ft_is_n_option(cmd_builtin[i]) == 1)
 	{
 		n++;
 		i++;
 	}
-	//i = i + n;
-	//while (cmd_builtin[i] && ft_strcmp(cmd_builtin[i], "-n") == 0)
-	//	i++;
 	while (cmd_builtin[i])
 	{
 		ft_putstr_fd(cmd_builtin[i], 1);
