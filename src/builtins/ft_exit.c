@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:49:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/17 15:35:03 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/19 16:06:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		ft_exit(char **cmd_builtin)
 		if (g_pid > 0)
 			ft_error("minishell: exit: ", NULL,
 			"too many arguments\n");
+		return (0);
 	}
 	exit(g_status);
 	return (0);
