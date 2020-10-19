@@ -42,6 +42,7 @@ SRCS = 	main.c \
 		parsing/pars_space.c \
 		parsing/utiles_var.c \
 
+CC = clang
 SRC_DIR = src
 INC_DIR = include
 BUILD_DIR = obj
