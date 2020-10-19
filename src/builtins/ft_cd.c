@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:44:55 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/07 12:39:01 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/19 15:38:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		ft_error_chdir(char **cmd_builtin)
 	return (0);
 }
 
-int		ft_cd(t_list *list, char **cmd_builtin)
+int		ft_cd(char **cmd_builtin)
 {
 	int nb;
 

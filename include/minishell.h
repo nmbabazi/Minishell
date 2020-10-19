@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/16 20:03:36 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/19 15:41:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int					g_status;
 int					g_error_parsing;
 int					g_fork;
 
-void				free_all(char **env, t_sh *sh);
+void				free_all(void);
 void				free_array(char **array);
 char				*ft_get_var(t_list *list, char *var);
 int					ft_surch_var(t_list *list, char *var);
@@ -76,8 +76,8 @@ int					exec_cmd(t_sh *sh);
 void				ft_deal_status(int status);
 void				ft_verif_permission(char *cmd);
 int					ft_is_bultin(char *cmd);
-void				ft_exec_builtin(t_list *list, char **cmd_builtin);
-int					ft_cd(t_list *list, char **cmd_builtin);
+void				ft_exec_builtin(char **cmd_builtin);
+int					ft_cd(char **cmd_builtin);
 int					ft_error_var_export(char *cmd);
 int					ft_pwd(char **cmd_builtin);
 int					ft_echo(char **cmd_builtin);
@@ -92,7 +92,7 @@ int					ft_unset(char **cmd_builtin);
 int					ft_str_error(char *cmd_name, char *arg, char *msg);
 int					ft_lentab(char **tab);
 int					ft_endstring(char *line, int i);
-int					ft_len_var(char *str);
+unsigned int		ft_len_var(char *str);
 int					ft_rank_export(t_list *export);
 void				ft_lstprint_rank_export(t_list *lst);
 void				ft_init(t_sh *sh, char **envp);

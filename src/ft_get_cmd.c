@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/14 12:24:37 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/19 15:34:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		ft_double_pipe(char *line, int i, t_sh *sh)
 	char	*tmp;
 	int		j;
 
+	j = 0;
 	j = ft_began_double_pipe(j, i, line);
 	tmp = ft_substr(line, j, i - j);
 	i = ft_endstring(line, i) - 1;

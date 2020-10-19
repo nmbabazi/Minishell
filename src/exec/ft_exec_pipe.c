@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/17 14:24:05 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/19 15:37:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_deal_pipe_child(t_sh *sh, char **cmd)
 		if (ft_deal_redir(sh) == -1)
 			exit(g_status);
 	if (sh->cmd[0] && ft_is_bultin(sh->cmd[0]) == TRUE)
-		ft_exec_builtin(g_env, sh->cmd);
+		ft_exec_builtin(sh->cmd);
 	else if (sh->cmd[0])
 	{
 		ft_get_path_absolute(sh);
@@ -68,7 +68,7 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 	{
 		if (sh->cmd[0] && ft_strcmp(sh->cmd[0], "exit") != 0 &&
 		ft_is_bultin(sh->cmd[0]) == TRUE)
-			ft_exec_builtin(g_env, sh->cmd);
+			ft_exec_builtin(sh->cmd);
 		ft_deal_pipe_parent(sh);
 	}
 	else

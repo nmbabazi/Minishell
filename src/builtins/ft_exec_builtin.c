@@ -6,19 +6,16 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:47:02 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/12 14:32:57 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/19 15:38:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_exec_builtin(t_list *list, char **cmd_builtin)
+void	ft_exec_builtin(char **cmd_builtin)
 {
-	char *str;
-
-	str = NULL;
 	if (ft_strcmp(cmd_builtin[0], "cd") == 0)
-		ft_cd(g_env, cmd_builtin);
+		ft_cd(cmd_builtin);
 	else if (ft_strcmp(cmd_builtin[0], "pwd") == 0)
 		ft_pwd(cmd_builtin);
 	else if (ft_strcmp(cmd_builtin[0], "echo") == 0)

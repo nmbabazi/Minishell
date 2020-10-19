@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:56:26 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/12 15:06:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/19 15:41:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ t_list	*ft_del_element_lst(t_list *list, char *var)
 
 int		ft_unset(char **cmd_builtin)
 {
-	char	*var;
 	int		i;
 
 	i = 1;

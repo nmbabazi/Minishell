@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/16 20:03:30 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/19 15:32:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "../include/minishell.h"
 
 void	ft_get_next_cmd(t_sh *sh)
 {
@@ -55,6 +55,6 @@ int		main(int ac, char **av, char **envp)
 	}
 	else
 		ft_get_next_cmd(&sh);
-	free_all(envp, &sh);
+	free_all();
 	return (g_status);
 }
