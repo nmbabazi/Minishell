@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/20 11:28:19 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/20 17:01:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ char	*ft_namedup(const char *s, int n)
 void	ft_add_redir_in_var(char **cmd)
 {
 	int i;
-	int l;
 
 	i = 0;
-	l = 0;
 	while (cmd[i])
 	{
 		ft_swapchar(cmd[i], 6, '>');
