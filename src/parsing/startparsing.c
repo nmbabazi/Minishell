@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/19 18:51:00 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/20 11:19:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,6 @@ int		ft_openquote(char *src)
 	return (ret);
 }
 
-void    ft_printcmd(char **cmd)
-{
-    int i;
-
-    i = 0;
-    while (cmd[i])
-    {
-        printf("%d--%s--\n", i, cmd[i]);
-        i++;
-    }
-    
-}
-
 char	**ft_parse(char *line, t_sh *sh)
 {
 	char	**cmd;
@@ -115,7 +102,7 @@ char	**ft_parse(char *line, t_sh *sh)
 		ft_error("minishell :", NULL, "open quote\n");
 		return (NULL);
 	}
-	if (checksorti(line) == 0 || checkentre(line) == 0)
+	if (checksorti(line, 0) == 0 || checkentre(line, 0) == 0)
 	{
 		g_status = 2;
 		ft_error("minishell :", NULL, "syntax error near unexpected token\n");

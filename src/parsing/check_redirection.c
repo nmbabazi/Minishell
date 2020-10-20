@@ -6,19 +6,16 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/19 18:57:51 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/20 11:23:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		checksorti(char *line)
+int		checksorti(char *line, int i)
 {
-	int i;
 	int cnt;
 
-	i = 0;
-	cnt = 0;
 	while (line[i])
 	{
 		if (line[i] == '\'' && ft_activslash(line, i) == 0)
@@ -43,13 +40,10 @@ int		checksorti(char *line)
 	return (1);
 }
 
-int		checkentre(char *line)
+int		checkentre(char *line, int i)
 {
-	int i;
 	int cnt;
 
-	i = 0;
-	cnt = 0;
 	while (line[i])
 	{
 		if (line[i] == '\'' && ft_activslash(line, i) == 0)
