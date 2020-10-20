@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/12 15:06:34 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/19 18:35:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		ft_activslash_dell(char *src, int i)
 	return (0);
 }
 
-void	ft_saveslash(char *str, char in, char fin)
+void	ft_swapchar(char *str, char in, char fin)
 {
 	int i;
 

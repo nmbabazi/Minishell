@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 11:39:14 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:36:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ char	*ft_parscmd(char *str)
 	ft_cleanquote(str);
 	ft_cleanbackslash(str);
 	str = ft_delate_backslash(str);
-	ft_saveslash(str, 7, '\\');
+	ft_swapchar(str, 7, '\\');
 	return (str);
 }

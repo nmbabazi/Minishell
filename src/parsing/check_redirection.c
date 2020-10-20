@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 11:48:54 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:57:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int		checksorti(char *line)
 	cnt = 0;
 	while (line[i])
 	{
+		if (line[i] == '\'' && ft_activslash(line, i) == 0)
+			i += (ft_passsinglequote(&line[i]));
+		if (line[i] == '\"' && ft_activslash(line, i) == 0)
+			i += (ft_passdblquote(&line[i]));
 		if (line[i] == '>')
 		{
 			cnt = 0;
@@ -31,7 +35,7 @@ int		checksorti(char *line)
 			}
 			while (line[i] == ' ')
 				i++;
-			if (cnt > 2 || ft_isalnum(line[i]) == 0)
+			if (cnt > 2 || !line[i])
 				return (0);
 		}
 		i++;
@@ -48,6 +52,10 @@ int		checkentre(char *line)
 	cnt = 0;
 	while (line[i])
 	{
+		if (line[i] == '\'' && ft_activslash(line, i) == 0)
+			i += (ft_passsinglequote(&line[i]));
+		if (line[i] == '\"' && ft_activslash(line, i) == 0)
+			i += (ft_passdblquote(&line[i]));
 		if (line[i] == '<')
 		{
 			cnt = 0;
@@ -58,7 +66,7 @@ int		checkentre(char *line)
 			}
 			while (line[i] == ' ')
 				i++;
-			if (cnt > 1 || ft_isalnum(line[i]) == 0)
+			if (cnt > 1 || !line[i])
 				return (0);
 		}
 		i++;

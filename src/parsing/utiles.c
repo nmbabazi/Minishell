@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/09/29 11:43:42 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/19 18:35:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ char	*ft_get_var_parsing(t_list *list, char *var)
 		{
 			ret = ft_substr(list->content, ft_strlen(var),
 			ft_strlen(list->content) - ft_strlen(var));
-			ft_saveslash(ret, '\\', 7);
+			ft_swapchar(ret, '\\', 7);
+			ft_swapchar(ret, '>', 6);
+			ft_swapchar(ret, '<', 5);
 			return (ret);
 		}
 		else
