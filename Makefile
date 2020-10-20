@@ -83,7 +83,7 @@ fclean: clean
 	@echo "Lib deleted"
 
 re : 
-	@make fclean
+	@make fclean all
 	
 
 .PHONY: all, clean, fclean, re, make_ft
