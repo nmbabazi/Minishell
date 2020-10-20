@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/19 18:35:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/20 12:57:05 by nmbabazi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,8 @@ int					ft_spaceredirection(char *str);
 void				ft_addback_space(char **cmd);
 void				ft_printcmd(char **cmd);
 char				**ft_cleancmd(char **cmd, t_sh *shell);
-int					checksorti(char *line);
-int					checkentre(char *line);
+int					checksorti(char *line, int i);
+int					checkentre(char *line, int i);
 t_redir				creat_redir(char *str, int type);
 t_redir				*malloc_redir(char *str, int type);
 void				destroy_redir(t_redir to_destroy);
@@ -176,5 +176,7 @@ void				unmute_sgl_in_dbl(char *str);
 void				mute_sgl_in_dbl(char *str);
 int					ft_activslash_dell(char *src, int i);
 void				ft_swapchar(char *str, char in, char fin);
+char				*ft_namedup(const char *s, int n);
+void				ft_add_redir_in_var(char **cmd);
 
 #endif

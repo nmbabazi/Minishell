@@ -41,6 +41,7 @@ SRCS = 	main.c \
 		parsing/pars_slash.c \
 		parsing/pars_space.c \
 		parsing/utiles_var.c \
+		parsing/utiles_redirection.c \
 
 CC = clang
 SRC_DIR = src
@@ -83,7 +84,7 @@ fclean: clean
 	@echo "Lib deleted"
 
 re : 
-	@make fclean all
+	@make fclean
 	
 
 .PHONY: all, clean, fclean, re, make_ft
