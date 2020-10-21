@@ -20,6 +20,7 @@ SRCS = 	src/main.c \
 		src/builtins/ft_exit.c \
 		src/builtins/ft_env.c \
 		src/builtins/ft_export.c \
+		src/builtins/ft_error_var.c \
 		src/builtins/ft_unset.c \
 		src/builtins/ft_shlvl.c \
 		src/builtins/ft_deal_export.c \
@@ -54,7 +55,7 @@ $(NAME) : $(OBJSRCS)
 	@echo "\033[33m[MiniShell compilation...]"
 	@echo "\033[33m[Libft compilation...]"
 	$(MAKE) -C ./libft
-	@clang $(CFLAGS) -I minishell.h -o $(NAME) $(OBJSRCS) ./libft/libft.a 
+	@gcc $(CFLAGS) -I minishell.h -o $(NAME) $(OBJSRCS) ./libft/libft.a 
 	@echo "\033[33m[Done !]"
 
 all : $(NAME)

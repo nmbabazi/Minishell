@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:49:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/19 18:53:20 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/21 21:18:24 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int		ft_str_is_digit(char *str)
 
 int		ft_exit(char **cmd_builtin)
 {
-	/*if (g_pid > 0)
-		ft_putstr_fd("exit\n", 1);*/
+	if (g_pid > 0)
+		ft_putstr_fd("exit\n", 1);
 	if (cmd_builtin[1])
 	{
 		if (ft_str_is_digit(cmd_builtin[1]) == 0)

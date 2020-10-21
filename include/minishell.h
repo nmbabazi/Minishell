@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/20 12:57:05 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/21 23:18:20 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ pid_t				g_pid;
 int					g_status;
 int					g_error_parsing;
 int					g_fork;
+int					g_read;
 
 void				free_all(void);
 void				free_array(char **array);
@@ -78,7 +79,6 @@ void				ft_verif_permission(char *cmd);
 int					ft_is_bultin(char *cmd);
 void				ft_exec_builtin(char **cmd_builtin);
 int					ft_cd(char **cmd_builtin);
-int					ft_error_var_export(char *cmd);
 int					ft_pwd(char **cmd_builtin);
 int					ft_echo(char **cmd_builtin);
 int					ft_shlvl(char **cmd_builtin);
@@ -86,7 +86,7 @@ int					ft_exit(char **cmd_builtin);
 int					ft_env(char **cmd_builtin);
 int					ft_export(char **cmd_builtin);
 int					ft_error(char *cmd_name, char *arg, char *msg);
-int					ft_error_var_export(char *cmd);
+int					ft_error_var(char *cmd, char *msg);
 int					ft_error_pipe(char *line, int i);
 int					ft_unset(char **cmd_builtin);
 int					ft_str_error(char *cmd_name, char *arg, char *msg);

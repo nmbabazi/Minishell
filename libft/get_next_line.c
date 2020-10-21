@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmbabazi <nmbabazi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 10:17:42 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/09/29 11:02:37 by nmbabazi         ###   ########.fr       */
+/*   Updated: 2020/10/21 22:40:30 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../include/minishell.h"
+
+#include <stdio.h>
 
 char	*create_last_str(char *str, char **line)
 {
@@ -92,6 +95,7 @@ int		get_next_line(int fd, char **line)
 			temp = str;
 			str = ft_strjoin(str, buf);
 			free(temp);
+			g_read = 1;
 		}
 		str = create_last_str(str, line);
 	}

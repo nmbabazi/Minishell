@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:53:13 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/01 13:03:23 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/21 23:19:50 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		ft_export(char **cmd_builtin)
 	i = 0;
 	while (cmd_builtin[++i])
 	{
-		if (!ft_error_var_export(cmd_builtin[i]))
+		if (!ft_error_var(cmd_builtin[i], "minisell : export : « "))
 		{
 			var = ft_var_cmd(cmd_builtin[i]);
 			if (ft_surch_var(g_export, var))

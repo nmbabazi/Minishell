@@ -3,53 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deal_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:47:48 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/12 15:07:09 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/21 23:17:35 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int		ft_error_variable_export(char *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[++i] && cmd[i] != '=')
-	{
-		if (cmd[i] != '_' && (cmd[i] < 'A' ||
-			cmd[i] > 'Z') && (cmd[i] < 'a' || cmd[i] > 'z')
-			&& (cmd[i] < '0' || cmd[i] > '9'))
-		{
-			g_status = 1;
-			if (g_pid > 0)
-				return (1);
-			return (ft_error("minishell: export: « ", cmd,
-			" » : not a valid identifier\n"));
-		}
-	}
-	return (0);
-}
-
-int		ft_error_var_export(char *cmd)
-{
-	if (*cmd != '_' && *cmd != '=' &&
-		(*cmd < 'A' || *cmd > 'Z') &&
-		(*cmd < 'a' || *cmd > 'z'))
-	{
-		g_status = 1;
-		if (g_pid > 0)
-			return (1);
-		return (ft_error("minishell: export: « ", cmd,
-		" » : not a valid identifier\n"));
-	}
-	if (ft_error_variable_export(cmd) != 0)
-		return (1);
-	g_status = 0;
-	return (0);
-}
 
 void	ft_print_export(char *var, char *str)
 {
