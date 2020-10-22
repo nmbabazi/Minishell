@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:49:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/21 21:18:24 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/22 19:19:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,15 @@ int		ft_str_is_digit(char *str)
 	return (1);
 }
 
-int		ft_exit(char **cmd_builtin)
+void	ft_print_exit(void)
 {
 	if (g_pid > 0)
 		ft_putstr_fd("exit\n", 1);
+}
+
+int		ft_exit(char **cmd_builtin)
+{
+	ft_print_exit();
 	if (cmd_builtin[1])
 	{
 		if (ft_str_is_digit(cmd_builtin[1]) == 0)
@@ -64,7 +69,6 @@ int		ft_exit(char **cmd_builtin)
 		if (g_pid > 0)
 			ft_error("minishell: exit: ", NULL,
 			"too many arguments\n");
-		return (0);
 	}
 	exit(g_status);
 	return (0);

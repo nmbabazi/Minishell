@@ -3,86 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/22 00:29:21 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/22 19:08:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_join_n_free(char *s1, char *s2)
+void	ft_init_param(t_sh *sh)
 {
-	char	*tmp;
-
-	tmp = s1;
-	s1 = ft_strjoin(s2, s1);
-	free(tmp);
-	tmp = NULL;
-	return (s1);
+	sh->is_pipe = 0;
+	g_read = 0;
+	sh->d = 0;
 }
 
-char	*ft_dup_n_free(char *s1, char *s2)
+void	ft_join_n_dup(void)
 {
-	char	*tmp;
-
-	tmp = s1;
-	s1 = ft_strdup(s2);
-	free(tmp);
-	return (s1);
+	g_line = ft_join_n_free(g_line, g_str);
+	g_str = ft_dup_n_free(g_str, g_line);
 }
 
 int		ft_get_next_cmd(t_sh *sh)
 {
-	int		ret;
-	char	*line;
-	char	*str;
-	int		d;
-
-	line = NULL;
-	ret = 0;
-	g_read = 0;
-	d = 0;
 	ft_putstr_fd("$> ", 2);
-	str = ft_strnew(0);
-
-	while ((ret = get_next_line(1, &line)) >= 0)
+	while ((sh->ret = get_next_line(1, &g_line)) >= 0)
 	{
-		if (g_read == 1 && ret == 0)
+		if (g_read && sh->ret == 0)
 		{
-			line = ft_join_n_free(line, str);
-			str = ft_dup_n_free(str, line);
-			d = 1;
+			ft_join_n_dup();
+			sh->d = 1;
 		}
-		if (g_read == 1 && ret > 0)
+		if (g_read && sh->ret > 0)
 		{
-			if (d == 1)
+			if (sh->d == 1)
 			{
-				line = ft_join_n_free(line, str);
-				free(str);
-				str = NULL;
-				str = ft_strnew(0);
+				g_line = ft_join_n_free(g_line, g_str);
+				ft_free_n_null(&g_str);
+				g_str = ft_strnew(0);
 			}
-			sh->is_pipe = 0;
-			ft_get_cmd(line, sh);
+			ft_init_param(sh);
+			ft_get_cmd(g_line, sh);
 			ft_putstr_fd("$> ", 2);
-			g_read = 0;
-			d = 0;
 		}
-		else if (ret == 0 && g_read == 0)
+		else if (sh->ret == 0 && !g_read)
 			break ;
-		if (line)
-		{
-			free(line);
-			line = NULL;
-		}
+		ft_free_n_null(&g_line);
 	}
-	free(line);
-	line = NULL;
-	free(str);
-	str = NULL;
-	return (ret);
+	return (sh->ret);
 }
 
 int		main(int ac, char **av, char **envp)

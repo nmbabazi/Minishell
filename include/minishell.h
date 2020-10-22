@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/21 23:18:20 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/22 19:28:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <string.h>
 # include <limits.h>
 
+# define SYTAXE_ERROR "minishell: syntax error near unexpected token "
 # define FALSE 1
 # define TRUE 0
 
@@ -53,6 +54,8 @@ typedef struct		s_sh
 	int				is_export;
 	int				fdd;
 	int				fd[2];
+	int				d;
+	int				ret;
 	t_pars			pars;
 }					t_sh;
 
@@ -64,6 +67,8 @@ int					g_status;
 int					g_error_parsing;
 int					g_fork;
 int					g_read;
+char				*g_line;
+char				*g_str;
 
 void				free_all(void);
 void				free_array(char **array);
@@ -107,6 +112,10 @@ void				ft_replace(t_list *export, char *newcmd, char *var);
 int					ft_count_cmd(char *line);
 void				ft_initpars(t_sh *shell);
 void				free_array(char **array);
+void				ft_free_n_null(char **str);
+char				*ft_join_n_free(char *s1, char *s2);
+char				*ft_dup_n_free(char *s1, char *s2);
+void				ft_init_pipe(t_sh *sh);
 void				ft_cleanbackslash(char *str);
 void				ft_cleanquote(char *str);
 char				*ft_getactivvar(char *src);

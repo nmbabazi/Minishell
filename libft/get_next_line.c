@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 10:17:42 by dmontgen          #+#    #+#             */
-/*   Updated: 2020/10/21 22:40:30 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/22 19:34:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "../include/minishell.h"
-
-#include <stdio.h>
 
 char	*create_last_str(char *str, char **line)
 {
@@ -79,7 +77,7 @@ int		ft_free(char **str)
 int		get_next_line(int fd, char **line)
 {
 	static char	*str;
-	char		buf[10 + 1];
+	char		buf[1 + 1];
 	int			ret;
 	char		*temp;
 
@@ -89,7 +87,7 @@ int		get_next_line(int fd, char **line)
 	str = check_str(str, line);
 	if (ft_strchr(str, '\n') == NULL)
 	{
-		while (!(ft_strchr(str, '\n')) && (ret = read(fd, buf, 10)))
+		while (!(ft_strchr(str, '\n')) && (ret = read(fd, buf, 1)))
 		{
 			buf[ret] = '\0';
 			temp = str;

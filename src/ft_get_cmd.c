@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/19 15:34:39 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/22 19:34:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ int		ft_double_pipe(char *line, int i, t_sh *sh)
 	{
 		sh->nb_cmd++;
 		if (sh->is_pipe == 1)
-		{
-			sh->is_pipe = 0;
-			sh->last_pipe = 1;
-		}
+			ft_init_pipe(sh);
 		ft_cmd(tmp, sh);
 		if (g_error_parsing == 1)
 			i = ft_endstring(line, i);
@@ -114,8 +111,9 @@ void	ft_get_cmd(char *line, t_sh *sh)
 	int i;
 
 	i = 0;
+	if (!line)
+		return ;
 	ft_init_get_cmd(sh);
-	g_error_parsing = 0;
 	i = ft_isspace(line, i);
 	if (ft_strchr(line, ';') == NULL && ft_strchr(line, '|') == NULL)
 		ft_cmd(ft_strdup(line), sh);
@@ -123,8 +121,7 @@ void	ft_get_cmd(char *line, t_sh *sh)
 			ft_check_nbcmd(line, ';') != 1 ||
 			ft_check_nbcmd(line, '|') != 1)
 	{
-		ft_error("minishell: syntax error near unexpected token ",
-				"« ; » ou « | »", "\n");
+		ft_error(SYTAXE_ERROR, "« ; » ou « | »", "\n");
 		g_status = 2;
 	}
 	else

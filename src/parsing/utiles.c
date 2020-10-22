@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/19 18:35:46 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/22 14:08:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		ft_len_cmd(char *line, int i, int begin)
 
 int		ft_isspace(char *line, int index)
 {
+	if (!line)
+		return (index);
 	while (line[index] == ' ' && line[index])
 		index++;
 	return (index);

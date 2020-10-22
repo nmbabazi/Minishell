@@ -1,51 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_utils_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/22 17:23:58 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/22 19:03:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	free_array(char **array)
+char	*ft_join_n_free(char *s1, char *s2)
 {
-	int i;
+	char	*tmp;
 
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		array[i] = NULL;
-		i++;
-	}
-	free(array);
-	array = NULL;
+	tmp = s1;
+	s1 = ft_strjoin(s2, s1);
+	free(tmp);
+	tmp = NULL;
+	return (s1);
 }
 
-void	ft_free_n_null(char **str)
+char	*ft_dup_n_free(char *s1, char *s2)
 {
-	char *temp;
+	char	*tmp;
 
-	temp = *str;
-	free(temp);
-	*str = NULL;
-}
-
-void	free_all(void)
-{
-	if (g_env)
-		ft_lstclear(&g_env, (void *)ft_freestr);
-	if (g_export)
-		ft_lstclear(&g_export, (void *)ft_freestr);
-	if (g_env_tab)
-		free_array(g_env_tab);
-	if (g_line)
-		ft_free_n_null(&g_line);
-	if (g_str)
-		ft_free_n_null(&g_str);
+	tmp = s1;
+	s1 = ft_strdup(s2);
+	free(tmp);
+	return (s1);
 }

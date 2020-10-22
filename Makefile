@@ -12,6 +12,7 @@ SRCS = 	src/main.c \
 		src/ft_lentab.c \
 		src/ft_init.c \
 		src/ft_handler.c \
+		src/ft_utils_cmd.c \
 		src/builtins/ft_is_builtin.c \
 		src/builtins/ft_exec_builtin.c \
 		src/builtins/ft_cd.c \

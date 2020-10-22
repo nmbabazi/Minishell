@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error_var.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:47:48 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/21 23:32:15 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/22 19:20:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_error_var(char *cmd, char *msg)
 	}
 	if (ft_error_variable(cmd, msg) != 0)
 		return (1);
-    if (!g_status)
-	    g_status = 0;
+	if (!g_status)
+		g_status = 0;
 	return (0);
 }
