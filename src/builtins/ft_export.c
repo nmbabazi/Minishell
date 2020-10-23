@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:53:13 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/21 23:19:50 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/23 16:29:50 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_create_var(char *newvar, t_list **list)
 
 int		ft_add_var(char *newvar)
 {
-	if (newvar[0] == '=' && g_pid > 0)
+	if (newvar[0] == '=' && g_pid == 0)
 	{
 		g_status = 1;
 		return (ft_error("minishell: export: « ", newvar,
@@ -87,7 +87,7 @@ int		ft_export(char **cmd_builtin)
 	int		i;
 	char	*var;
 
-	if (!cmd_builtin[1])
+	if (!cmd_builtin[1] && g_pid == 0)
 		return (ft_rank_export(g_export));
 	i = 0;
 	while (cmd_builtin[++i])

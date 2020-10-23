@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handler.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:41:32 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/22 19:21:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/23 15:13:03 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_deal_line(void)
+{
+	free(g_line);
+	g_line = ft_strnew(0);
+	g_sig = 0;
+}
 
 void	ft_deal_nothing(int nb)
 {
@@ -39,8 +46,9 @@ void	ft_insensitive_typing(int nb)
 		ft_putstr("\n");
 		ft_putstr("$> ");
 	}
-	if (g_read == 1 || g_str)
+	if (g_read == 1)
 	{
+		g_sig = 1;
 		free(g_line);
 		free(g_str);
 		g_str = NULL;

@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/17 14:25:52 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/23 16:24:48 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@ void	ft_cmd(char *cmd, t_sh *sh)
 		free(cmd);
 		return ;
 	}
-	if (sh->cmd[0] && ft_strcmp(sh->cmd[0], "export") == 0)
-		sh->is_export = 1;
 	if (sh->cmd[0] == NULL && !sh->pars.out)
 		ft_putstr("");
-	else if ((sh->is_pipe == 1 || sh->last_pipe == 1) && sh->is_export == 0)
-		ft_exec_pipe(sh, sh->cmd);
-	else if ((sh->is_pipe == 0 && sh->last_pipe == 0))
+	else if (sh->is_pipe == 1 || sh->last_pipe == 1)
+		ft_exec_pipe(sh);
+	else if (sh->is_pipe == 0 && sh->last_pipe == 0)
 		exec_cmd(sh);
 	free_array(sh->cmd);
 	ft_lstclear(&sh->pars.out, lst_free_redir);

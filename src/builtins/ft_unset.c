@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:56:26 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/22 19:20:10 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/23 15:04:44 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ int		ft_unset(char **cmd_builtin)
 	int		i;
 
 	i = 1;
-	if (!g_status)
-		g_status = 0;
+	g_status = 0;
 	if (!cmd_builtin[1])
 		return (ft_error("", NULL, NULL));
 	while (cmd_builtin[i])

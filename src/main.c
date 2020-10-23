@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/22 19:08:12 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/23 16:17:00 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ void	ft_init_param(t_sh *sh)
 	sh->d = 0;
 }
 
-void	ft_join_n_dup(void)
+void	ft_join_n_dup(t_sh *sh)
 {
 	g_line = ft_join_n_free(g_line, g_str);
 	g_str = ft_dup_n_free(g_str, g_line);
+	sh->d = 1;
 }
 
 int		ft_get_next_cmd(t_sh *sh)
@@ -31,12 +32,11 @@ int		ft_get_next_cmd(t_sh *sh)
 	while ((sh->ret = get_next_line(1, &g_line)) >= 0)
 	{
 		if (g_read && sh->ret == 0)
-		{
-			ft_join_n_dup();
-			sh->d = 1;
-		}
+			ft_join_n_dup(sh);
 		if (g_read && sh->ret > 0)
 		{
+			if (g_sig && sh->d == 0)
+				ft_deal_line();
 			if (sh->d == 1)
 			{
 				g_line = ft_join_n_free(g_line, g_str);
@@ -63,7 +63,7 @@ int		main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	ft_init(&sh, envp);
-	ft_rank_export(g_export);
+	//ft_rank_export(g_export);
 	signal(SIGQUIT, ft_deal_nothing);
 	signal(SIGINT, ft_insensitive_typing);
 	if (ac == 3 && !ft_strcmp(av[1], "-c"))//////////////////

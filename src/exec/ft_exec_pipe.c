@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 10:51:13 by user42            #+#    #+#             */
-/*   Updated: 2020/10/19 15:37:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/23 15:56:43 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_deal_pipe_child(t_sh *sh, char **cmd)
+void	ft_deal_pipe_child(t_sh *sh)
 {
 	dup2(sh->fdd, 0);
 	if (sh->last_pipe == 0)
@@ -27,7 +27,7 @@ void	ft_deal_pipe_child(t_sh *sh, char **cmd)
 	{
 		ft_get_path_absolute(sh);
 		ft_verif_permission(sh->cmd[0]);
-		if (execve(cmd[0], cmd, g_env_tab) == -1)
+		if (execve(sh->cmd[0], sh->cmd, g_env_tab) == -1)
 		{
 			ft_is_file(sh->cmd[0]);
 			ft_error("minishell: ", sh->cmd[0], ": command not found\n");
@@ -54,7 +54,7 @@ void	ft_deal_last_pipe(int status)
 	g_fork = 0;
 }
 
-int		ft_exec_pipe(t_sh *sh, char **cmd)
+int		ft_exec_pipe(t_sh *sh)
 {
 	int	status;
 
@@ -73,7 +73,7 @@ int		ft_exec_pipe(t_sh *sh, char **cmd)
 	}
 	else
 	{
-		ft_deal_pipe_child(sh, cmd);
+		ft_deal_pipe_child(sh);
 		exit(g_status);
 	}
 	if (sh->last_pipe == 1)

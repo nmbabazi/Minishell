@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:49 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/22 19:28:37 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/23 16:25:01 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct		s_sh
 	int				nb_cmd;
 	int				is_pipe;
 	int				last_pipe;
-	int				is_export;
 	int				fdd;
 	int				fd[2];
 	int				d;
@@ -67,6 +66,7 @@ int					g_status;
 int					g_error_parsing;
 int					g_fork;
 int					g_read;
+int					g_sig;
 char				*g_line;
 char				*g_str;
 
@@ -106,8 +106,9 @@ void				ft_deal_nothing(int nb);
 int					ft_len_cmd(char *line, int i, int begin);
 void				ft_is_file(char *cmd);
 int					ft_isspace(char *line, int index);
-int					ft_exec_pipe(t_sh *sh, char **cmd);
+int					ft_exec_pipe(t_sh *sh);
 int					ft_deal_redir(t_sh *sh);
+void				ft_deal_line(void);
 void				ft_replace(t_list *export, char *newcmd, char *var);
 int					ft_count_cmd(char *line);
 void				ft_initpars(t_sh *shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:47:02 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/19 15:38:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/23 15:07:10 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_exec_builtin(char **cmd_builtin)
 {
+	g_status = 0;
 	if (ft_strcmp(cmd_builtin[0], "cd") == 0)
 		ft_cd(cmd_builtin);
 	else if (ft_strcmp(cmd_builtin[0], "pwd") == 0)

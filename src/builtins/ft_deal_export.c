@@ -6,7 +6,7 @@
 /*   By: ejawe <ejawe@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/29 13:47:48 by nmbabazi          #+#    #+#             */
-/*   Updated: 2020/10/21 23:17:35 by ejawe            ###   ########.fr       */
+/*   Updated: 2020/10/23 16:21:31 by ejawe            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_lstprint_rank_export(t_list *lst)
 	char	*str;
 
 	i = 0;
-	if (!lst || g_pid == 0)
+	if (!lst)
 		return ;
 	while (lst)
 	{
