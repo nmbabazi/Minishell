@@ -1,4 +1,5 @@
-# minishell
+# minishell [![jaeskim's 42Project Score](https://badge42.herokuapp.com/api/project/nmbabazi/minishell)](https://github.com/JaeSeoKim/badge42)
+
 
 **signal**
 
