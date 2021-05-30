@@ -1,6 +1,12 @@
 # minishell [![jaeskim's 42Project Score](https://badge42.herokuapp.com/api/project/nmbabazi/minishell)](https://github.com/JaeSeoKim/badge42)
 
-Create a simple shell
+Create a simple shell\
+ \
+ ``make && ./minishell``
+ 
+[video](https://user-images.githubusercontent.com/55547205/120108600-2cf4d580-c166-11eb-88cf-1e2282310fc5.mov)
+
+ 
 
 ## Doc
 **Bash**
