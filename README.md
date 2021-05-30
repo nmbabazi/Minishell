@@ -20,7 +20,7 @@ https://openclassrooms.com/fr/courses/43538-reprenez-le-controle-a-laide-de-linu
 
 ## What I learned
 >Pipes \
->Signals handeling \
->Processes handeling (fork) \
+>Signals handling \
+>Processes handling (fork) \
 >Files descriptor and redirections \
 >Group collab
