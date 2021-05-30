@@ -1,5 +1,7 @@
 # minishell [![jaeskim's 42Project Score](https://badge42.herokuapp.com/api/project/nmbabazi/minishell)](https://github.com/JaeSeoKim/badge42)
 
+**bash**
+http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Redirections
 
 **signal**
 
@@ -81,11 +83,12 @@ https://segfault42.github.io/posts/minishell/
 waitpid : permet de savoir q'une commande est terminé.
 L'appel système waitpid() suspend l'exécution du processus appelant jusqu'à ce que le fils spécifié par son pid ait changé d'état. Par défaut, waitpid() n'attend que les fils terminés. (man waitpid)
 
-avantages fork() : si si child crash, le parent n'est pas affecté
+avantages fork() : si child crash, le parent n'est pas affecté
 
 **pipe**
 
 Connecter l’entrée d’un processus avec la sortie d’un autre
+man dup2() pipe()
 
 **flux de redirection | < << > >>**
 
@@ -96,3 +99,6 @@ https://openclassrooms.com/fr/courses/43538-reprenez-le-controle-a-laide-de-linu
 ps : liste statique des processus;
 top : liste dynamique des processus;
 Ctrl + C & kill : arrêter un processus.
+
+**pour demarrer**
+https://segfault42.github.io/posts/minishell/
